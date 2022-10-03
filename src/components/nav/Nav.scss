@@ -1,18 +1,22 @@
+
 .header {
     margin-top: 10px;
     display: grid;
 }
 
 .mainLogo {
-    grid-column:2;
+    margin-left: 300px;
+    grid-column: 2;
     width: 249px;
     height: 70px;
 }
 
 .headerLogin {
+    margin-right: 150px;
     grid-column:5;
     align-self : center;
     font-size: 23px;
+    color: black;
 }
 
 .nav {

@@ -19,9 +19,9 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/account_create" element={<AccountCreate />} />
         <Route path="/account_lookup" element={<AccountLookup />} />
+        <Route path="/transfer" element={<Transfer />} />
         <Route path="/find" element={<Find />} />
         <Route path="/predict" element={<Predict />} />
-        <Route path="/transfer" element={<Transfer />} />
       </Routes>
       <Footer />
     </BrowserRouter>

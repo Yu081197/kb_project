@@ -1,23 +1,41 @@
-.main {
-    margin-right: 300px;
-    margin-left: 300px;
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.mainContainer {
     display: grid;
+    margin-top: 40px;
+    grid-template-columns: 200px 200px 200px 200px;
+    place-items: center;
+    grid-gap: 40px;
+    
 }
 
 .mainBox {
     grid-column: 1;
-    width: 500px;
-    height: 300px;
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    width: 100%;
 }
 
 .news {
-    grid-column: 2;
+    width: 100px;
+    grid-column: 1;
+    grid-row: 2;
+    grid-row-start: 2;
+    grid-row-end: 4;
 }
 
 .new {
+    width: 100px;
+    grid-column: 3;
     grid-row: 2;
 }
 
 .event {
-    grid-row: 2;
+    width: 100px;
+    grid-column: 3;
+    grid-row: 3;
 }
