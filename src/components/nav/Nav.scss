@@ -1,0 +1,31 @@
+.header {
+    margin-top: 10px;
+    display: grid;
+}
+
+.mainLogo {
+    grid-column:2;
+    width: 249px;
+    height: 70px;
+}
+
+.headerLogin {
+    grid-column:5;
+    align-self : center;
+    font-size: 23px;
+}
+
+.nav {
+    display: flex;
+    margin-top: 20px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFCE0A;
+}
+
+.navTab {
+    width: 200px;
+    font-size: 19px;
+    text-align: center;
+}

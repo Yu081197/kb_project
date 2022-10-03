@@ -1,0 +1,23 @@
+.main {
+    margin-right: 300px;
+    margin-left: 300px;
+    display: grid;
+}
+
+.mainBox {
+    grid-column: 1;
+    width: 500px;
+    height: 300px;
+}
+
+.news {
+    grid-column: 2;
+}
+
+.new {
+    grid-row: 2;
+}
+
+.event {
+    grid-row: 2;
+}
