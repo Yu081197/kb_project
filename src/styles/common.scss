@@ -1,6 +1,8 @@
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
-
 * {
   box-sizing: border-box;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+
+@font-face {
+  font-family: "KB_medium_font";
+  src: url("../fonts/KBFGDisplayM.otf") format("truetype")
 }
