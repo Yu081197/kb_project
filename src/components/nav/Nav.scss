@@ -1,3 +1,8 @@
+body {
+    min-height: 130vh; 
+    display: flex;
+    flex-direction: column;
+}
 
 .header {
     margin-top: 10px;
@@ -23,7 +28,7 @@
 .nav {
     display: flex;
     margin-top: 20px;
-    height: 100px;
+    height: 70px;
     justify-content: center;
     align-items: center;
     background-color: #FFCE0A;
@@ -32,10 +37,10 @@
 
 .navTab {
     width: 200px;
-    height: 100px;
+    height: 70px;
     font-size: 19px;
     text-align: center;
-    line-height: 100px;
+    line-height: 70px;
     font-family: "KB_medium_font";
 }
 
