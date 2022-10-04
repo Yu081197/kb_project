@@ -6,46 +6,55 @@ function Nav() {
   return (
     <div>
       <div className="header">
-        <NavLink to="/">
+        <Link to="/">
           <Image className="mainLogo" src="image/kbmain.png" />
-        </NavLink>
+        </Link>
         <div className="headerLogin">
           <div>안녕하세요 도깨비님</div>
         </div>
       </div>
 
       <div className="nav">
-        <Link
+        <NavLink
+          exact
           to="/account_create"
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none", color: "black" }}
           className="navTab"
         >
-          <div>계좌개설</div>
-        </Link>
-        <Link
+          계좌개설
+        </NavLink>
+        <NavLink
           to="/account_lookup"
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none", color: "black" }}
+          activeClassName="active"
           className="navTab"
         >
-          <div>계좌조회</div>
-        </Link>
-        <Link
+          계좌조회
+        </NavLink>
+        <NavLink
           to="/transfer"
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none", color: "black" }}
           className="navTab"
+          activeClassName="active"
         >
-          <div>이체</div>
-        </Link>
-        <Link to="/find" style={{ textDecoration: "none" }} className="navTab">
-          <div>점포찾기</div>
-        </Link>
-        <Link
+          이체
+        </NavLink>
+        <NavLink
+          to="/find"
+          style={{ textDecoration: "none", color: "black" }}
+          className="navTab"
+          activeClassName="active"
+        >
+          점포찾기
+        </NavLink>
+        <NavLink
           to="/predict"
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none", color: "black" }}
           className="navTab"
+          activeClassName="active"
         >
-          <div>신용등급예측</div>
-        </Link>
+          신용등급예측
+        </NavLink>
       </div>
     </div>
   );

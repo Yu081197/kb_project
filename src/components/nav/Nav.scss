@@ -27,11 +27,23 @@
     justify-content: center;
     align-items: center;
     background-color: #FFCE0A;
-    font-family: "KB_medium_font";
+
 }
 
 .navTab {
     width: 200px;
+    height: 100px;
     font-size: 19px;
     text-align: center;
+    line-height: 100px;
+    font-family: "KB_medium_font";
+}
+
+.navTab:hover {
+    background-color:#F8BA1F;
+    
+}
+
+.active{
+    background-color: #F8BA1F;
 }
