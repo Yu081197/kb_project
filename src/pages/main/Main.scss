@@ -35,20 +35,29 @@
 
 .newsBox div {
     padding: 5px;
+    font-size: 13px;
 }
 
 .newsBox :first-child {
     color: rgb(78, 78, 241);
+    font-size: 15px;
+}
+.newsBox div :first-child {
+    color: black;
+}
+
+.newsBox div div {
+    display: flex;
+    color: #848484;
+    font-size: 13px;
+    line-height:19px
+}
+.newsBox div div div {
+    flex-direction: column;
 }
 
 .newsBox :nth-child(3) {
-    color: #848484;
-    font-size: 15px;
-    line-height:19px
-}
-
-.newsBox :nth-child(4) {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .newContainer {
