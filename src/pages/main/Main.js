@@ -6,13 +6,7 @@ function Main() {
   return (
     <div className="container">
       <div className="mainContainer">
-        <div className="mainBox">
-          <div className="mainContainerSwiper">
-            <div className="innerSwiper">
-              <div className="item"></div>
-            </div>
-          </div>
-        </div>
+        <Image className="mainBox" src="image/main_banner_1.png" />
 
         <div className="news">
           <div>news</div>
