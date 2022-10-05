@@ -14,7 +14,6 @@
     flex-direction: column;
 }
 
-
 .footerGrid {
     display: grid;
     grid-template-columns: 90px 90px 90px 110px 100px 100px 100px 130px 90px ;
@@ -39,7 +38,6 @@
 
 .footerGrid :nth-child(n+5):nth-child(-n+9){
     color: black;
-
 }
 
 .footerSecondGrid {
