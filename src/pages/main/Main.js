@@ -1,10 +1,7 @@
-import style from "./Main.scss";
 import { Image } from "react-bootstrap";
-<<<<<<< Updated upstream
-=======
 import "react-slideshow-image/dist/styles.css";
 import "./Main.scss";
->>>>>>> Stashed changes
+
 
 function Main() {
   return (
