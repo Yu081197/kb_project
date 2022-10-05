@@ -1,5 +1,5 @@
 import { Image } from "react-bootstrap";
-import "react-slideshow-image/dist/styles.css";
+
 import "./Main.scss";
 
 function Main() {
