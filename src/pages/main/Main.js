@@ -30,7 +30,7 @@ function Main() {
       <div className="newContainer">
         <div className="left">
           <div>새소식</div>
-          <div>바로가기 > </div>
+          <div>바로가기 {">"} </div>
         </div>
         <div className="newBox">
           <div className="box">
@@ -51,7 +51,7 @@ function Main() {
       <div className="eventContainer">
         <div className="left">
           <div>이벤트</div>
-          <div>바로가기 > </div>
+          <div>바로가기 {">"} </div>
         </div>
         <div className="eventBox">
           <div className="box">
