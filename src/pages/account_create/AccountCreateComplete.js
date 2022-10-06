@@ -1,12 +1,10 @@
 import React from "react";
 
 function AccountCreateComplete() {
-  function handleClickNext(e) {
+  function handleClick(e) {
     window.location.href = "/account_lookup";
   }
-  function handleClickBack(e) {
-    window.location.href = "/account_create_self";
-  }
+
   return (
     <div className="createContainer">
       <div className="circleContainer">
@@ -33,13 +31,7 @@ function AccountCreateComplete() {
 
         <div className="btn">
           <div className="buttonContainer">
-            <div className="button" onClick={handleClickBack}>
-              <button type="button">뒤로</button>
-            </div>
-          </div>
-
-          <div className="buttonContainer">
-            <div className="button" onClick={handleClickNext}>
+            <div className="button" onClick={handleClick}>
               <button type="button">확인</button>
             </div>
           </div>

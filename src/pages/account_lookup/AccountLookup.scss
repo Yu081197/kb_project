@@ -1,0 +1,120 @@
+.lookupContainer {
+    display: flex;
+    padding-top: 80px;
+    padding-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 15% 0 15%;
+    font-family: "KB_medium_font";
+}
+
+.lookupBox {
+    display: flex;
+    gap: 50px;
+}
+
+.informBox {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    background-color: #F5F5F5;
+}
+
+.listBox {
+    width: 500px;
+    height: 500px;
+    background-color: #F5F5F5;
+}
+
+.informHeadBox {
+    padding: 30px;
+    font-size: 32px;
+
+}
+
+.informSelectBox {
+    border-top: 3px solid white;
+}
+
+.informSelectBox select {
+    padding: 30px;
+    background-color: #F5F5F5;
+    border: none;
+    text-align: center;
+    font-size: 25px;
+}
+
+.informMoneyBox {
+    padding: 30px;
+    text-align: end;
+    font-size: 32px;
+}
+
+.informPossibleBox {
+    padding: 30px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.informButton {
+    display: flex;
+    padding: 30px;
+    justify-content: center;
+}
+
+.informButton button {
+    justify-content: center;
+    border-radius: 18px;
+    width: 175px;
+    height: 50px;
+}
+
+.listHeadBox {
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    font-size: 32px;
+    justify-content: space-between;
+}
+
+.listHead {
+    width: 150px;
+}
+
+.listDetailBox {
+    height: 408px;
+    padding: 0px 30px 30px 30px;
+    overflow: hidden;
+    overflow: scroll;
+    border-top: 3px solid white;
+    font-size: 25px;
+
+}
+
+.listDetailDate {
+    padding: 40px 20px 20px 20px;
+    font-size: 22px;
+}
+
+.listDetailClock {
+    font-size: 22px;
+}
+
+.listDetailSummury {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-size: 32px;
+    line-height: 100%;
+}
+
+.listDetailTransfer {
+    color: blue;
+    font-size: 25px;
+}
+
+.listDetailBalance {
+    font-size: 23px;
+    text-align: center;
+}
