@@ -1,0 +1,40 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 700px;
+    padding: 30px;
+    font-family: "KB_medium_font";
+}
+
+.head {
+    padding-bottom: 40px;
+    font-size: 27px;
+}
+
+.btn {
+    display: flex;
+    justify-content: space-around;
+}
+
+.button {
+    width: 175px;
+}
+
+.input {
+    margin: 20px 0;
+}
+
+.input div {
+    color: #848484;
+}
+
+.input input, select{
+    margin: 10px 0;
+    width: 100%;
+    font-size: 27px;
+    border: none;
+    border-bottom: 1px solid #848484;
+    font-family: "KB_medium_font";
+    padding: 5px;
+}
