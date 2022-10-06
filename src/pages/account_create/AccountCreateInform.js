@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./AccountCreate.scss";
+import "./AccountCreateInform.scss";
 
-function AccountCreate() {
+function AccountCreateInform() {
   return (
     <div className="createContainer">
       <div className="circleContainer">
@@ -33,12 +33,10 @@ function AccountCreate() {
           <div>· 개인(신용)정보 수집·이용·제공 동의서(KB국민은행 출금이체)</div>
         </div>
 
-        <div className="buttonContainer">
-          <div className="button">
-            <Link to="/account_create_inform">
-              <button type="button">확인</button>
-            </Link>
-          </div>
+        <div className="button">
+          <Link to="">
+            <button>확인</button>
+          </Link>
         </div>
       </div>
       <div className="circleContainer"></div>
@@ -46,4 +44,4 @@ function AccountCreate() {
   );
 }
 
-export default AccountCreate;
+export default AccountCreateInform;
