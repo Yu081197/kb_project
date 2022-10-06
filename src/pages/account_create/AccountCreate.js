@@ -1,12 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./AccountCreate.scss";
 
 function AccountCreate() {
+  function handleClick(e) {
+    window.location.href = "/account_create_inform";
+  }
   return (
     <div className="createContainer">
       <div className="circleContainer">
-        <div className="circle">약관동의</div>
+        <div className="circleSequence">약관동의</div>
         <div className="circle">정보입력</div>
         <div className="circle">거래목적</div>
         <div className="circle">비밀번호</div>
@@ -34,10 +36,8 @@ function AccountCreate() {
         </div>
 
         <div className="buttonContainer">
-          <div className="button">
-            <Link to="/account_create_inform">
-              <button type="button">확인</button>
-            </Link>
+          <div className="button" onClick={handleClick}>
+            <button type="button">확인</button>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@
     justify-content: center;
     padding-top: 50px;
     column-gap: 60px;
+    padding-bottom: 50px;
 }
 
 .circleContainer {
@@ -27,8 +28,18 @@
     font-family: "KB_medium_font";
 }
 
-.circleContainer :first-child {
+.circleSequence {
+    width: 85px;
+    height: 85px;
+    padding: 22px;
+    margin: 0 auto;
     background-color: #7D756B;
+    border-radius: 50%;
+    font-size: 22px;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-family: "KB_medium_font";
 }
 
 .agreeContainer {
@@ -49,7 +60,7 @@
 .allAgree {
     padding-bottom: 30px;
     font-size: 23px;
-    border-bottom: 1.5px solid #acacac;;
+    border-bottom: 1.5px solid #acacac;
 }
 
 .neAgree {
@@ -75,20 +86,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #FFCE0A;
+    background-color: #F8BA1F;
     width: 350px;
     height: 50px;
+    margin-top: 50px;
+    border-radius: 50px;
+}
+
+.button :hover {
+    cursor: pointer;
 }
 
 button {
     text-align: center;
     border: none;
-    border-radius: 50%;
     color: white;
-    background-color: #FFCE0A;
+    background-color: #F8BA1F;
     justify-content: center;
     font-family: "KB_medium_font";
-    width: 100%;
+    font-size: 23px;
+
 }
 
 button a {
