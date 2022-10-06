@@ -1,5 +1,4 @@
 import { Image } from "react-bootstrap";
-
 import "./Main.scss";
 
 function Main() {
