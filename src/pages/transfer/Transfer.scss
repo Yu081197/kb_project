@@ -1,0 +1,162 @@
+.transferContainer {
+    display: flex;
+    padding-top: 80px;
+    padding-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 15% 0 15%;
+    font-family: "KB_medium_font";
+}
+
+.transferBox {
+    display: flex;
+    gap: 50px;
+}
+
+.transferInforHeadBox select {
+    margin: 10px 0;
+    width: 100%;
+    font-size: 27px;
+    border: none;
+    border-bottom: 1px solid #848484;
+    font-family: "KB_medium_font";
+    padding: 5px;
+}
+
+.transferInformBox {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+}
+
+.transfer {
+    width: 500px;
+    height: 500px;
+}
+
+.transferInforHeadBox {
+    background-color: #F5F5F5;
+    border-radius: 20px;
+    padding: 30px;
+    font-size: 32px;
+}
+
+.transferInforHeadBox select {
+    background-color: #F5F5F5;
+    border: none;
+}
+
+.transferInformMoneyBox {
+    background-color: #F5F5F5;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: end;
+    font-size: 40px;
+    margin-top: 15px;
+    height: 261px;
+    line-height: 200px;
+}
+
+.transferInformPossibleBox {
+    background-color: #F5F5F5;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    font-size: 23px;
+    margin-top: 15px;
+}
+
+.transferRecentBox {
+    background-color: #F5F5F5;
+    border-radius: 20px;
+}
+
+.transferRecentHead {
+    padding: 30px;
+    font-size: 32px;
+}
+
+.transferRecentContainer {
+    height: 238px;
+    overflow-y: scroll;
+}
+
+.transferRecentList {
+    border-top: 3px solid white;
+}
+
+.transferRecentListDate {
+    font-size: 25px;
+    padding: 10px 30px;
+}
+
+.transferRecentListTime {
+    font-size: 20px;
+    padding: 10px 30px;
+}
+
+.transferRecentListBox {
+    display: flex;
+    flex-direction: row;
+    line-height: 100%;
+    justify-content: space-between;
+    padding: 10px 30px;
+}
+
+.transferRecentListName {
+    font-size: 27px;
+
+}
+
+.transferRecentListAmount {
+    color: red;
+    font-size: 23px;
+}
+
+.transferRecentListBalance {
+    font-size: 23px;
+    padding: 10px 30px;
+    text-align: center;
+}
+
+.opponentAcoount {
+    height: 70px;
+    display: flex;
+    border-radius: 20px;
+    margin-top: 15px;
+    padding: 10px 30px;
+    background-color: #F5F5F5;
+}
+
+.opponentAcoount select {
+    height: 100%;
+    width: 100%;
+    font-size: 23px;
+    border: none;
+    background-color: #F5F5F5;
+    align-items: center;
+    font-family: "KB_medium_font";
+}
+
+.transferAmountBox {
+    display: flex;
+    height: 70px;
+    background-color: #F5F5F5;
+    padding: 10px 30px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    border-radius: 20px;
+}
+
+.transferAmount {
+    align-items: center;
+    font-size: 23px;
+    line-height: 100%;
+}
+
+.transferAmountBox button {
+    width: 100px;
+    height: 50px;
+}
