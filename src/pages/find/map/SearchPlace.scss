@@ -1,0 +1,18 @@
+.mapContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.inputForm input {
+    width: 180px;
+    height: 30px;
+    align-items: center;
+}
+
+.inputForm button {
+    font-size: 20px;
+    align-items: center;
+}
