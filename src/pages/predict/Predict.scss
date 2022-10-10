@@ -1,0 +1,38 @@
+.predictContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 1000px;
+    align-items: center;
+    padding: 70px;
+    font-family: "KB_medium_font";
+}
+
+.predictHead {
+    align-items: flex-start;
+    justify-content: center;
+    height: 100px;
+    font-size: 30px;
+}
+
+.predictSub {
+    font-size: 20px;
+    color: #7D756B;
+}
+.predictListContainer {
+    justify-content: center;
+}
+
+.predictListName {
+    justify-content: center;
+}
+
+.predictListCheakBox {
+    display: flex;
+    flex-direction: row;
+}
+
+.predictList {
+    display: flex;
+    flex-direction: column;
+}

@@ -8,8 +8,8 @@ const MapContainer = ({ searchPlace }) => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     const container = document.getElementById("myMap");
     const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
-      level: 3,
+      center: new kakao.maps.LatLng(37.52812754309467, 126.91908512129436),
+      level: 2,
     };
     const map = new kakao.maps.Map(container, options);
     // 장소 검색 객체를 생성
