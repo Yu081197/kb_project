@@ -51,28 +51,41 @@
     font-family: "KB_medium_font";
 }
 
+.agreeContainer input {
+    width: 20px;
+}
+
 .agree {
     padding-bottom: 40px;
     font-size: 27px;
-
 }
 
 .allAgree {
     padding-bottom: 30px;
     font-size: 23px;
     border-bottom: 1.5px solid #acacac;
+    display: flex;
+    justify-content: space-between;
 }
 
 .neAgree {
     padding: 30px 0 30px 0;
     font-size: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .agreeList {
     padding: 0 0 30px 0;
+    flex-direction: row;
 }
 
-.agreeList div {
+.agreeListContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.agreeListContainer div {
     padding: 20px 0 20px 0;
     color: #848484;
 }
