@@ -1,7 +1,48 @@
-import React from "react";
-import { Image } from "react-bootstrap";
+import React, { useEffect, useRef } from "react";
+import "./AccountCreateSelf.scss";
 
 function AccountCreateSelf() {
+  // 비디오 띄우기
+  const videoRef = useRef(null);
+  // 화면 캡쳐
+  const photoRef = useRef(null);
+  const getUserCamera = () => {
+    navigator.mediaDevices
+      .getUserMedia({
+        video: true,
+      })
+      .then((stream) => {
+        //비디오 tag에 stream 추가
+        let video = videoRef.current;
+
+        video.srcObject = stream;
+
+        video.play();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // 화면 캡쳐
+  const takePicture = () => {
+    let width = 500;
+    let height = 380;
+
+    let photo = photoRef.current;
+    let video = videoRef.current;
+
+    photo.width = width;
+    photo.height = height;
+
+    let ctx = photo.getContext("2d");
+    ctx.drawImage(video, 0, 0, photo.width, photo.height);
+  };
+
+  useEffect(() => {
+    getUserCamera();
+  }, [videoRef]);
+
   function handleClickNext(e) {
     window.location.href = "/account_create_complete";
   }
@@ -20,18 +61,26 @@ function AccountCreateSelf() {
       </div>
 
       <div className="inputContainer">
-        <div className="head">
-          <div>신분증을 준비해주세요</div>
+        <div className="SelfHeadContainer">
+          <div>신분증과 얼굴을 대조중입니다...</div>
         </div>
 
-        <div>
-          <Image className="selfimg" src="image/AccountCreateSelf.png" />
+        <div className="videoContainer">
+          <video
+            ref={videoRef}
+            style={{ width: "500px", height: "500px" }}
+          ></video>
         </div>
 
         <div className="btn">
           <div className="buttonContainer">
             <div className="button">
-              <button type="button">촬영</button>
+              <button onClick={takePicture} type="button">
+                촬영
+              </button>
+              {/* <div>
+                <canvas ref={photoRef}></canvas>
+              </div> */}
             </div>
           </div>
         </div>
