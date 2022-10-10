@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 function AccountCreatePW() {
+  const [passwordState, setPasswordState] = useState();
+  const [validPasswordState, setValidPasswordState] = useState();
+  const [validPasswordError, setValidPasswordError] = useState(false);
+
+  const onChangeValidPassword = (e) => {
+    if (!validPasswordState(e.target.value) || passwordState(e.target.value))
+      setValidPasswordError(true);
+    else setValidPasswordError(false);
+    setValidPasswordState(e.target.value);
+  };
+
   function handleClickNext(e) {
     window.location.href = "/account_create_self";
   }
@@ -24,11 +35,31 @@ function AccountCreatePW() {
         </div>
         <div className="input">
           <div>계좌비밀번호</div>
-          <input type="password" maxlength="4"></input>
+          <input
+            type="password"
+            maxlength="4"
+            name="Password"
+            id="pw"
+            value={passwordState}
+            placeholder="비밀번호를 입력하세요."
+          />
         </div>
         <div className="input">
           <div>계좌비밀번호 확인</div>
-          <input type="password" maxlength="4"></input>
+          <input
+            type="password"
+            maxlength="4"
+            name="Password"
+            id="pw"
+            value={validPasswordState}
+            placeholder="다시 한 번 입력하세요."
+            onChange={onChangeValidPassword}
+          />{" "}
+          {validPasswordError && (
+            <div style={{ color: "red", fontSize: "14px" }}>
+              비밀번호를 확인해주세요.
+            </div>
+          )}
         </div>
 
         <div className="btn">
