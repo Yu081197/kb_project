@@ -25,19 +25,25 @@ function AccountCreatePerpose() {
         <div className="input">
           <div>거래목적</div>
           <select form="jobForm">
-            <option value="">무직</option>
-            <option value="">학생</option>
-            <option value="">자영업자</option>
-            <option value="">회사원</option>
+            <option value="">월급통장</option>
+            <option value="">사업</option>
+            <option value="">생활비</option>
+            <option value="">대출</option>
+            <option value="">저축</option>
+            <option value="">연금</option>
           </select>
         </div>
         <div className="input">
           <div>자금출처</div>
           <select form="jobForm">
-            <option value="">무직</option>
-            <option value="">학생</option>
-            <option value="">자영업자</option>
-            <option value="">회사원</option>
+            <option value="">월급</option>
+            <option value="">사업 소득</option>
+            <option value="">생활비</option>
+            <option value="">용돈</option>
+            <option value="">금융 소득</option>
+            <option value="">퇴직금</option>
+            <option value="">임대 소득</option>
+            <option value="">상속 · 증여</option>
           </select>
         </div>
 

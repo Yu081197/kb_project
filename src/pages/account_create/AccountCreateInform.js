@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AccountCreateInform.scss";
 
 function AccountCreateInform() {
+  const [emailState, setEmailState] = useState("");
+  const [emailError, setEmailError] = useState(false);
+
+  const [nameState, setNameState] = useState("");
+  const [nameError, setNameError] = useState(false);
+
+  const [phoneNumberState, setPhoneNumberState] = useState();
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
+
+  const onChangeEmail = (e) => {
+    const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    if (!e.target.value || emailRegex.test(e.target.value))
+      setEmailError(false);
+    else setEmailError(true);
+    setEmailState(e.target.value);
+  };
+  const onChangeName = (e) => {
+    const nameRegex = /^[가-힣]{1,10}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
+    if (!e.target.value || nameRegex.test(e.target.value)) setNameError(false);
+    else setNameError(true);
+    setNameState(e.target.value);
+  };
+
+  const onChangePhoneNumber = (e) => {
+    const phoneNumberRegex = /^(\d{2,3})(\d{3,4})(\d{4})$/;
+    if (!e.target.value || phoneNumberRegex.test(e.target.value))
+      setPhoneNumberError(false);
+    else setPhoneNumberError(true);
+    setPhoneNumberState(e.target.value);
+  };
+
   function handleClickNext(e) {
     window.location.href = "/account_create_perpose";
   }
@@ -21,23 +52,68 @@ function AccountCreateInform() {
 
       <div className="inputContainer">
         <div className="head">
+          <div>정보입력</div>
+        </div>
+        <div className="input">
           <div>이름</div>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value={nameState}
+            placeholder="이름을 입력해주세요."
+            onChange={onChangeName}
+          />{" "}
+          {nameError && (
+            <div style={{ color: "red", fontSize: "14px" }}>
+              잘못된 양식입니다.
+            </div>
+          )}
         </div>
         <div className="input">
           <div>휴대폰 번호</div>
-          <input type="tel"></input>
+          <input
+            name="phone"
+            id="phonenumber"
+            maxlength="13"
+            value={phoneNumberState}
+            placeholder="휴대전화번호를 입력해 주세요."
+            onChange={onChangePhoneNumber}
+          />{" "}
+          {phoneNumberError && (
+            <div style={{ color: "red", fontSize: "14px" }}>
+              잘못된 양식입니다.
+            </div>
+          )}
         </div>
         <div className="input">
           <div>이메일</div>
-          <input type="email"></input>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            value={emailState}
+            placeholder="이메일을 입력해주세요."
+            onChange={onChangeEmail}
+          />{" "}
+          {emailError && (
+            <div style={{ color: "red", fontSize: "14px" }}>
+              잘못된 양식입니다.
+            </div>
+          )}
         </div>
         <div className="input">
           <div>주소</div>
-          <input type="text"></input>
+          <input
+            type="text"
+            name="address"
+            id="address"
+            placeholder="주소를 입력해주세요."
+          />
         </div>
         <div className="input">
           <div>직업</div>
-          <select form="jobForm">
+          <select form="jobForm" value="job">
             <option value="">무직</option>
             <option value="">학생</option>
             <option value="">자영업자</option>

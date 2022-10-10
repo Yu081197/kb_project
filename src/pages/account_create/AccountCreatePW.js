@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
 function AccountCreatePW() {
+  const [passwordState, setPasswordState] = useState();
+  const [validPasswordState, setValidPasswordState] = useState();
+  const [passwordError, setPasswordError] = useState(false);
+  const [validPasswordError, setValidPasswordError] = useState(false);
+
+  const onChangePassword = (e) => {
+    const passwordRegex = /(?=.*[a-zA-Z]{2,20}).{8,20}$/;
+    if (!e.target.value || passwordRegex.test(e.target.value))
+      setPasswordError(false);
+    else setPasswordError(true);
+    setPasswordState(e.target.value);
+  };
+
+  const onChangeValidPassword = (e) => {
+    if (!e.target.value || onChangePassword) setValidPasswordError(false);
+    else setValidPasswordError(true);
+    setValidPasswordState(e.target.value);
+  };
+
   function handleClickNext(e) {
     window.location.href = "/account_create_self";
   }
@@ -24,11 +43,28 @@ function AccountCreatePW() {
         </div>
         <div className="input">
           <div>계좌비밀번호</div>
-          <input type="password" maxlength="4"></input>
+          <input
+            type="password"
+            maxlength="4"
+            name="Password"
+            id="pw"
+            value={passwordState}
+            placeholder="비밀번호를 입력하세요."
+            onChange={onChangePassword}
+          />
         </div>
         <div className="input">
           <div>계좌비밀번호 확인</div>
-          <input type="password" maxlength="4"></input>
+          <input
+            type="password"
+            maxlength="4"
+            name="Password"
+            id="pw"
+            value={validPasswordState}
+            placeholder="다시 한 번 입력하세요."
+            onChange={onChangeValidPassword}
+          />{" "}
+          {validPasswordError && <div>잘못된 양식입니다.</div>}
         </div>
 
         <div className="btn">
