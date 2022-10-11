@@ -8,13 +8,14 @@ import Footer from "./components/footer/Footer";
 import Main from "./pages/main/Main";
 import AccountCreate from "./pages/account_create/AccountCreate";
 import AccountCreateInform from "./pages/account_create/AccountCreateInform";
-import AccountCreatePerpose from "./pages/account_create/AccountCreatePerpose";
+import AccountCreatePurpose from "./pages/account_create/AccountCreatePurpose";
 import AccountCreatePW from "./pages/account_create/AccountCreatePW";
 import AccountCreateSelf from "./pages/account_create/AccountCreateSelf";
 import AccountCreateComplete from "./pages/account_create/AccountCreateComplete";
 import AccountLookup from "./pages/account_lookup/AccountLookup";
 import Find from "./pages/find/Find";
 import Predict from "./pages/predict/Predict";
+import PredictResult from "./pages/predict/PredictResult";
 import Transfer from "./pages/transfer/Transfer";
 
 function Router() {
@@ -29,8 +30,8 @@ function Router() {
           element={<AccountCreateInform />}
         />
         <Route
-          path="/account_create_perpose"
-          element={<AccountCreatePerpose />}
+          path="/account_create_purpose"
+          element={<AccountCreatePurpose />}
         />
         <Route path="/account_create_pw" element={<AccountCreatePW />} />
         <Route path="/account_create_self" element={<AccountCreateSelf />} />
@@ -42,6 +43,7 @@ function Router() {
         <Route path="/transfer" element={<Transfer />} />
         <Route path="/find" element={<Find />} />
         <Route path="/predict" element={<Predict />} />
+        <Route path="/predict_result" element={<PredictResult />} />
       </Routes>
       <Footer />
     </BrowserRouter>

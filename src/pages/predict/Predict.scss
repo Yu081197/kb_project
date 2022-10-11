@@ -2,37 +2,78 @@
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    width: 1000px;
+    width: 800px;
     align-items: center;
     padding: 70px;
     font-family: "KB_medium_font";
 }
 
 .predictHead {
-    align-items: flex-start;
+    display: flex;
     justify-content: center;
+    flex-direction: column;
     height: 100px;
+    gap: 50px;
+}
+
+.predictMainHead {
+    text-align: center;
     font-size: 30px;
 }
 
-.predictSub {
+.predictSubHead {
+    color: #7D756B;
+    text-align: center;
     font-size: 20px;
+}
+
+.predictListContainer {
+    display: flex;
+    width: 500px;
+    flex-direction: column;
+    justify-content: center;
+    margin: 50px;
     color: #7D756B;
 }
-.predictListContainer {
-    justify-content: center;
-}
 
-.predictListName {
-    justify-content: center;
-}
-
-.predictListCheakBox {
-    display: flex;
-    flex-direction: row;
-}
-
-.predictList {
+.predictQContainer {
     display: flex;
     flex-direction: column;
+    font-size: 23px;
+    margin: 15px;
+    gap: 10px;
+}
+
+.predictQContainer input[type=text] {
+    font-size: 20px;
+    height: 40px;
+    margin-left: 100px;
+    width: 150px;
+    border: none;
+    border-bottom: 2px solid #7D756B;
+    font-family: "KB_medium_font";
+    text-align: end;
+}
+
+.predictCheckBox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add {
+    flex-direction: column;
+}
+.predictCheckBox div{
+    margin-right: 100px;
+}
+
+.add div {
+    display: flex;
+    margin: 5px 0;
+    width: 600px;
+}
+
+.predictBtn button {
+    width: 300px;
+    height: 40px;
 }

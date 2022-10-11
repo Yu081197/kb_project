@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 function AccountCreateComplete() {
+  const [allCheck, setAllCheck] = useState(false);
+
   function handleClick(e) {
     window.location.href = "/account_lookup";
   }

@@ -91,6 +91,7 @@ function AccountCreate() {
       setAllCheck(false);
     }
   }, [useCheck, itemCheck, specialCheck, basicCheck, freeCheck, personalCheck]);
+  //페이지 이동
   function handleClick(e) {
     window.location.href = "/account_create_inform";
   }
@@ -193,7 +194,10 @@ function AccountCreate() {
         </div>
 
         <div className="buttonContainer">
-          <div className="button" onClick={handleClick}>
+          <div
+            className="button"
+            onClick={allCheck === true ? handleClick : false}
+          >
             <button type="button">확인</button>
           </div>
         </div>
