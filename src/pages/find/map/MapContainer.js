@@ -11,8 +11,8 @@ const MapContainer = ({ searchPlace }) => {
     var markers = [];
     const container = document.getElementById("myMap");
     const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
-      level: 3,
+      center: new kakao.maps.LatLng(37.5208119, 126.9278776),
+      level: 2,
     };
     const map = new kakao.maps.Map(container, options);
 
