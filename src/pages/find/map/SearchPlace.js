@@ -24,7 +24,8 @@ const SearchPlace = () => {
             <input
               placeholder="KB 국민은행 "
               onChange={onChange}
-              value={inputText}
+              value={("KB 국민은행 ", inputText)}
+              readonly
             />
             <button type="submit">검색</button>
           </form>

@@ -34,7 +34,7 @@ function AccountCreateInform() {
   };
 
   function handleClickNext(e) {
-    window.location.href = "/account_create_perpose";
+    window.location.href = "/account_create_purpose";
   }
   function handleClickBack(e) {
     window.location.href = "/account_create";

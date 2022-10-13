@@ -1,5 +1,6 @@
 import React from "react";
 import "./AccountLookup.scss";
+import AccountLookupModal from "./account_lookup_modal/AccountLookupModal";
 
 function AccountLookup() {
   function handleClick(e) {
@@ -28,7 +29,9 @@ function AccountLookup() {
         <div className="listBox">
           <div className="listHeadBox">
             <div className="listHead">월별내역 : </div>
-            <div className="listHeadCalender">Calender</div>
+            <div className="listHeadCalender">
+              <AccountLookupModal />
+            </div>
           </div>
           <div className="listDetailBox">
             <div>
