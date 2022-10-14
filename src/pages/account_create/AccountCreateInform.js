@@ -12,7 +12,8 @@ function AccountCreateInform() {
   const [phoneNumberError, setPhoneNumberError] = useState(false);
 
   const onChangeEmail = (e) => {
-    const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    const emailRegex =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
     if (!e.target.value || emailRegex.test(e.target.value))
       setEmailError(false);
     else setEmailError(true);
@@ -34,7 +35,7 @@ function AccountCreateInform() {
   };
 
   function handleClickNext(e) {
-    window.location.href = "/account_create_perpose";
+    window.location.href = "/account_create_purpose";
   }
   function handleClickBack(e) {
     window.location.href = "/account_create";

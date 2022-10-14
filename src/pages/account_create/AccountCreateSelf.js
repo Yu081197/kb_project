@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./AccountCreateSelf.scss";
 
 function AccountCreateSelf() {
@@ -23,6 +23,12 @@ function AccountCreateSelf() {
         console.log(error);
       });
   };
+
+  const alertComplete = () => {
+    alert("촬영완료!");
+  };
+
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
   // 화면 캡쳐
   const takePicture = () => {
@@ -75,12 +81,13 @@ function AccountCreateSelf() {
         <div className="btn">
           <div className="buttonContainer">
             <div className="button">
-              <button onClick={takePicture} type="button">
+              <button
+                onClick={(takePicture, alertComplete)}
+                disabled={btnDisabled}
+                type="button"
+              >
                 촬영
               </button>
-              {/* <div>
-                <canvas ref={photoRef}></canvas>
-              </div> */}
             </div>
           </div>
         </div>

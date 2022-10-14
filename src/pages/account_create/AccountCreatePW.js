@@ -16,7 +16,7 @@ function AccountCreatePW() {
     window.location.href = "/account_create_self";
   }
   function handleClickBack(e) {
-    window.location.href = "/account_create_perpose";
+    window.location.href = "/account_create_purpose";
   }
   return (
     <div className="createContainer">
