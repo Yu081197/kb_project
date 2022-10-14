@@ -1,11 +1,51 @@
 import { Image } from "react-bootstrap";
+import React, { useState, useRef, useEffect } from "react";
 import "./Main.scss";
 
 function Main() {
+  const [currentCarousel, setCurrentCarousel] = useState("");
+  const TOTAL_SLIDES = 2; //슬라이드 개수 2면 3개 1이면 2개
+  const slideRef = useRef(null);
+  const nextCarousel = () => {
+    if (currentCarousel >= TOTAL_SLIDES) {
+      // 더 이상 넘어갈 슬라이드가 없으면
+      setCurrentCarousel(0); // 1번째 사진으로 넘어갑니다.
+      // return;  // 클릭이 작동하지 않습니다.
+    } else {
+      setCurrentCarousel(currentCarousel + 1);
+    }
+  };
+  // Prev 버튼 클릭 시
+  const prevCarousel = () => {
+    if (currentCarousel === 0) {
+      setCurrentCarousel(TOTAL_SLIDES); // 마지막 사진으로 넘어갑니다.
+      // return;  // 클릭이 작동하지 않습니다.
+    } else {
+      setCurrentCarousel(currentCarousel - 1);
+    }
+  };
+  useEffect(() => {
+    slideRef.current.style.transition = "all 0.5s ease-in-out";
+    slideRef.current.style.transform = `translateX(-${currentCarousel}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 에니메이션을 만듭니다.
+  }, [currentCarousel]);
   return (
     <div className="container">
       <div className="mainBannerContainer">
-        <Image className="mainBox" src="image/main_banner_1.png" />
+        <div className="mainBannerInner" ref={slideRef}>
+          <Image className="mainBox" src="image/main_banner_1.png" />
+          <Image className="mainBox" src="image/main_banner_2.png" />
+          <Image className="mainBox" src="image/main_banner_3.png" />
+        </div>
+        <div className="mainBannerButtonContainer">
+          <button
+            onClick={prevCarousel}
+            className="mainBannerButton mainBannerLeftButton"
+          ></button>
+          <button
+            onClick={nextCarousel}
+            className="mainBannerButton mainBannerRightButton"
+          ></button>
+        </div>
       </div>
       <div className="newsContainer">
         <div className="newsBox">
@@ -53,7 +93,6 @@ function Main() {
           </div>
         </div>
       </div>
-
       <div className="eventContainer">
         <div className="left">
           <div>이벤트</div>
@@ -74,7 +113,6 @@ function Main() {
           </div>
         </div>
       </div>
-
       <div className="preventContainer">
         <div className="left">
           <div>금융사고예방</div>
@@ -95,7 +133,6 @@ function Main() {
           </div>
         </div>
       </div>
-
       <div className="bohoContainer">
         <div className="left">
           <div>소비자권익보호</div>
