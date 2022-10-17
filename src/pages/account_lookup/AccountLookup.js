@@ -13,14 +13,21 @@ function AccountLookup() {
           <div className="informHeadBox">저축예금</div>
           <div className="informSelectBox">
             <select>
-              <option>국민 : XXX - XXXXXX - XXX</option>
-              <option>국민 : XXX - XXXXXX - XXX</option>
-              <option>국민 : XXX - XXXXXX - XXX</option>
-              <option>국민 : XXX - XXXXXX - XXX</option>
+              <option>국민 : 123456-12-123456</option>
+              <option>국민 : 654321-21-654321</option>
             </select>
           </div>
-          <div className="informMoneyBox">XX,XXX,XXX 원</div>
-          <div className="informPossibleBox">출금가능잔액 : XX,XXX,XXX원</div>
+          <div className="informMoneyBox">
+            <div>0</div>
+            <div>원</div>
+          </div>
+          <div className="informPossibleBox">
+            <div>출금가능잔액</div>
+            <div className="informPossibleBoxDiv">
+              <div>0</div>
+              <div>원</div>
+            </div>
+          </div>
           <div className="informButton">
             <button onClick={handleClick}>이체하기</button>
           </div>

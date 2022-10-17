@@ -17,6 +17,7 @@ import Find from "./pages/find/Find";
 import Predict from "./pages/predict/Predict";
 import PredictResult from "./pages/predict/PredictResult";
 import Transfer from "./pages/transfer/Transfer";
+import WarningModal from "./components/Modal/WarningModal";
 
 function Router() {
   return (
@@ -44,6 +45,7 @@ function Router() {
         <Route path="/find" element={<Find />} />
         <Route path="/predict" element={<Predict />} />
         <Route path="/predict_result" element={<PredictResult />} />
+        <Route path="/warning_modal" element={<WarningModal />} />
       </Routes>
       <Footer />
     </BrowserRouter>

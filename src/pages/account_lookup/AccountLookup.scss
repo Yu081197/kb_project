@@ -53,15 +53,26 @@
 }
 
 .informMoneyBox {
+    display: flex;
     padding: 30px;
     text-align: end;
     font-size: 32px;
+    justify-content: flex-end;
+    gap: 20px;
 }
 
 .informPossibleBox {
+    justify-content: center;
+    display: flex;
     padding: 30px;
     text-align: center;
     font-size: 25px;
+    gap: 20px
+}
+
+.informPossibleBoxDiv {
+    display: flex;
+    gap: 20px;
 }
 
 .informButton {

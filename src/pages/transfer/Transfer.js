@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Transfer.scss";
+import WarningModal from "../../components/Modal/WarningModal";
 
 function Transfer() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [num, setNum] = useState(0);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
+  //숫자 input에 3자리마다 , 넣기
+  const inputPriceFormat = (str) => {
+    console.log("s", str);
+    const comma = (str) => {
+      str = String(str);
+      return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+    };
+    const uncomma = (str) => {
+      str = String(str);
+      return str.replace(/[^\d]+/g, "");
+    };
+    return comma(uncomma(str));
+  };
   return (
     <div className="transferContainer">
       <div className="transferBox">
@@ -76,9 +97,18 @@ function Transfer() {
           </div>
 
           <div className="transferAmountBox">
-            <div className="transferAmount">XX,XXX,XXX 원</div>
+            <div className="transferAmount">
+              <input
+                type="text"
+                value={num}
+                maxLength="12"
+                onChange={(e) => setNum(inputPriceFormat(e.target.value))}
+              ></input>
+              <div>원</div>
+            </div>
             <div>
-              <button>이체</button>
+              <button onClick={showModal}>이체</button>
+              {modalOpen && <WarningModal setModalOpen={setModalOpen} />}
             </div>
           </div>
         </div>

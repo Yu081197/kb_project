@@ -144,16 +144,28 @@
     height: 70px;
     background-color: #F5F5F5;
     padding: 10px 30px;
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: 20px;
     align-items: center;
     margin-top: 15px;
     border-radius: 20px;
 }
 
 .transferAmount {
+    display: flex;
     align-items: center;
     font-size: 23px;
     line-height: 100%;
+    gap: 20px;
+}
+
+.transferAmount input {
+    background-color: #F5F5F5;
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+    border: none;
+    text-align: end;
 }
 
 .transferAmountBox button {
@@ -163,7 +175,7 @@
     border: none;
     color: white;
     background-color: #F8BA1F;
-    justify-content: center;
+    justify-content: flex-end;
     font-family: "KB_medium_font";
     font-size: 23px;
     border-radius: 15px;
