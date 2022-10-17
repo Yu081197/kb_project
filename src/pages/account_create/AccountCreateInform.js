@@ -3,22 +3,6 @@ import React, { useState } from "react";
 import "./AccountCreateInform.scss";
 
 function AccountCreateInform() {
-  const onCreateAccount = () => {
-    axios
-      .post(
-        "http://localhost:3000/create_account",
-        JSON.stringify({
-          name: nameState,
-          phoneNumber: phoneNumberState,
-          email: emailState,
-          address: addressState,
-          job: jobState,
-        })
-      )
-      .then(() => console.log("전송완료"))
-      .catch(() => console.log("전송실패"));
-  };
-
   const [emailState, setEmailState] = useState("");
   const [emailError, setEmailError] = useState(false);
 
@@ -63,6 +47,20 @@ function AccountCreateInform() {
   };
 
   function handleClickNext(e) {
+    axios
+      .post(
+        "http://localhost:3000/create_account",
+        JSON.stringify({
+          name: nameState,
+          phoneNumber: phoneNumberState,
+          email: emailState,
+          address: addressState,
+          job: jobState,
+        })
+      )
+      .then(() => console.log("전송완료"))
+      .catch(() => console.log("전송실패"));
+
     window.location.href = "/account_create_purpose";
   }
   function handleClickBack(e) {
@@ -159,10 +157,7 @@ function AccountCreateInform() {
           </div>
 
           <div className="buttonContainer">
-            <div
-              className="button"
-              onClick={(handleClickNext, onCreateAccount)}
-            >
+            <div className="button" onClick={handleClickNext}>
               <button type="button">확인</button>
             </div>
           </div>

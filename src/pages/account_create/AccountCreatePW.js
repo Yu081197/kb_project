@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function AccountCreatePW() {
   const [passwordState, setPasswordState] = useState();
   const [validPasswordState, setValidPasswordState] = useState();
   const [validPasswordError, setValidPasswordError] = useState(false);
+
+  const onChangePassword = (e) => {
+    setPasswordState(e.target.value);
+  };
 
   const onChangeValidPassword = (e) => {
     if (!validPasswordState(e.target.value) || passwordState(e.target.value))
@@ -13,6 +18,15 @@ function AccountCreatePW() {
   };
 
   function handleClickNext(e) {
+    axios
+      .post(
+        "http://localhost:3000/create_account",
+        JSON.stringify({
+          password: passwordState,
+        })
+      )
+      .then(() => console.log("전송완료"))
+      .catch(() => console.log("전송실패"));
     window.location.href = "/account_create_self";
   }
   function handleClickBack(e) {
@@ -41,6 +55,7 @@ function AccountCreatePW() {
             name="Password"
             id="pw"
             value={passwordState}
+            onChange={onChangePassword}
             placeholder="비밀번호를 입력하세요."
           />
         </div>

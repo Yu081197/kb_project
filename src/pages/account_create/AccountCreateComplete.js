@@ -24,11 +24,11 @@ function AccountCreateComplete() {
         </div>
         <div className="input">
           <div>계좌종류</div>
-          <input></input>
+          <div></div>
         </div>
         <div className="input">
           <div>계좌번호</div>
-          <input></input>
+          <div></div>
         </div>
 
         <div className="btn">
