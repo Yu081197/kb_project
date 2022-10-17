@@ -142,11 +142,15 @@
 }
 
 .listDetailTransfer {
+    display: flex;
     color: blue;
     font-size: 25px;
+    gap: 20px;
 }
 
 .listDetailBalance {
+    display: flex;
     font-size: 23px;
     text-align: center;
+    gap: 20px;
 }

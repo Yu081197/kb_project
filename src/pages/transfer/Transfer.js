@@ -29,12 +29,19 @@ function Transfer() {
         <div className="transferInformBox">
           <div className="transferInforHeadBox">
             <select>
-              <option>국민 : XXX - XXXXXX - XXX</option>
+              <option>국민 : 123456-12-123456</option>
+              <option>국민 : 654321-21-654321</option>
             </select>
           </div>
-          <div className="transferInformMoneyBox">금액 : XX,XXX,XXX 원</div>
+          <div className="transferInformMoneyBox">
+            <div>금액</div>
+            <div>0</div>
+            <div>원</div>
+          </div>
           <div className="transferInformPossibleBox">
-            출금가능잔액 : XX,XXX,XXX원
+            <div>출금가능잔액</div>
+            <div>0</div>
+            <div>원</div>
           </div>
         </div>
 
@@ -45,54 +52,31 @@ function Transfer() {
             </div>
 
             <div className="transferRecentContainer">
-              <div className="transferRecentList">
+              {/* <div className="transferRecentList">
                 <div className="transferRecentListDate">
                   20XX - XX - XX (목)
                 </div>
                 <div className="transferRecentListTime">12 : 30 : 49</div>
                 <div className="transferRecentListBox">
                   <div className="transferRecentListName">도깨비</div>
-                  <div className="transferRecentListAmount">XX,XXX 원</div>
+                  <div className="transferRecentListAmount">
+                    <div>0</div>
+                    <div>원</div>
+                  </div>
                 </div>
                 <div className="transferRecentListBalance">
-                  잔액 : XX,XXX,XXX 원
+                  <div>잔액</div>
+                  <div>0</div>
+                  <div>원</div>
                 </div>
-              </div>
-
-              <div className="transferRecentList">
-                <div className="transferRecentListDate">
-                  20XX - XX - XX (목)
-                </div>
-                <div className="transferRecentListTime">12 : 30 : 49</div>
-                <div className="transferRecentListBox">
-                  <div className="transferRecentListName">도깨비</div>
-                  <div className="transferRecentListAmount">XX,XXX 원</div>
-                </div>
-                <div className="transferRecentListBalance">
-                  잔액 : XX,XXX,XXX 원
-                </div>
-              </div>
-
-              <div className="transferRecentList">
-                <div className="transferRecentListDate">
-                  20XX - XX - XX (목)
-                </div>
-                <div className="transferRecentListTime">12 : 30 : 49</div>
-                <div className="transferRecentListBox">
-                  <div className="transferRecentListName">도깨비</div>
-                  <div className="transferRecentListAmount">XX,XXX 원</div>
-                </div>
-                <div className="transferRecentListBalance">
-                  잔액 : XX,XXX,XXX 원
-                </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
           <div className="opponentAcoount">
             {/* input select 동시에 써야함*/}
             <select>
-              <option>농협 : XXX - XXXXXX - XXX</option>
+              <option>농협 123 - 12345678 - 12</option>
             </select>
           </div>
 

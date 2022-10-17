@@ -35,61 +35,29 @@ function AccountLookup() {
 
         <div className="listBox">
           <div className="listHeadBox">
-            <div className="listHead">월별내역 : </div>
+            <div className="listHead">월별내역</div>
             <div className="listHeadCalender">
               <AccountLookupModal />
             </div>
           </div>
           <div className="listDetailBox">
-            <div>
+            {/* <div>
               <div className="listDetailDate">20XX - XX - XX (월)</div>
               <div className="listDetailClock">12 : 30 : 49</div>
               <div className="listDetailSummury">
                 <div className="listDetailName">KB 국민은행</div>
-                <div className="listDetailTransfer">출금 : XXX,XXX원</div>
+                <div className="listDetailTransfer">
+                  <div>출금</div>
+                  <div>0</div>
+                  <div>원</div>
+                </div>
               </div>
-              <div className="listDetailBalance">잔액 : XX,XXX,XXX 원</div>
-            </div>
-
-            <div>
-              <div className="listDetailDate">20XX - XX - XX (월)</div>
-              <div className="listDetailClock">12 : 30 : 49</div>
-              <div className="listDetailSummury">
-                <div className="listDetailName">KB 국민은행</div>
-                <div className="listDetailTransfer">출금 : XXX,XXX원</div>
+              <div className="listDetailBalance">
+                <div>잔액</div>
+                <div>0</div>
+                <div>원</div>
               </div>
-              <div className="listDetailBalance">잔액 : XX,XXX,XXX 원</div>
-            </div>
-
-            <div>
-              <div className="listDetailDate">20XX - XX - XX (월)</div>
-              <div className="listDetailClock">12 : 30 : 49</div>
-              <div className="listDetailSummury">
-                <div className="listDetailName">KB 국민은행</div>
-                <div className="listDetailTransfer">출금 : XXX,XXX원</div>
-              </div>
-              <div className="listDetailBalance">잔액 : XX,XXX,XXX 원</div>
-            </div>
-
-            <div>
-              <div className="listDetailDate">20XX - XX - XX (월)</div>
-              <div className="listDetailClock">12 : 30 : 49</div>
-              <div className="listDetailSummury">
-                <div className="listDetailName">KB 국민은행</div>
-                <div className="listDetailTransfer">출금 : XXX,XXX원</div>
-              </div>
-              <div className="listDetailBalance">잔액 : XX,XXX,XXX 원</div>
-            </div>
-
-            <div>
-              <div className="listDetailDate">20XX - XX - XX (월)</div>
-              <div className="listDetailClock">12 : 30 : 49</div>
-              <div className="listDetailSummury">
-                <div className="listDetailName">KB 국민은행</div>
-                <div className="listDetailTransfer">출금 : XXX,XXX원</div>
-              </div>
-              <div className="listDetailBalance">잔액 : XX,XXX,XXX 원</div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

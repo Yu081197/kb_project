@@ -48,6 +48,9 @@
 }
 
 .transferInformMoneyBox {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
     background-color: #F5F5F5;
     border-radius: 20px;
     padding: 30px;
@@ -59,6 +62,9 @@
 }
 
 .transferInformPossibleBox {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
     background-color: #F5F5F5;
     border-radius: 20px;
     padding: 30px;
@@ -110,11 +116,15 @@
 }
 
 .transferRecentListAmount {
+    display: flex;
+    gap: 20px;
     color: red;
     font-size: 23px;
 }
 
 .transferRecentListBalance {
+    display: flex;
+    gap: 20px;
     font-size: 23px;
     padding: 10px 30px;
     text-align: center;
