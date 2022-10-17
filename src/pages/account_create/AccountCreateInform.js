@@ -1,7 +1,24 @@
+import axios from "axios";
 import React, { useState } from "react";
 import "./AccountCreateInform.scss";
 
 function AccountCreateInform() {
+  const onCreateAccount = () => {
+    axios
+      .post(
+        "http://localhost:3000/create_account",
+        JSON.stringify({
+          name: nameState,
+          phoneNumber: phoneNumberState,
+          email: emailState,
+          address: addressState,
+          job: jobState,
+        })
+      )
+      .then(() => console.log("전송완료"))
+      .catch(() => console.log("전송실패"));
+  };
+
   const [emailState, setEmailState] = useState("");
   const [emailError, setEmailError] = useState(false);
 
@@ -10,6 +27,9 @@ function AccountCreateInform() {
 
   const [phoneNumberState, setPhoneNumberState] = useState();
   const [phoneNumberError, setPhoneNumberError] = useState(false);
+
+  const [addressState, setAddressState] = useState("");
+  const [jobState, setJobState] = useState("");
 
   const onChangeEmail = (e) => {
     const emailRegex =
@@ -32,6 +52,14 @@ function AccountCreateInform() {
       setPhoneNumberError(false);
     else setPhoneNumberError(true);
     setPhoneNumberState(e.target.value);
+  };
+
+  const onChangeAddress = (e) => {
+    setAddressState(e.target.value);
+  };
+
+  const onChangeJob = (e) => {
+    setJobState(e.target.value);
   };
 
   function handleClickNext(e) {
@@ -108,17 +136,19 @@ function AccountCreateInform() {
           <input
             type="text"
             name="address"
+            value={addressState}
             id="address"
             placeholder="주소를 입력해주세요."
+            onChange={onChangeAddress}
           />
         </div>
         <div className="input">
           <div>직업</div>
-          <select form="jobForm" value="job">
-            <option value="">무직</option>
-            <option value="">학생</option>
-            <option value="">자영업자</option>
-            <option value="">회사원</option>
+          <select form="jobForm" value={jobState} onChange={onChangeJob}>
+            <option value="무직">무직</option>
+            <option value="학생">학생</option>
+            <option value="자영업자">자영업자</option>
+            <option value="회사원">회사원</option>
           </select>
         </div>
         <div className="btn">
@@ -129,7 +159,10 @@ function AccountCreateInform() {
           </div>
 
           <div className="buttonContainer">
-            <div className="button" onClick={handleClickNext}>
+            <div
+              className="button"
+              onClick={(handleClickNext, onCreateAccount)}
+            >
               <button type="button">확인</button>
             </div>
           </div>
