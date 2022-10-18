@@ -47,19 +47,19 @@ function AccountCreateInform() {
   };
 
   function handleClickNext(e) {
-    axios
-      .post(
-        "http://localhost:3000/create_account",
-        JSON.stringify({
-          name: nameState,
-          phoneNumber: phoneNumberState,
-          email: emailState,
-          address: addressState,
-          job: jobState,
-        })
-      )
-      .then(() => console.log("전송완료"))
-      .catch(() => console.log("전송실패"));
+    axios.post(
+      "/api/account_inform",
+      {
+        name: nameState,
+        phoneNumber: phoneNumberState,
+        email: emailState,
+        address: addressState,
+        job: jobState,
+      }
+
+        .then(() => console.log("전송완료"))
+        .catch(() => console.log("전송실패"))
+    );
 
     window.location.href = "/account_create_purpose";
   }
