@@ -47,14 +47,20 @@ function AccountCreateInform() {
   };
 
   function handleClickNext(e) {
-    axios.post(
+    fetch(
       "/api/user",
       {
-        name: nameState,
-        phoneNumber: phoneNumberState,
-        email: emailState,
-        address: addressState,
-        job: jobState,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: nameState,
+          phoneNumber: phoneNumberState,
+          email: emailState,
+          address: addressState,
+          job: jobState,
+        }),
       }
 
         .then((response) => console.log(response.data))
