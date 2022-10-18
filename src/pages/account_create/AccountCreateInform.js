@@ -46,27 +46,25 @@ function AccountCreateInform() {
     setJobState(e.target.value);
   };
 
+  const handleSubmit = async (e) => {
+    await axios
+      .post("/api/user", {
+        name: nameState,
+        phoneNumber: phoneNumberState,
+        email: emailState,
+        address: addressState,
+        job: jobState,
+      })
+
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   function handleClickNext(e) {
-    fetch(
-      "/api/user",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: nameState,
-          phoneNumber: phoneNumberState,
-          email: emailState,
-          address: addressState,
-          job: jobState,
-        }),
-      }
-
-        .then((response) => console.log(response.data))
-        .catch((error) => console.log(error))
-    );
-
     window.location.href = "/account_create_purpose";
   }
   function handleClickBack(e) {
@@ -148,7 +146,12 @@ function AccountCreateInform() {
         </div>
         <div className="input">
           <div>직업</div>
-          <select form="jobForm" value={jobState} onChange={onChangeJob}>
+          <select
+            form="jobForm"
+            value={jobState}
+            onSubmit={handleSubmit}
+            onClick={handleClickNext}
+          >
             <option value="무직">무직</option>
             <option value="학생">학생</option>
             <option value="자영업자">자영업자</option>
@@ -163,7 +166,7 @@ function AccountCreateInform() {
           </div>
 
           <div className="buttonContainer">
-            <div className="button" onClick={handleClickNext}>
+            <div className="button" onClick={handleSubmit}>
               <button type="button">확인</button>
             </div>
           </div>
