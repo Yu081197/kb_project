@@ -48,7 +48,7 @@ function AccountCreateInform() {
 
   function handleClickNext(e) {
     axios.post(
-      "/api/account_inform",
+      "/api/user",
       {
         name: nameState,
         phoneNumber: phoneNumberState,
@@ -57,8 +57,8 @@ function AccountCreateInform() {
         job: jobState,
       }
 
-        .then(() => console.log("전송완료"))
-        .catch(() => console.log("전송실패"))
+        .then((response) => console.log(response.data))
+        .catch((error) => console.log(error))
     );
 
     window.location.href = "/account_create_purpose";
