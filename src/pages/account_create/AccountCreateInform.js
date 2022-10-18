@@ -15,6 +15,25 @@ function AccountCreateInform() {
   const [addressState, setAddressState] = useState("");
   const [jobState, setJobState] = useState("");
 
+  const jobOptions = [
+    {
+      label: "무직",
+      value: "무직",
+    },
+    {
+      label: "자영업자",
+      value: "자영업자",
+    },
+    {
+      label: "회사원",
+      value: "회사원",
+    },
+    {
+      label: "학생",
+      value: "학생",
+    },
+  ];
+
   const onChangeEmail = (e) => {
     const emailRegex =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
@@ -49,7 +68,7 @@ function AccountCreateInform() {
   const handleSubmit = async (e) => {
     await axios
       .post(
-        "https://webhook.site/4dcee62f-f8d4-4fa6-b498-1b84517cf770",
+        "/api/user",
         {},
         {
           params: {
@@ -72,6 +91,7 @@ function AccountCreateInform() {
       .catch((error) => {
         console.log(error);
       });
+    handleClickNext();
   };
 
   function handleClickNext(e) {
@@ -160,12 +180,11 @@ function AccountCreateInform() {
               form="jobForm"
               value={jobState}
               onSubmit={handleSubmit}
-              onClick={handleClickNext}
+              onChange={(e) => setJobState(e.target.value)}
             >
-              <option value="무직">무직</option>
-              <option value="학생">학생</option>
-              <option value="자영업자">자영업자</option>
-              <option value="회사원">회사원</option>
+              {jobOptions.map((option) => (
+                <option value={option.value}>{option.label}</option>
+              ))}
             </select>
           </div>
           <div className="btn">
