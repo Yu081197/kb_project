@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./AccountCreate.scss";
+import AccountCreateModal from "./AccountCreateModal/AccountCreateModal";
 
 function AccountCreate() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
   //전체 동의 체크박스
   const [allCheck, setAllCheck] = useState(false);
   const [useCheck, setUseCheck] = useState(false);
@@ -194,11 +201,11 @@ function AccountCreate() {
         </div>
 
         <div className="buttonContainer">
-          <div
-            className="button"
-            onClick={allCheck === true ? handleClick : false}
-          >
-            <button type="button">확인</button>
+          <div className="button">
+            <button onClick={allCheck === true ? handleClick : showModal}>
+              확인
+            </button>
+            {modalOpen && <AccountCreateModal setModalOpen={setModalOpen} />}
           </div>
         </div>
       </div>

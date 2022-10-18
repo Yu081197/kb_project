@@ -137,11 +137,20 @@
     margin-top: 15px;
     padding: 10px 30px;
     background-color: #F5F5F5;
+    justify-content: space-between;
+    text-align: end;
 }
 
-.opponentAcoount select {
+.opponentAcoount :first-child {
+    width: 35%;
+}
+
+.opponentAcoount :last-child {
+    width: 50%;
+}
+
+.opponentAcoount select, .opponentAcoount input {
     height: 100%;
-    width: 100%;
     font-size: 23px;
     border: none;
     background-color: #F5F5F5;

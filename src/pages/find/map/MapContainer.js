@@ -8,14 +8,18 @@ const MapContainer = ({ searchPlace }) => {
 
   useEffect(() => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-    var markers = [];
+    var markerPosition = new kakao.maps.LatLng(37.5208119, 126.9278776);
+    var marker = new kakao.maps.Marker({
+      position: markerPosition,
+    });
+
     const container = document.getElementById("myMap");
     const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      center: new kakao.maps.LatLng(37.5208119, 126.9278776),
       level: 3,
     };
     const map = new kakao.maps.Map(container, options);
-
+    marker.setMap(map);
     const ps = new kakao.maps.services.Places();
 
     ps.keywordSearch(searchPlace, placesSearchCB);
