@@ -48,14 +48,24 @@ function AccountCreateInform() {
 
   const handleSubmit = async (e) => {
     await axios
-      .post("/api/user", {
-        name: nameState,
-        phoneNumber: phoneNumberState,
-        email: emailState,
-        address: addressState,
-        job: jobState,
-      })
-
+      .post(
+        "https://webhook.site/4dcee62f-f8d4-4fa6-b498-1b84517cf770",
+        {},
+        {
+          params: {
+            name: nameState,
+            phoneNumber: phoneNumberState,
+            email: emailState,
+            address: addressState,
+            job: jobState,
+          },
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      )
       .then((response) => {
         console.log(response.data);
       })
@@ -80,98 +90,99 @@ function AccountCreateInform() {
         <div className="circle">본인인증</div>
         <div className="circle">개설완료</div>
       </div>
+      <form method="post">
+        <div className="inputContainer">
+          <div className="head">
+            <div>정보입력</div>
+          </div>
+          <div className="input">
+            <div>이름</div>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={nameState}
+              placeholder="이름을 입력해주세요."
+              onChange={onChangeName}
+            />{" "}
+            {nameError && (
+              <div style={{ color: "red", fontSize: "14px" }}>
+                잘못된 양식입니다.
+              </div>
+            )}
+          </div>
+          <div className="input">
+            <div>휴대폰 번호</div>
+            <input
+              name="phone"
+              id="phonenumber"
+              maxlength="13"
+              value={phoneNumberState}
+              placeholder="휴대전화번호를 입력해 주세요."
+              onChange={onChangePhoneNumber}
+            />{" "}
+            {phoneNumberError && (
+              <div style={{ color: "red", fontSize: "14px" }}>
+                잘못된 양식입니다.
+              </div>
+            )}
+          </div>
+          <div className="input">
+            <div>이메일</div>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              value={emailState}
+              placeholder="이메일을 입력해주세요."
+              onChange={onChangeEmail}
+            />{" "}
+            {emailError && (
+              <div style={{ color: "red", fontSize: "14px" }}>
+                잘못된 양식입니다.
+              </div>
+            )}
+          </div>
+          <div className="input">
+            <div>주소</div>
+            <input
+              type="text"
+              name="address"
+              value={addressState}
+              id="address"
+              placeholder="주소를 입력해주세요."
+              onChange={onChangeAddress}
+            />
+          </div>
+          <div className="input">
+            <div>직업</div>
+            <select
+              form="jobForm"
+              value={jobState}
+              onSubmit={handleSubmit}
+              onClick={handleClickNext}
+            >
+              <option value="무직">무직</option>
+              <option value="학생">학생</option>
+              <option value="자영업자">자영업자</option>
+              <option value="회사원">회사원</option>
+            </select>
+          </div>
+          <div className="btn">
+            <div className="buttonContainer">
+              <div className="button" onClick={handleClickBack}>
+                <button type="button">뒤로</button>
+              </div>
+            </div>
 
-      <div className="inputContainer">
-        <div className="head">
-          <div>정보입력</div>
-        </div>
-        <div className="input">
-          <div>이름</div>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={nameState}
-            placeholder="이름을 입력해주세요."
-            onChange={onChangeName}
-          />{" "}
-          {nameError && (
-            <div style={{ color: "red", fontSize: "14px" }}>
-              잘못된 양식입니다.
-            </div>
-          )}
-        </div>
-        <div className="input">
-          <div>휴대폰 번호</div>
-          <input
-            name="phone"
-            id="phonenumber"
-            maxlength="13"
-            value={phoneNumberState}
-            placeholder="휴대전화번호를 입력해 주세요."
-            onChange={onChangePhoneNumber}
-          />{" "}
-          {phoneNumberError && (
-            <div style={{ color: "red", fontSize: "14px" }}>
-              잘못된 양식입니다.
-            </div>
-          )}
-        </div>
-        <div className="input">
-          <div>이메일</div>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            value={emailState}
-            placeholder="이메일을 입력해주세요."
-            onChange={onChangeEmail}
-          />{" "}
-          {emailError && (
-            <div style={{ color: "red", fontSize: "14px" }}>
-              잘못된 양식입니다.
-            </div>
-          )}
-        </div>
-        <div className="input">
-          <div>주소</div>
-          <input
-            type="text"
-            name="address"
-            value={addressState}
-            id="address"
-            placeholder="주소를 입력해주세요."
-            onChange={onChangeAddress}
-          />
-        </div>
-        <div className="input">
-          <div>직업</div>
-          <select
-            form="jobForm"
-            value={jobState}
-            onSubmit={handleSubmit}
-            onClick={handleClickNext}
-          >
-            <option value="무직">무직</option>
-            <option value="학생">학생</option>
-            <option value="자영업자">자영업자</option>
-            <option value="회사원">회사원</option>
-          </select>
-        </div>
-        <div className="btn">
-          <div className="buttonContainer">
-            <div className="button" onClick={handleClickBack}>
-              <button type="button">뒤로</button>
+            <div className="buttonContainer">
+              <div className="button" onClick={handleSubmit}>
+                <button type="button">확인</button>
+              </div>
             </div>
           </div>
-
-          <div className="buttonContainer">
-            <div className="button" onClick={handleSubmit}>
-              <button type="button">확인</button>
-            </div>
-          </div>
         </div>
-      </div>
+      </form>
       <div className="circleContainer"></div>
     </div>
   );
