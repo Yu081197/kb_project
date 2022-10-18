@@ -6,6 +6,31 @@ function AccountCreatePW() {
   const [validPasswordState, setValidPasswordState] = useState();
   const [validPasswordError, setValidPasswordError] = useState(false);
 
+  const handleSubmit = async (e) => {
+    await axios
+      .post(
+        "/api/account",
+        {},
+        {
+          params: {
+            password: passwordState,
+          },
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    handleClickNext();
+  };
+
   const onChangePassword = (e) => {
     setPasswordState(e.target.value);
   };
@@ -18,15 +43,6 @@ function AccountCreatePW() {
   };
 
   function handleClickNext(e) {
-    axios
-      .post(
-        "http://localhost:3000/create_account",
-        JSON.stringify({
-          password: passwordState,
-        })
-      )
-      .then(() => console.log("전송완료"))
-      .catch(() => console.log("전송실패"));
     window.location.href = "/account_create_self";
   }
   function handleClickBack(e) {
@@ -53,7 +69,7 @@ function AccountCreatePW() {
             type="password"
             maxlength="4"
             name="Password"
-            id="pw"
+            id="password"
             value={passwordState}
             onChange={onChangePassword}
             placeholder="비밀번호를 입력하세요."
@@ -85,7 +101,7 @@ function AccountCreatePW() {
           </div>
 
           <div className="buttonContainer">
-            <div className="button" onClick={handleClickNext}>
+            <div className="button" onClick={handleSubmit}>
               <button type="button">확인</button>
             </div>
           </div>
