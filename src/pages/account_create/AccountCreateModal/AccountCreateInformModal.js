@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./AccountCreateInformModal.scss";
+import "./AccountCreateModal.scss";
 
 const AccountCreateInformModal = ({ setModalOpen }) => {
   const closeModal = () => {
