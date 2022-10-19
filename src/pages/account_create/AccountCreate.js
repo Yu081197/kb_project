@@ -3,10 +3,10 @@ import "./AccountCreate.scss";
 import AccountCreateModal from "./AccountCreateModal/AccountCreateModal";
 
 function AccountCreate() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [accountCreateModalOpen, setAccountCreateModalOpen] = useState(false);
 
-  const showModal = () => {
-    setModalOpen(true);
+  const showAccountCreateModal = () => {
+    setAccountCreateModalOpen(true);
   };
 
   //전체 동의 체크박스
@@ -98,10 +98,11 @@ function AccountCreate() {
       setAllCheck(false);
     }
   }, [useCheck, itemCheck, specialCheck, basicCheck, freeCheck, personalCheck]);
-  //페이지 이동
+
   function handleClick(e) {
-    window.location.href = "/account_create_inform";
+    window.location.href = "/account_inform";
   }
+
   return (
     <div className="createContainer">
       <div className="circleContainer">
@@ -202,10 +203,14 @@ function AccountCreate() {
 
         <div className="buttonContainer">
           <div className="button">
-            <button onClick={allCheck === true ? handleClick : showModal}>
+            <button
+              onClick={allCheck === true ? handleClick : showAccountCreateModal}
+            >
               확인
             </button>
-            {modalOpen && <AccountCreateModal setModalOpen={setModalOpen} />}
+            {accountCreateModalOpen && (
+              <AccountCreateModal setModalOpen={setAccountCreateModalOpen} />
+            )}
           </div>
         </div>
       </div>

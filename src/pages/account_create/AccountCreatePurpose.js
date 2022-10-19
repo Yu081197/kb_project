@@ -75,35 +75,6 @@ function AccountCreatePerpose() {
     },
   ];
 
-  const handleSubmit = async (e) => {
-    await axios
-      .post(
-        "/api/account",
-        {},
-        {
-          params: {
-            name: purposeState,
-            phoneNumber: fundsState,
-          },
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    handleClickNext();
-  };
-
-  function handleClickNext(e) {
-    window.location.href = `/account_create_PW?purpose=${purposeState}&sof=${fundsState}`;
-  }
   function handleClickBack(e) {
     window.location.href = "/account_create_inform";
   }
@@ -118,51 +89,6 @@ function AccountCreatePerpose() {
         <div className="circle">개설완료</div>
       </div>
 
-      <div className="inputContainer">
-        <div className="head">
-          <div>안전한 금융거래를 위해 확인해주세요</div>
-        </div>
-        <div className="input">
-          <div>거래목적</div>
-          <select
-            id="purpose"
-            form="purposeForm"
-            value={purposeState}
-            onChange={(e) => setPurposeState(e.target.value)}
-          >
-            {purposeOptions.map((option) => (
-              <option value={option.value}>{option.label}</option>
-            ))}
-          </select>
-        </div>
-        <div className="input">
-          <div>자금출처</div>
-          <select
-            id="sof"
-            form="fundsForm"
-            value={fundsState}
-            onChange={(e) => setFundsState(e.target.value)}
-          >
-            {fundsOptions.map((option) => (
-              <option value={option.value}>{option.label}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="btn">
-          <div className="buttonContainer">
-            <div className="button" onClick={handleClickBack}>
-              <button type="button">뒤로</button>
-            </div>
-          </div>
-
-          <div className="buttonContainer">
-            <div className="button" onClick={handleSubmit}>
-              <button type="button">확인</button>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="circleContainer"></div>
     </div>
   );
