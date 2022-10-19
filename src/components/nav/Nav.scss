@@ -1,18 +1,16 @@
 .header {
     margin-top: 10px;
-    display: grid;
+    display: flex;
+    justify-content: space-around;
 }
 
 .mainLogo {
-    margin-left: 300px;
-    grid-column: 2;
     width: 249px;
     height: 70px;
 }
 
 .headerLogin {
-    margin-right: 150px;
-    grid-column:5;
+    width: 249px;
     align-self : center;
     font-size: 23px;
     color: black;
