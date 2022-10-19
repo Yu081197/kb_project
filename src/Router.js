@@ -8,9 +8,6 @@ import Footer from "./components/footer/Footer";
 import Main from "./pages/main/Main";
 import AccountCreate from "./pages/account_create/AccountCreate";
 import AccountCreateInform from "./pages/account_create/AccountCreateInform";
-import AccountCreatePurpose from "./pages/account_create/AccountCreatePurpose";
-import AccountCreatePW from "./pages/account_create/AccountCreatePW";
-import AccountCreateSelf from "./pages/account_create/AccountCreateSelf";
 import AccountCreateComplete from "./pages/account_create/AccountCreateComplete";
 import AccountLookup from "./pages/account_lookup/AccountLookup";
 import Find from "./pages/find/Find";
@@ -30,12 +27,7 @@ function Router() {
           path="/account_create_inform"
           element={<AccountCreateInform />}
         />
-        <Route
-          path="/account_create_purpose"
-          element={<AccountCreatePurpose />}
-        />
-        <Route path="/account_create_pw" element={<AccountCreatePW />} />
-        <Route path="/account_create_self" element={<AccountCreateSelf />} />
+
         <Route
           path="/account_create_complete"
           element={<AccountCreateComplete />}
