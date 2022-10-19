@@ -20,11 +20,16 @@ function AccountCreateSelf() {
   }, [webcamRef, setImgSrc]);
 
   const [btnDisabled, setBtnDisabled] = useState(false);
+  const showAndCapture = () => {
+    console.log(imgSrc);
+    showModal();
+    capture();
+  };
 
   const handleSubmit = async (e) => {
     await axios
       .post(
-        "/api/account",
+        "/",
         {},
         {
           params: {
@@ -75,7 +80,7 @@ function AccountCreateSelf() {
         <div className="btn">
           <div className="buttonContainer">
             <div className="button">
-              <button type="button" onClick={(capture, showModal)}>
+              <button type="button" onClick={showAndCapture}>
                 촬영
               </button>
               {modalOpen && (
