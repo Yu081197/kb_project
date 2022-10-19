@@ -6,31 +6,6 @@ function AccountCreatePW() {
   const [validPasswordState, setValidPasswordState] = useState();
   const [validPasswordError, setValidPasswordError] = useState(false);
 
-  const handleSubmit = async (e) => {
-    await axios
-      .post(
-        "/api/account",
-        {},
-        {
-          params: {
-            password: passwordState,
-          },
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    handleClickNext();
-  };
-
   const onChangePassword = (e) => {
     setPasswordState(e.target.value);
   };
@@ -101,7 +76,7 @@ function AccountCreatePW() {
           </div>
 
           <div className="buttonContainer">
-            <div className="button" onClick={handleSubmit}>
+            <div className="button">
               <button type="button">확인</button>
             </div>
           </div>
