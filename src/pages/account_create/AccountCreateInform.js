@@ -1,8 +1,17 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./AccountCreateInform.scss";
+import AccountCreateModal from "./AccountCreateModal/AccountCreateModal";
 
 function AccountCreateInform() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
+  const [isAllFill, setIsAllFill] = useState(false);
+
   const [emailState, setEmailState] = useState("");
   const [emailError, setEmailError] = useState(false);
 
@@ -33,6 +42,18 @@ function AccountCreateInform() {
       value: "학생",
     },
   ];
+
+  const btnActive = () => {
+    if (
+      setEmailError === true &&
+      setNameError === true &&
+      setPhoneNumberError === true
+    ) {
+      setIsAllFill(true);
+    } else {
+      showModal();
+    }
+  };
 
   const onChangeEmail = (e) => {
     const emailRegex =
@@ -124,7 +145,7 @@ function AccountCreateInform() {
               value={nameState}
               placeholder="이름을 입력해주세요."
               onChange={onChangeName}
-            />{" "}
+            />
             {nameError && (
               <div style={{ color: "red", fontSize: "14px" }}>
                 잘못된 양식입니다.
@@ -140,7 +161,7 @@ function AccountCreateInform() {
               value={phoneNumberState}
               placeholder="휴대전화번호를 입력해 주세요."
               onChange={onChangePhoneNumber}
-            />{" "}
+            />
             {phoneNumberError && (
               <div style={{ color: "red", fontSize: "14px" }}>
                 잘못된 양식입니다.
@@ -156,7 +177,7 @@ function AccountCreateInform() {
               value={emailState}
               placeholder="이메일을 입력해주세요."
               onChange={onChangeEmail}
-            />{" "}
+            />
             {emailError && (
               <div style={{ color: "red", fontSize: "14px" }}>
                 잘못된 양식입니다.
@@ -189,14 +210,22 @@ function AccountCreateInform() {
           </div>
           <div className="btn">
             <div className="buttonContainer">
-              <div className="button" onClick={handleClickBack}>
-                <button type="button">뒤로</button>
+              <div className="button">
+                <button
+                  type="button"
+                  onClick={isAllFill === true ? handleClickNext : btnActive}
+                >
+                  뒤로
+                </button>
               </div>
             </div>
 
             <div className="buttonContainer">
               <div className="button" onClick={handleSubmit}>
                 <button type="button">확인</button>
+                {modalOpen && (
+                  <AccountCreateModal setModalOpen={setModalOpen} />
+                )}
               </div>
             </div>
           </div>
