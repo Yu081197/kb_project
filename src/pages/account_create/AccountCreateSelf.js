@@ -1,53 +1,50 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./AccountCreateSelf.scss";
+import Webcam from "react-webcam";
+import AccountCreateSelfModal from "./AccountCreateModal/AccountCreateSelfModal";
+import axios from "axios";
 
 function AccountCreateSelf() {
-  // 비디오 띄우기
-  const videoRef = useRef(null);
-  // 화면 캡쳐
-  const photoRef = useRef(null);
-  const getUserCamera = () => {
-    navigator.mediaDevices
-      .getUserMedia({
-        video: true,
-      })
-      .then((stream) => {
-        //비디오 tag에 stream 추가
-        let video = videoRef.current;
+  const [modalOpen, setModalOpen] = useState(false);
 
-        video.srcObject = stream;
+  const showModal = () => {
+    setModalOpen(true);
+  };
 
-        video.play();
+  const webcamRef = React.useRef(null);
+  const [imgSrc, setImgSrc] = React.useState(null);
+
+  const capture = React.useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImgSrc(imageSrc);
+  }, [webcamRef, setImgSrc]);
+
+  const [btnDisabled, setBtnDisabled] = useState(false);
+
+  const handleSubmit = async (e) => {
+    await axios
+      .post(
+        "/api/account",
+        {},
+        {
+          params: {
+            image: imgSrc,
+          },
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
+    handleClickNext();
   };
-
-  const alertComplete = () => {
-    alert("촬영완료!");
-  };
-
-  const [btnDisabled, setBtnDisabled] = useState(false);
-
-  // 화면 캡쳐
-  const takePicture = () => {
-    let width = 500;
-    let height = 380;
-
-    let photo = photoRef.current;
-    let video = videoRef.current;
-
-    photo.width = width;
-    photo.height = height;
-
-    let ctx = photo.getContext("2d");
-    ctx.drawImage(video, 0, 0, photo.width, photo.height);
-  };
-
-  useEffect(() => {
-    getUserCamera();
-  }, [videoRef]);
 
   function handleClickNext(e) {
     window.location.href = "/account_create_complete";
@@ -72,22 +69,18 @@ function AccountCreateSelf() {
         </div>
 
         <div className="videoContainer">
-          <video
-            ref={videoRef}
-            style={{ width: "500px", height: "500px" }}
-          ></video>
+          <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
         </div>
 
         <div className="btn">
           <div className="buttonContainer">
             <div className="button">
-              <button
-                onClick={(takePicture, alertComplete)}
-                disabled={btnDisabled}
-                type="button"
-              >
+              <button type="button" onClick={(capture, showModal)}>
                 촬영
               </button>
+              {modalOpen && (
+                <AccountCreateSelfModal setModalOpen={setModalOpen} />
+              )}
             </div>
           </div>
         </div>
@@ -100,7 +93,7 @@ function AccountCreateSelf() {
           </div>
 
           <div className="buttonContainer">
-            <div className="button" onClick={handleClickNext}>
+            <div className="button" onClick={handleSubmit}>
               <button type="button">확인</button>
             </div>
           </div>

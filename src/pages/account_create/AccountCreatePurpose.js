@@ -7,6 +7,10 @@ function AccountCreatePerpose() {
 
   const purposeOptions = [
     {
+      label: "선택해주세요",
+      value: "",
+    },
+    {
       label: "월급통장",
       value: "월급통장",
     },
@@ -33,6 +37,10 @@ function AccountCreatePerpose() {
   ];
 
   const fundsOptions = [
+    {
+      label: "선택해주세요",
+      value: "",
+    },
     {
       label: "월급",
       value: "월급",
@@ -94,7 +102,7 @@ function AccountCreatePerpose() {
   };
 
   function handleClickNext(e) {
-    window.location.href = "/account_create_PW";
+    window.location.href = `/account_create_PW?purpose=${purposeState}&sof=${fundsState}`;
   }
   function handleClickBack(e) {
     window.location.href = "/account_create_inform";
