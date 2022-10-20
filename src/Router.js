@@ -18,6 +18,7 @@ import Predict from "./pages/predict/Predict";
 import PredictResult from "./pages/predict/PredictResult";
 import Transfer from "./pages/transfer/Transfer";
 import WarningModal from "./components/Modal/WarningModal";
+import LoginModal from "./components/Modal/LoginModal";
 
 function Router() {
   return (
@@ -46,6 +47,7 @@ function Router() {
         <Route path="/predict" element={<Predict />} />
         <Route path="/predict_result" element={<PredictResult />} />
         <Route path="/warning_modal" element={<WarningModal />} />
+        <Route path="/login_modal" element={<LoginModal />} />
       </Routes>
       <Footer />
     </BrowserRouter>
