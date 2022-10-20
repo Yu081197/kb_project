@@ -1,7 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function AccountCreateComplete() {
+  const [acoountInform, setAccountInform] = useState();
+  const [accountType, setAccountType] = useState();
+  const [accountNumber, setAccountNumber] = useState();
+
   const [allCheck, setAllCheck] = useState(false);
+
+  useEffect(() => {
+    axios
+      .post("/api/account")
+      .then(function (response) {
+        setAccountInform(response.data);
+        setAccountType(response.data);
+        setAccountNumber(response.data);
+        console.log("성공");
+      })
+      .catch(function (error) {
+        console.log("실패");
+      });
+  }, []);
 
   function handleClick(e) {
     window.location.href = "/account_lookup";
@@ -21,6 +40,7 @@ function AccountCreateComplete() {
       <div className="inputContainer">
         <div className="head">
           <div>계좌정보</div>
+          <div></div>
         </div>
         <div className="input">
           <div>계좌종류</div>

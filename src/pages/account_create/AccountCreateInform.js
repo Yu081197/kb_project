@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AccountCreateInform.scss";
-import AccountCreateModal from "./AccountCreateModal/AccountCreateModal";
+import AccountCreateInformModal from "./AccountCreateModal/AccountCreateInformModal";
 
 function AccountCreateInform() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -43,18 +43,6 @@ function AccountCreateInform() {
     },
   ];
 
-  const btnActive = () => {
-    if (
-      setEmailError === true &&
-      setNameError === true &&
-      setPhoneNumberError === true
-    ) {
-      setIsAllFill(true);
-    } else {
-      showModal();
-    }
-  };
-
   const onChangeEmail = (e) => {
     const emailRegex =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
@@ -86,34 +74,46 @@ function AccountCreateInform() {
     setJobState(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    await axios
-      .post(
-        "/api/user",
-        {},
-        {
-          params: {
-            name: nameState,
-            phoneNumber: phoneNumberState,
-            email: emailState,
-            address: addressState,
-            job: jobState,
-          },
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    handleClickNext();
-  };
+  // const handleSubmit = async (e) => {
+  //   await axios
+  //     .post(
+  //       "/api/user",
+  //       {},
+  //       {
+  //         params: {
+  //           name: nameState,
+  //           phoneNumber: phoneNumberState,
+  //           email: emailState,
+  //           address: addressState,
+  //           job: jobState,
+  //         },
+  //       },
+  //       {
+  //         headers: {
+  //           "content-type": "application/json",
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  //   handleClickNext();
+  // };
+
+  useEffect(() => {
+    if (
+      emailError === true &&
+      nameError === true &&
+      phoneNumberError === true
+    ) {
+      setIsAllFill(true);
+    } else {
+      setIsAllFill(false);
+    }
+  }, [emailError, nameError, phoneNumberError]);
 
   function handleClickNext(e) {
     window.location.href = "/account_create_purpose";
@@ -131,108 +131,112 @@ function AccountCreateInform() {
         <div className="circle">본인인증</div>
         <div className="circle">개설완료</div>
       </div>
-      <form method="post">
-        <div className="inputContainer">
-          <div className="head">
-            <div>정보입력</div>
-          </div>
-          <div className="input">
-            <div>이름</div>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={nameState}
-              placeholder="이름을 입력해주세요."
-              onChange={onChangeName}
-            />
-            {nameError && (
-              <div style={{ color: "red", fontSize: "14px" }}>
-                잘못된 양식입니다.
-              </div>
-            )}
-          </div>
-          <div className="input">
-            <div>휴대폰 번호</div>
-            <input
-              name="phone"
-              id="phonenumber"
-              maxlength="13"
-              value={phoneNumberState}
-              placeholder="휴대전화번호를 입력해 주세요."
-              onChange={onChangePhoneNumber}
-            />
-            {phoneNumberError && (
-              <div style={{ color: "red", fontSize: "14px" }}>
-                잘못된 양식입니다.
-              </div>
-            )}
-          </div>
-          <div className="input">
-            <div>이메일</div>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              value={emailState}
-              placeholder="이메일을 입력해주세요."
-              onChange={onChangeEmail}
-            />
-            {emailError && (
-              <div style={{ color: "red", fontSize: "14px" }}>
-                잘못된 양식입니다.
-              </div>
-            )}
-          </div>
-          <div className="input">
-            <div>주소</div>
-            <input
-              type="text"
-              name="address"
-              value={addressState}
-              id="address"
-              placeholder="주소를 입력해주세요."
-              onChange={onChangeAddress}
-            />
-          </div>
-          <div className="input">
-            <div>직업</div>
-            <select
-              form="jobForm"
-              value={jobState}
-              onSubmit={handleSubmit}
-              onChange={(e) => setJobState(e.target.value)}
-            >
-              {jobOptions.map((option) => (
-                <option value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </div>
-          <div className="btn">
-            <div className="buttonContainer">
-              <div className="button">
-                <button type="button">뒤로</button>
-              </div>
-            </div>
 
-            <div className="buttonContainer">
-              <div
-                className="button"
+      <div className="inputContainer">
+        <div className="head">
+          <div>정보입력</div>
+        </div>
+        <div className="input">
+          <div>이름</div>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value={nameState}
+            placeholder="이름을 입력해주세요."
+            onChange={onChangeName}
+          />
+          {nameError && (
+            <div style={{ color: "red", fontSize: "14px" }}>
+              잘못된 양식입니다.
+            </div>
+          )}
+        </div>
+        <div className="input">
+          <div>휴대폰 번호</div>
+          <input
+            name="phone"
+            id="phonenumber"
+            maxlength="13"
+            value={phoneNumberState}
+            placeholder="휴대전화번호를 입력해 주세요."
+            onChange={onChangePhoneNumber}
+          />
+          {phoneNumberError && (
+            <div style={{ color: "red", fontSize: "14px" }}>
+              잘못된 양식입니다.
+            </div>
+          )}
+        </div>
+        <div className="input">
+          <div>이메일</div>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            value={emailState}
+            placeholder="이메일을 입력해주세요."
+            onChange={onChangeEmail}
+          />
+          {emailError && (
+            <div style={{ color: "red", fontSize: "14px" }}>
+              잘못된 양식입니다.
+            </div>
+          )}
+        </div>
+        <div className="input">
+          <div>주소</div>
+          <input
+            type="text"
+            name="address"
+            value={addressState}
+            id="address"
+            placeholder="주소를 입력해주세요."
+            onChange={onChangeAddress}
+          />
+        </div>
+        <div className="input">
+          <div>직업</div>
+          <select
+            form="jobForm"
+            value={jobState}
+            // onSubmit={handleSubmit}
+            onChange={(e) => setJobState(e.target.value)}
+          >
+            {jobOptions.map((option) => (
+              <option value={option.value}>{option.label}</option>
+            ))}
+          </select>
+        </div>
+        <div className="btn">
+          <div className="buttonContainer">
+            <div className="button">
+              <button type="button" onClick={handleClickBack}>
+                뒤로
+              </button>
+            </div>
+          </div>
+
+          <div className="buttonContainer">
+            <div className="button">
+              <button
+                type="button"
                 onClick={
                   isAllFill === true
-                    ? { handleClickNext, handleSubmit }
-                    : btnActive
+                    ? handleClickNext /*, handleSubmit */
+                    : showModal
                 }
               >
-                <button type="button">확인</button>
-                {modalOpen && (
-                  <AccountCreateModal setModalOpen={setModalOpen} />
-                )}
-              </div>
+                확인
+              </button>
+              {modalOpen && (
+                <AccountCreateInformModal setModalOpen={setModalOpen} />
+              )}
             </div>
           </div>
         </div>
-      </form>
+      </div>
+
       <div className="circleContainer"></div>
     </div>
   );
