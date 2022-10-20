@@ -18,10 +18,11 @@ function AccountCreateInform() {
   const [nameState, setNameState] = useState("");
   const [nameError, setNameError] = useState(false);
 
-  const [phoneNumberState, setPhoneNumberState] = useState();
+  const [phoneNumberState, setPhoneNumberState] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState(false);
 
   const [addressState, setAddressState] = useState("");
+
   const [jobState, setJobState] = useState("");
 
   const jobOptions = [
@@ -42,6 +43,17 @@ function AccountCreateInform() {
       value: "학생",
     },
   ];
+
+  const saveAccountData = () => {
+    window.localStorage.setItem("name", JSON.stringify(nameState));
+    window.localStorage.setItem("email", JSON.stringify(emailState));
+    window.localStorage.setItem(
+      "phoneNumber",
+      JSON.stringify(phoneNumberState)
+    );
+    window.localStorage.setItem("address", JSON.stringify(addressState));
+    window.localStorage.setItem("job", JSON.stringify(jobState));
+  };
 
   const onChangeEmail = (e) => {
     const emailRegex =
@@ -73,35 +85,6 @@ function AccountCreateInform() {
   const onChangeJob = (e) => {
     setJobState(e.target.value);
   };
-
-  // const handleSubmit = async (e) => {
-  //   await axios
-  //     .post(
-  //       "/api/user",
-  //       {},
-  //       {
-  //         params: {
-  //           name: nameState,
-  //           phoneNumber: phoneNumberState,
-  //           email: emailState,
-  //           address: addressState,
-  //           job: jobState,
-  //         },
-  //       },
-  //       {
-  //         headers: {
-  //           "content-type": "application/json",
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  //   handleClickNext();
-  // };
 
   useEffect(() => {
     if (
@@ -215,6 +198,11 @@ function AccountCreateInform() {
                 뒤로
               </button>
             </div>
+            <div className="button">
+              <button type="button" onClick={saveAccountData}>
+                버튼
+              </button>
+            </div>
           </div>
 
           <div className="buttonContainer">
@@ -223,7 +211,7 @@ function AccountCreateInform() {
                 type="button"
                 onClick={
                   isAllFill === true
-                    ? handleClickNext /*, handleSubmit */
+                    ? { handleClickNext, saveAccountData } /*, handleSubmit */
                     : showModal
                 }
               >

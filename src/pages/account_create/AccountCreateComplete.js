@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function AccountCreateComplete() {
-  const [acoountInform, setAccountInform] = useState();
-  const [accountType, setAccountType] = useState();
   const [accountNumber, setAccountNumber] = useState();
 
   const [allCheck, setAllCheck] = useState(false);
 
+  function handleClick(e) {
+    window.location.href = "/account_lookup";
+  }
   useEffect(() => {
     axios
       .post(
@@ -28,9 +29,7 @@ function AccountCreateComplete() {
         }
       )
       .then(function (response) {
-        setAccountInform(response.data.account_number);
-        setAccountType(response.data);
-        setAccountNumber(response.data);
+        setAccountNumber(response.data.account_number);
         console.log(response.data.account_number);
         console.log("성공");
       })
@@ -38,11 +37,6 @@ function AccountCreateComplete() {
         console.log("실패");
       });
   }, []);
-
-  function handleClick(e) {
-    window.location.href = "/account_lookup";
-  }
-
   return (
     <div className="createContainer">
       <div className="circleContainer">
@@ -57,15 +51,15 @@ function AccountCreateComplete() {
       <div className="inputContainer">
         <div className="head">
           <div>계좌정보</div>
-          <div>{acoountInform}</div>
+          <div></div>
         </div>
         <div className="input">
           <div>계좌종류</div>
-          <div></div>
+          <div>저축예금</div>
         </div>
         <div className="input">
           <div>계좌번호</div>
-          <div></div>
+          <div>{accountNumber}</div>
         </div>
 
         <div className="btn">
