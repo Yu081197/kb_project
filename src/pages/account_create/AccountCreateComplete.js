@@ -10,11 +10,28 @@ function AccountCreateComplete() {
 
   useEffect(() => {
     axios
-      .post("/api/account")
+      .post(
+        "/api/account",
+        {},
+        {
+          params: {
+            password: "REACTTEST",
+            purpose: "REACTTEST",
+            sof: "REACTTEST",
+            userRegisterNumber: "string",
+          },
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      )
       .then(function (response) {
-        setAccountInform(response.data);
+        setAccountInform(response.data.account_number);
         setAccountType(response.data);
         setAccountNumber(response.data);
+        console.log(response.data.account_number);
         console.log("성공");
       })
       .catch(function (error) {
@@ -40,7 +57,7 @@ function AccountCreateComplete() {
       <div className="inputContainer">
         <div className="head">
           <div>계좌정보</div>
-          <div></div>
+          <div>{acoountInform}</div>
         </div>
         <div className="input">
           <div>계좌종류</div>
