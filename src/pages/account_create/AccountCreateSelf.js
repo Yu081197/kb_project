@@ -7,6 +7,18 @@ import axios from "axios";
 function AccountCreateSelf() {
   const [modalOpen, setModalOpen] = useState(false);
 
+  const userRegisterNumberState =
+    window.localStorage.getItem("userRegisterNumber");
+  const nameState = window.localStorage.getItem("name");
+  const emailState = window.localStorage.getItem("email");
+  const passwordState = window.localStorage.getItem("password");
+  const addressState = window.localStorage.getItem("address");
+  const jobState = window.localStorage.getItem("job");
+  const purposeState = window.localStorage.getItem("purpose");
+  const sofState = window.localStorage.getItem("sof");
+
+  const imgState = window.localStorage.getItem("imgSrc");
+
   const showModal = () => {
     setModalOpen(true);
   };
@@ -23,17 +35,29 @@ function AccountCreateSelf() {
   const showAndCapture = () => {
     console.log(imgSrc);
     showModal();
+    saveAccountData();
     capture();
   };
 
-  const handleSubmit = async (e) => {
-    await axios
+  const saveAccountData = () => {
+    window.localStorage.setItem("imgSrc", JSON.stringify({ imgSrc }));
+  };
+
+  const sendAccountData = useEffect(() => {
+    axios
       .post(
-        "/",
+        "/openaccount",
         {},
         {
           params: {
-            image: imgSrc,
+            userRegisterNumber: userRegisterNumberState,
+            name: nameState,
+            email: emailState,
+            password: passwordState,
+            address: addressState,
+            job: jobState,
+            purpose: purposeState,
+            sof: sofState,
           },
         },
         {
@@ -42,14 +66,38 @@ function AccountCreateSelf() {
           },
         }
       )
-      .then((response) => {
-        console.log(response.data);
+      .then(function (response) {
+        console.log(response.data.account_number);
+        console.log("성공");
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(function (error) {
+        console.log("실패");
       });
-    handleClickNext();
-  };
+  }, []);
+  const sendImgData = useEffect(() => {
+    axios
+      .post(
+        "/",
+        {},
+        {
+          params: {
+            img: imgState,
+          },
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response.data.account_number);
+        console.log("성공");
+      })
+      .catch(function (error) {
+        console.log("실패");
+      });
+  }, []);
 
   function handleClickNext(e) {
     window.location.href = "/account_create_complete";
@@ -98,7 +146,10 @@ function AccountCreateSelf() {
           </div>
 
           <div className="buttonContainer">
-            <div className="button" onClick={handleSubmit}>
+            <div
+              className="button"
+              onClick={(sendAccountData, sendImgData, handleClickNext)}
+            >
               <button type="button">확인</button>
             </div>
           </div>

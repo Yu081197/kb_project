@@ -2,34 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function AccountCreatePW() {
-  const [passwordState, setPasswordState] = useState();
+  const [passwordState, setPasswordState] = useState("");
   const [validPasswordState, setValidPasswordState] = useState();
   const [validPasswordError, setValidPasswordError] = useState(false);
-
-  const handleSubmit = async (e) => {
-    await axios
-      .post(
-        "/api/account",
-        {},
-        {
-          params: {
-            password: passwordState,
-          },
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    handleClickNext();
-  };
 
   const onChangePassword = (e) => {
     setPasswordState(e.target.value);
@@ -42,9 +17,19 @@ function AccountCreatePW() {
     setValidPasswordState(e.target.value);
   };
 
+  const saveAccountData = () => {
+    window.localStorage.setItem("password", JSON.stringify(passwordState));
+  };
+
   function handleClickNext(e) {
     window.location.href = "/account_create_self";
   }
+
+  function saveAndNext() {
+    saveAccountData();
+    handleClickNext();
+  }
+
   function handleClickBack(e) {
     window.location.href = "/account_create_purpose";
   }
@@ -101,7 +86,7 @@ function AccountCreatePW() {
           </div>
 
           <div className="buttonContainer">
-            <div className="button" onClick={handleSubmit}>
+            <div className="button" onClick={saveAndNext}>
               <button type="button">확인</button>
             </div>
           </div>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function AccountCreatePerpose() {
+function AccountCreatePurpose() {
   const [purposeState, setPurposeState] = useState("");
-  const [fundsState, setFundsState] = useState("");
+  const [sofState, setsofState] = useState("");
 
   const purposeOptions = [
     {
@@ -36,7 +36,7 @@ function AccountCreatePerpose() {
     },
   ];
 
-  const fundsOptions = [
+  const sofOptions = [
     {
       label: "선택해주세요",
       value: "",
@@ -75,34 +75,17 @@ function AccountCreatePerpose() {
     },
   ];
 
-  const handleSubmit = async (e) => {
-    await axios
-      .post(
-        "/api/account",
-        {},
-        {
-          params: {
-            name: purposeState,
-            phoneNumber: fundsState,
-          },
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    handleClickNext();
-  };
-
+  function saveAccountData(e) {
+    window.localStorage.setItem("purpose", JSON.stringify(purposeState));
+    window.localStorage.setItem("sof", JSON.stringify(sofState));
+  }
   function handleClickNext(e) {
-    window.location.href = `/account_create_PW?purpose=${purposeState}&sof=${fundsState}`;
+    window.location.href = `/account_create_PW`;
+  }
+
+  function saveAndNext() {
+    saveAccountData();
+    handleClickNext();
   }
   function handleClickBack(e) {
     window.location.href = "/account_create_inform";
@@ -139,11 +122,11 @@ function AccountCreatePerpose() {
           <div>자금출처</div>
           <select
             id="sof"
-            form="fundsForm"
-            value={fundsState}
-            onChange={(e) => setFundsState(e.target.value)}
+            form="sofForm"
+            value={sofState}
+            onChange={(e) => setsofState(e.target.value)}
           >
-            {fundsOptions.map((option) => (
+            {sofOptions.map((option) => (
               <option value={option.value}>{option.label}</option>
             ))}
           </select>
@@ -157,8 +140,10 @@ function AccountCreatePerpose() {
           </div>
 
           <div className="buttonContainer">
-            <div className="button" onClick={handleSubmit}>
-              <button type="button">확인</button>
+            <div className="button">
+              <button type="button" onClick={saveAndNext}>
+                확인
+              </button>
             </div>
           </div>
         </div>
@@ -168,4 +153,4 @@ function AccountCreatePerpose() {
   );
 }
 
-export default AccountCreatePerpose;
+export default AccountCreatePurpose;
