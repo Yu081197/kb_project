@@ -1,0 +1,83 @@
+.road_container{
+    display: flex;
+    justify-content: center;
+}
+
+#road{
+    position: relative;
+    display: flex;
+    background-image: url("img/road2.png");
+    background-size: 900px 170px;
+    width: 900px;
+    height: 170px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0px;
+    z-index: 1;
+}
+
+#badrabbit{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-image: url("img/bad.png");
+    background-size: 20% 150px;
+    background-repeat: no-repeat;
+    z-index: 3;
+}
+
+#badgage{
+    display: flex;
+    margin-left: 2px;
+    margin-top: 5px;
+    width: 20%;
+    height: 162px;
+    opacity: 0.6;
+    background-color: red;
+    border-radius: 0px 20px 20px 0px;
+    z-index: 2;
+}
+
+.result_container{
+    display: flex;
+    justify-content: center;
+}
+#yours{
+    width: 200px;
+    height: 200px;
+    vertical-align: bottom;
+}
+
+#badcredit{
+    line-height: 100%;
+    text-align: center; 
+    font-weight: bolder;
+    background-color: rgb(255, 100, 100);
+    border-radius: 5px;
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+}
+
+.exp {
+    position:relative; 
+    line-height: 100%;
+    margin: 20px; 
+    padding: 20px 10px 0px 20px; 
+    text-align: center;
+    width:200px; 
+    height:100px; 
+    color: #FFF; 
+    border-radius: 10px; 
+    background-color: rgb(96, 88, 76);}
+  .exp:after {content:""; 
+    position: absolute; 
+    top: 21px; 
+    left: -30px; 
+    border-right: 30px 
+    solid #000; 
+    border-top: 10px 
+    solid transparent; 
+    border-bottom: 10px solid transparent;
+}
