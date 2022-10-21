@@ -1,41 +1,54 @@
+.loginContainer {
+   margin: 50px;
+   font-family: "KB_medium_font";
+
+}
+
+.loginHeader {
+   text-align: center;
+   margin: 30px;
+   font-size: 30px;
+}
+
 .all-cover{
-    display: flex;
-    justify-content: center;
-  }
+   display: flex;
+   justify-content: center;
+
+}
+
+.login-form {         
+   display: flex;
+   flex-direction: column;
+   justify-content:center;
+   width: 400px;
+   height: 300px;
+   background-color: #EEEFF1;
+   margin: auto;
+   padding: 20px;
+   text-align: center;
+   border: none;
+   border-radius: 20px;
+}
    
-  .login-form {         
-     display: flex;
-     flex-direction: column;
-     justify-content:center;
-     width: 400px;
-     height: 300px;
-     background-color: #EEEFF1;
-     margin: auto;
-     padding: 20px;
-     text-align: center;
-     border: none;
-      
-  }
+.text-field {
+   align-items: center;
+   font-size: 16px;
+   padding: 20px;
+   border: none;
+   border-radius: 10px;
+   width: 260px;
+   margin-bottom: 20px;
+
+}
    
-  .text-field {
-     align-items: center;
-     font-size: 16px;
-     padding: 20px;
-     border: none;
-     border-radius: 10px;
-     width: 260px;
-     margin-bottom: 20px;
-   
-  }
-   
-  .submit-btn {
-     align-items: center;
-     font-size: 16px;
-     border: none;
-     margin-bottom: 20px;
-     border-radius: 10px;
-     padding: 20px;
-     width: 260px;
-     background-color: rgb(255, 188, 0);
-     color: rgb(96, 88, 76);
-  }
+.submit-btn {
+   align-items: center;
+   font-size: 16px;
+   border: none;
+   margin-bottom: 20px;
+   border-radius: 10px;
+   padding: 20px;
+   width: 260px;
+   background-color: rgb(255, 188, 0);
+   color: rgb(96, 88, 76);
+}
