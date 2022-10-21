@@ -22,32 +22,33 @@ const getCookieValue = (key) => {
 };
 
 function Nav() {
-  function logout() {
-    axios
-      .post(
-        "/logout",
-        {},
-        {
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then(function (response) {
-        console.log("성공");
-      })
-      .catch(function (error) {
-        console.log("실패");
-      });
-  };
-  function login_url(){
-    if (getCookieValue("name").length > 0) {
-      return logout();
-    } 
-    return "/login";
-  }
+  // function logout() {
+  //   alert("로그아웃!!");
+  //   axios
+  //     .post(
+  //       "/logout",
+  //       {},
+  //       {
+  //       },
+  //       {
+  //         headers: {
+  //           "content-type": "application/json",
+  //         },
+  //       }
+  //     )
+  //     .then(function (response) {
+  //       console.log("성공");
+  //     })
+  //     .catch(function (error) {
+  //       console.log("실패");
+  //     });
+  // };
+  // function login_url(){
+  //   if (getCookieValue("name").length > 0) {
+  //     logout();
+  //   } 
+  //   else {"/login"};
+  // }
   function login() {
     let login_name = "로그인을 해주세요";
     let user_name = getCookieValue("name");
@@ -116,7 +117,7 @@ function Nav() {
             <div>{login_name}</div>
           </div>
           <NavLink
-          to={login_url()}
+          to="/logout"
           style={{ textDecoration: "none", color: "black" }}
           className="navTab"
           activeClassName="active"
