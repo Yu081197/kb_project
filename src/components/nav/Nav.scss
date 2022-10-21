@@ -1,24 +1,31 @@
 .header {
     margin-top: 10px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     padding: 20px;
     border-bottom: 2px solid rgba(0,0,0,0.3);
+    flex-direction: row;
 }
 
 .mainLogo {
-    width: 249px;
-    height: 70px;
+    width: 212px;
+    height: 89px;
 }
 
 .navHeader {
+    gap: 2%;
     display: flex;
+    width: 65%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .headerLogin {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    align-items: center;
+    width: 15%;
     align-self : center;
     font-size: 19px;
     color: black;
@@ -29,7 +36,9 @@
 
 .nav {
     display: flex;
-    height: 70px;
+    height: 92.5px;
+    width: 60%;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: white;
@@ -38,7 +47,7 @@
 }
 
 .navTab {
-    width: 110px;
+    width: 17%;
     height: 70px;
     font-size: 19px;
     text-align: center;
@@ -48,13 +57,26 @@
     color: black;
 }
 
-.navTab:hover {
-    transition : ease-in 0.2s;
-    background-color:#F8BA1F;
-    color: white;
+.loginTab {
+    width: 10%;
+    height: 70px;
+    font-size: 19px;
+    text-align: center;
+    line-height: 70px;
+    font-family: "KB_medium_font";
+    border-radius: 20px;
+    color: black;
 }
 
-.active{
+
+.navTab:hover , .loginTab:hover{
+    transition : ease-in 0.2s;
+    color: white;
+    background-color:#F8BA1F;
+
+}
+
+.active {
     background-color: #F8BA1F;
     color: white;
 }
