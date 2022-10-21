@@ -73,14 +73,14 @@ function Nav() {
             <NavLink
               exact
               to="/account_create"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none" }}
               className="navTab"
             >
               계좌개설
             </NavLink>
             <NavLink
               to="/account_lookup"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none" }}
               activeClassName="active"
               className="navTab"
             >
@@ -88,7 +88,7 @@ function Nav() {
             </NavLink>
             <NavLink
               to="/transfer"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none" }}
               className="navTab"
               activeClassName="active"
             >
@@ -96,7 +96,7 @@ function Nav() {
             </NavLink>
             <NavLink
               to="/find"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none" }}
               className="navTab"
               activeClassName="active"
             >
@@ -104,7 +104,7 @@ function Nav() {
             </NavLink>
             <NavLink
               to="/predict"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none" }}
               className="navTab"
               activeClassName="active"
             >
@@ -116,8 +116,8 @@ function Nav() {
           </div>
           <NavLink
             to={login_url()}
-            style={{ textDecoration: "none", color: "black" }}
-            className="navTab"
+            style={{ textDecoration: "none" }}
+            className="loginTab"
             activeClassName="active"
           >
             {login_text}
