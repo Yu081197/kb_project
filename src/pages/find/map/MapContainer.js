@@ -123,6 +123,7 @@ const MapContainer = ({ searchPlace }) => {
         style={{
           width: "600px",
           height: "500px",
+          zIndex: "-1",
         }}
       ></div>
     </div>

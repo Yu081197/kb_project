@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Transfer.scss";
 import WarningModal from "../../components/Modal/WarningModal";
+
 import AlertModal from "../../components/Modal/AlertModal";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,6 +20,8 @@ function Transfer() {
   const [opponentAccount, setOpponentAccount] = useState("");
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+
+
 
   /* 입력값 체크 및 이체확인 모달 띄우기 */
   const showModal = () => {
@@ -67,9 +70,22 @@ function Transfer() {
   };
 
   /* 사용자 계좌목록 불러오기 */
+
+  const [accounts, setAccounts] = useState([]);
+  const [selectedAccountBalance, setSelectedAccountBalance] = useState([]);
+  const [historys, setHistorys] = useState([]);
+  const [opponentBankId, setOpponentBankId] = useState([]);
+  const [opponentAccount, setOpponentAccount] = useState([]);
+
+  // 계좌잔액 및 월별내역 초기화
+  function initData() {
+    setSelectedAccountBalance(0);
+    setHistorys([]);
+  }
+
   useEffect(() => {
     axios
-      .get("/api/account/all?registerNumber=string")  // 로그인 구현 후 ?registerNumber=string 제거..
+      .get("/api/account/all?registerNumber=string") // 로그인 구현 후 ?registerNumber=string 제거..
       .then(function (response) {
         initData();
         setAccounts(response.data);
@@ -92,10 +108,12 @@ function Transfer() {
       initData();
       return;
     }
+
     
     setSelectedAccount(e.target.value);
     setSelectedAccountBalance(e.target.options[e.target.selectedIndex].dataset['balance']);
     
+
     axios
       .get("/api/history/all/" + e.target.value)
       .then(function (response) {
@@ -130,9 +148,14 @@ function Transfer() {
           <div className="transferInforHeadBox">
             <select onChange={handleAccountSelectChange}>
               <option value="">계좌선택</option>
-              {accounts.map(account =>
-                <option value={account.account_number} data-balance={account.balance}>국민은행 : {account.account_number}</option>
-              )}
+              {accounts.map((account) => (
+                <option
+                  value={account.account_number}
+                  data-balance={account.balance}
+                >
+                  국민은행 : {account.account_number}
+                </option>
+              ))}
             </select>
           </div>
           <div className="transferInformMoneyBox">
@@ -153,14 +176,21 @@ function Transfer() {
               <div>최근 보낸 계좌</div>
             </div>
             <div className="transferRecentContainer">
-              {historys.map(history => 
+              {historys.map((history) => (
                 <div className="transferRecentList">
-                  <div className="transferRecentListBox" onClick={()=> setOpponentAccountInfo('7', history.opponent_account)}>
+                  <div
+                    className="transferRecentListBox"
+                    onClick={() =>
+                      setOpponentAccountInfo("7", history.opponent_account)
+                    }
+                  >
                     <span className="transferRecentListName">국민은행</span>
-                    <span className="transferRecentListAmount">{history.opponent_account}</span>
+                    <span className="transferRecentListAmount">
+                      {history.opponent_account}
+                    </span>
                   </div>
                 </div>
-              )}
+              ))}
             </div>
           </div>
 

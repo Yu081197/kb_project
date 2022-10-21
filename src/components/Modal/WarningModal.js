@@ -42,13 +42,15 @@ const WarningModal = ({ setModalOpen, selectedAccount, opponentAccount, num }) =
   };
 
   return (
-    <div className="modalContainer">
-      <div className="modalBox">
-        <div className="modalText">
+
+    <div className="transferModalContainer">
+      <div className="transferModalBox">
+        <div className="transferModalText">
           <span>{opponentAccount} 계좌로<br></br> {num}원을<br></br> 이체하시겠습니까?</span>
         </div>
         <div className="modalButton">
           <button onClick={sendTransferInfo}>확인</button>
+
           <button onClick={closeModal}>취소</button>
         </div>
       </div>
