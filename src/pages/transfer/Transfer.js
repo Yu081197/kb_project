@@ -2,45 +2,71 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Transfer.scss";
 import WarningModal from "../../components/Modal/WarningModal";
+import AlertModal from "../../components/Modal/AlertModal";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Transfer() {
   const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const removeCommas = num => num.toString().replace(/[^\d]+/g, "");
 
   const [modalOpen, setModalOpen] = useState(false);
   const [num, setNum] = useState(0);
+  const [accounts, setAccounts] = useState([]);
+  const [selectedAccount, setSelectedAccount] = useState("");
+  const [selectedAccountBalance, setSelectedAccountBalance] = useState(0);
+  const [historys, setHistorys] = useState([]);  
+  const [opponentBankId, setOpponentBankId] = useState("");
+  const [opponentAccount, setOpponentAccount] = useState("");
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
+  /* 입력값 체크 및 이체확인 모달 띄우기 */
   const showModal = () => {
+    if (selectedAccount == "") {
+      setAlertMessage("계좌를 선택해주세요.");
+      setAlertModalOpen(true);
+      return;
+    }
+
+    if (opponentBankId == "") {
+      setAlertMessage("은행을 선택해주세요.");
+      setAlertModalOpen(true);
+      return;
+    }
+
+    if (opponentAccount == "") {
+      setAlertMessage("계좌번호를 입력해주세요.");
+      setAlertModalOpen(true);
+      return;
+    }
+
+    if (num == "" || num == 0) {
+      setAlertMessage("이체 금액을 입력해주세요.");
+      setAlertModalOpen(true);
+      return;
+    }
+
+    if (Number(removeCommas(num)) > Number(removeCommas(selectedAccountBalance))) {
+      setAlertMessage("이체 가능 금액을 초과하였습니다.");
+      setAlertModalOpen(true);
+      return;
+    }
+
     setModalOpen(true);
   };
 
   //숫자 input에 3자리마다 , 넣기
   const inputPriceFormat = (str) => {
-    console.log("s", str);
     const comma = (str) => {
-      str = String(str);
-      return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+      return String(str).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
     };
     const uncomma = (str) => {
-      str = String(str);
-      return str.replace(/[^\d]+/g, "");
+      return String(str).replace(/[^\d]+/g, "");
     };
     return comma(uncomma(str));
   };
 
-
-  const [accounts, setAccounts] = useState([]);
-  const [selectedAccountBalance, setSelectedAccountBalance] = useState([]);
-  const [historys, setHistorys] = useState([]);
-  const [opponentBankId, setOpponentBankId] = useState([]);
-  const [opponentAccount, setOpponentAccount] = useState([]);
-
-  // 계좌잔액 및 월별내역 초기화
-  function initData() {
-    setSelectedAccountBalance(0);
-    setHistorys([]);
-  }
-
+  /* 사용자 계좌목록 불러오기 */
   useEffect(() => {
     axios
       .get("/api/account/all?registerNumber=string")  // 로그인 구현 후 ?registerNumber=string 제거..
@@ -54,13 +80,20 @@ function Transfer() {
       });
   }, []);
 
+  /* 계좌잔액 및 월별내역 초기화 */
+  function initData() {
+    setSelectedAccountBalance(0);
+    setHistorys([]);
+  }
+
+  /* 계좌변경 : 최근거래 계좌목록 불러오기 */
   const handleAccountSelectChange = async (e) => {
     if (e.target.value == "") {
       initData();
       return;
     }
     
-    // setSelectedAccount(e.target.value);
+    setSelectedAccount(e.target.value);
     setSelectedAccountBalance(e.target.options[e.target.selectedIndex].dataset['balance']);
     
     axios
@@ -80,6 +113,14 @@ function Transfer() {
   function setOpponentAccountInfo(bankId, opponentAccount) {
     setOpponentBankId(bankId);
     setOpponentAccount(opponentAccount);
+  }
+
+  const handleBankSelectChange = async (e) => {
+    setOpponentBankId(e.target.options[e.target.selectedIndex].value);
+  }
+
+  const onChangeOpponentAccount = async (e) => {
+    setOpponentAccount(e.target.value);
   }
 
   return (
@@ -124,7 +165,7 @@ function Transfer() {
           </div>
 
           <div className="opponentAcoount">
-            <select name="account_bank_id" value={opponentBankId}>
+            <select name="account_bank_id" value={opponentBankId} onChange={handleBankSelectChange}>
               <option value="">은행선택</option>
               <option value="35">경남은행</option>
               <option value="29">광주은행</option>
@@ -154,7 +195,7 @@ function Transfer() {
               <option value="45">HSBC은행</option>
               <option value="21">SC제일은행</option>
             </select>
-            <input value={opponentAccount} />
+            <input name="opponentAccount" value={opponentAccount} onChange={onChangeOpponentAccount}/>
           </div>
 
           <div className="transferAmountBox">
@@ -169,7 +210,8 @@ function Transfer() {
             </div>
             <div>
               <button onClick={showModal}>이체</button>
-              {modalOpen && <WarningModal setModalOpen={setModalOpen} />}
+              {modalOpen && <WarningModal setModalOpen={setModalOpen} selectedAccount={selectedAccount} opponentAccount={opponentAccount} num={num}/>}
+              {alertModalOpen && <AlertModal setAlertModalOpen={setAlertModalOpen} alertMessage={alertMessage}/>}
             </div>
           </div>
         </div>
