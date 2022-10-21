@@ -1,8 +1,15 @@
+import { useState } from "react";
 import { Image } from "react-bootstrap";
 import "./Nav.scss";
 import { Link, NavLink } from "react-router-dom";
+import LoginModal from "../Modal/LoginModal";
 
 function Nav() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
   return (
     <div>
       <div className="header">
@@ -10,7 +17,10 @@ function Nav() {
           <Image className="mainLogo" src="image/kbmain.png" />
         </Link>
         <div className="headerLogin">
-          <div>안녕하세요 도깨비님</div>
+          <div>
+            안녕하세요 <button onClick={showModal}>도깨비</button>님
+          </div>
+          {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
         </div>
       </div>
 

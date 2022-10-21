@@ -20,7 +20,6 @@ import PredictResultSoso from "./pages/predict/predict_result/PredictResultSoso"
 import PredictResultGood from "./pages/predict/predict_result/PredictResultGood";
 import Transfer from "./pages/transfer/Transfer";
 import WarningModal from "./components/Modal/WarningModal";
-import LoginModal from "./components/Modal/LoginModal";
 
 function Router() {
   return (
@@ -51,7 +50,6 @@ function Router() {
         <Route path="/predict_result_soso" element={<PredictResultSoso />} />
         <Route path="/predict_result_good" element={<PredictResultGood />} />
         <Route path="/warning_modal" element={<WarningModal />} />
-        <Route path="/login_modal" element={<LoginModal />} />
       </Routes>
       <Footer />
     </BrowserRouter>
