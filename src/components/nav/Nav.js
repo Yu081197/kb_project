@@ -27,8 +27,7 @@ function Nav() {
       .post(
         "/logout",
         {},
-        {
-        },
+        {},
         {
           headers: {
             "content-type": "application/json",
@@ -41,33 +40,33 @@ function Nav() {
       .catch(function (error) {
         console.log("실패");
       });
-  };
-  function login_url(){
+  }
+  function login_url() {
     if (getCookieValue("name").length > 0) {
       return logout();
-    } 
+    }
     return "/login";
   }
   function login() {
     let login_name = "로그인을 해주세요";
     let user_name = getCookieValue("name");
-    let login_text = "Login"
+    let login_text = "Login";
     if (user_name.length > 0) {
       login_name = "안녕하세요 " + user_name + "님";
-      login_text = "Logout"
+      login_text = "Logout";
     }
-    let login_data = [login_name,login_text]
+    let login_data = [login_name, login_text];
     return login_data;
   }
   var login_data = login();
-  var login_name =login_data[0]
-  var login_text = login_data[1]
+  var login_name = login_data[0];
+  var login_text = login_data[1];
 
   return (
     <div>
       <div className="header">
         <Link to="/">
-          <Image className="mainLogo" src="image/kbmain.png" />
+          <Image className="mainLogo" src="image/dokb_2.png" />
         </Link>
         <div className="navHeader">
           <div className="nav">
@@ -116,12 +115,12 @@ function Nav() {
             <div>{login_name}</div>
           </div>
           <NavLink
-          to={login_url()}
-          style={{ textDecoration: "none", color: "black" }}
-          className="navTab"
-          activeClassName="active"
+            to={login_url()}
+            style={{ textDecoration: "none", color: "black" }}
+            className="navTab"
+            activeClassName="active"
           >
-              {login_text}
+            {login_text}
           </NavLink>
         </div>
       </div>

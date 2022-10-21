@@ -1,11 +1,100 @@
-.predictContainer {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    width: 800px;
-    align-items: center;
-    padding: 70px;
-    font-family: "KB_medium_font";
+// .predictContainer {
+//     display: flex;
+//     flex-direction: column;
+//     margin: 0 auto;
+//     width: 800px;
+//     align-items: center;
+//     padding: 70px;
+//     font-family: "KB_medium_font";
+// }
+
+// .predictHead {
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: column;
+//     height: 100px;
+//     gap: 50px;
+// }
+
+// .predictMainHead {
+//     text-align: center;
+//     font-size: 30px;
+// }
+
+// .predictSubHead {
+//     color: #7D756B;
+//     text-align: center;
+//     font-size: 20px;
+// }
+
+// .predictListContainer {
+//     display: flex;
+//     width: 500px;
+//     flex-direction: column;
+//     justify-content: center;
+//     margin: 50px;
+//     color: #7D756B;
+// }
+
+// .predictQContainer {
+//     display: flex;
+//     flex-direction: column;
+//     font-size: 23px;
+//     margin: 15px;
+//     gap: 10px;
+// }
+
+// .predictQContainer input[type=text] {
+//     font-size: 20px;
+//     height: 40px;
+//     margin-left: 100px;
+//     width: 150px;
+//     border: none;
+//     border-bottom: 2px solid #7D756B;
+//     font-family: "KB_medium_font";
+//     text-align: end;
+// }
+
+// .predictCheckBox {
+//     display: flex;
+//     justify-content: space-between;
+// }
+
+// .add {
+//     flex-direction: column;
+// }
+// .predictCheckBox div{
+//     margin-right: 100px;
+// }
+
+// .add div {
+//     display: flex;
+//     margin: 5px 0;
+//     width: 600px;
+// }
+
+// .predictBtn button {
+//     width: 300px;
+//     height: 40px;
+//     justify-content: center;
+//     border-radius: 18px;
+//     text-align: center;
+//     border: none;
+//     color: white;
+//     background-color: #F8BA1F;
+//     font-family: "KB_medium_font";
+//     font-size: 23px;
+//     border-radius: 15px;
+// }
+.predictContainer{
+display: flex;
+flex-direction: column;
+margin: 0 auto;
+width: 500px;
+align-items: center;
+padding: 70px;
+font-family: "KB_medium_font";
+gap:150px;
 }
 
 .predictHead {
@@ -26,56 +115,149 @@
     text-align: center;
     font-size: 20px;
 }
+/* INPUT 가리기 */
+.section input[id*="slide"] {display:none;}
 
-.predictListContainer {
-    display: flex;
-    width: 500px;
-    flex-direction: column;
-    justify-content: center;
-    margin: 50px;
-    color: #7D756B;
+/* 슬라이드 영역 - max-width 크기를 조절해주면 됩니다*/
+.section .slidewrap {
+    max-width:1000px;
+    margin:0 auto;
+    overflow:hidden;
 }
-
-.predictQContainer {
-    display: flex;
+.section .slidelist {
+    white-space:nowrap;
+    font-size:0;
+}
+.section .slidelist > li {
+    display:inline-block;vertical-align:middle;width:100%;transition:all .5s;
+}
+.section .slidelist > li > a {display:flex; flex-direction:row; position:relative;}
+.section .slidelist > li > a .textQContainer {
+    width:100%;
+    height: 550px; 
+    border: 8px solid #F8BA1F;
+    background-color:rgb(125, 117, 107);
+    display: flex; 
     flex-direction: column;
     font-size: 23px;
     margin: 15px;
-    gap: 10px;
+    gap: 80px; 
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    color: aliceblue;
+    box-shadow: 5px 5px 5px 5px gray;
 }
+.question{
+    font-size: 25px;
+    height: 100px;
 
-.predictQContainer input[type=text] {
+
+}
+.slideinputContainer{
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+}
+.textQContainer input[type=text] {
+    
     font-size: 20px;
-    height: 40px;
-    margin-left: 100px;
-    width: 150px;
+    height: 50px;
+    margin-left: 20px;
+    width: 300px;
     border: none;
     border-bottom: 2px solid #7D756B;
     font-family: "KB_medium_font";
     text-align: end;
+    border-radius: 10px;
 }
 
-.predictCheckBox {
-    display: flex;
-    justify-content: space-between;
-}
 
-.add {
+.predictQContainer{
+    width:100%;
+    height: 550px; 
+    border: 8px solid #F8BA1F;
+    background-color:rgb(125, 117, 107); 
+    display: flex; 
     flex-direction: column;
-}
-.predictCheckBox div{
-    margin-right: 100px;
+    font-size: 23px;
+    margin: 15px;
+    gap: 80px; 
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    color: aliceblue;
+    box-shadow: 5px 5px 5px 5px gray;
 }
 
-.add div {
+.predictCheckBox{
+    width: 550px;
+    height: auto;
     display: flex;
-    margin: 5px 0;
-    width: 600px;
+    flex-direction: row;
+    gap: 80px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+.predictCheckBox label{
+    background-color:aliceblue;
+    border-radius: 10px;
+    height: 0px;
+    text-align: center;
+    color: black;
+    padding: 20px;
+
+}
+
+.predictCheckBox input[type=radio]:checked+label{
+    color:aliceblue;
+    background-color:#F8BA1F
+    
+}
+
+.predictCheckBox input[id*="Select"] {
+    display:none;
+}
+
+.predictCheckBoxJOB{
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+}
+.predictCheckBoxJOB select{
+    font-size: 20px;
+    width: 350px;
+    font-family: "KB_medium_font";
+    border-radius: 10px;
+    color: black;
+    padding: 20px;
+
+}
+
+.BtnContainer{
+    width:100%;
+    height: 550px; 
+    background-color: #7D756B; 
+    display: flex; 
+    flex-direction: column;
+    font-size: 23px;
+    margin: 15px;
+    gap: 50px; 
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    border: 8px solid #F8BA1F;
+    border-radius: 50px;
+    color: aliceblue;
+    box-shadow: 5px 5px 5px 5px gray;
 }
 
 .predictBtn button {
     width: 300px;
-    height: 40px;
+    height: 80px;
     justify-content: center;
     border-radius: 18px;
     text-align: center;
@@ -85,4 +267,30 @@
     font-family: "KB_medium_font";
     font-size: 23px;
     border-radius: 15px;
+    font-weight: bold;
 }
+
+/* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
+.section .slidelist #move {position:absolute;z-index:1;top:50%;transform:translateY(-50%);padding:50px;cursor:pointer;}
+.section .slidelist .left {left:30px;background:url('./img/left.png') center center / 70% no-repeat;}
+.section .slidelist .right {right:30px;background:url('./img/right.png') center center / 70% no-repeat;}
+
+/* INPUT 체크되면 변화값이 li까지 전달되는 스타일 */
+.section input[id="slide01"]:checked ~ .slidewrap .slidelist > li {transform:translateX(0%);}
+.section input[id="slide02"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-100%);}
+.section input[id="slide03"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-200%);}
+.section input[id="slide04"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-300%);}
+.section input[id="slide05"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-400%);}
+.section input[id="slide06"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-500%);}
+.section input[id="slide07"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-600%);}
+.section input[id="slide08"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-700%);}
+.section input[id="slide09"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-800%);}
+.section input[id="slide10"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-900%);}
+.section input[id="slide11"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1000%);}
+.section input[id="slide12"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1100%);}
+.section input[id="slide13"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1200%);}
+.section input[id="slide14"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1300%);}
+.section input[id="slide15"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1400%);}
+.section input[id="slide16"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1500%);}
+.section input[id="slide17"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1600%);}
+.section input[id="slide18"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1700%);}
