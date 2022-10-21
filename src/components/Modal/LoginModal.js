@@ -9,11 +9,10 @@ const loginModal = ({ setModalOpen }) => {
   return (
     <div className="accountCreateModalContainer">
       <div className="accountCreateModalBox">
-        <div className="accountCreateModal">Login</div>
-        계좌번호<input type = "text" id = "accountNumber"></input>
-        비밀번호<input type = "password" id = "password"></input>
-        <div className="accountCreateModalButton">
-          <button onClick={closeModal}>Login</button> 
+        <div className="modal">로그인 하시겠습니까?</div>
+        <div className="modalButton">
+          <button onClick={closeModal}>확인</button>
+          <button onClick={closeModal}>취소</button>
           {/*로그인 url: http://localhost:8080/login?accountNumber=계좌번호&password=패스워드
              로그아웃 url: http://localhost:8080/logout
           */}
