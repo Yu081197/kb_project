@@ -8,13 +8,13 @@ function AccountLookup() {
   const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   const [accounts, setAccounts] = useState([]);
-  const [selectedAccount, setSelectedAccount] = useState([]);
+  // const [selectedAccount, setSelectedAccount] = useState([]);
   const [selectedAccountBalance, setSelectedAccountBalance] = useState([]);
   const [historys, setHistorys] = useState([]);
 
   // 계좌잔액 및 월별내역 초기화
   function initData() {
-    setSelectedAccount("");
+    // setSelectedAccount("");
     setSelectedAccountBalance(0);
     setHistorys([]);
   }
@@ -42,7 +42,7 @@ function AccountLookup() {
       return;
     }
     
-    setSelectedAccount(e.target.value);
+    // setSelectedAccount(e.target.value);
     setSelectedAccountBalance(e.target.options[e.target.selectedIndex].dataset['balance']);
     
     axios
