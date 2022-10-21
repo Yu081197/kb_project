@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Image } from "react-bootstrap";
 import "./Nav.scss";
 import { Link, NavLink } from "react-router-dom";
-<<<<<<< HEAD
 const getCookieValue = (key) => {
   let cookieKey = key + "="; 
   let result = "";
@@ -31,16 +30,8 @@ function Nav() {
     return login_name
   }
   var login_name = login()
-=======
-import LoginModal from "../Modal/LoginModal";
 
-function Nav() {
-  const [modalOpen, setModalOpen] = useState(false);
 
-  const showModal = () => {
-    setModalOpen(true);
-  };
->>>>>>> 6a5435ac8fa72f39d23774e01ab01de0f705a81a
   return (
     <div>
       <div className="header">
@@ -48,14 +39,10 @@ function Nav() {
           <Image className="mainLogo" src="image/kbmain.png" />
         </Link>
         <div className="headerLogin">
-<<<<<<< HEAD
+
           <div id = "loginCheck">{login_name}</div>
-=======
-          <div>
-            안녕하세요 <button onClick={showModal}>도깨비</button>님
-          </div>
-          {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
->>>>>>> 6a5435ac8fa72f39d23774e01ab01de0f705a81a
+
+
         </div>
       </div>
 
