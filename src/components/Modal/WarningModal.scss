@@ -1,4 +1,4 @@
-.modalContainer {
+.transferModalContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,9 +6,10 @@
     top:0; left: 0; bottom: 0; right: 0;
     background: rgba(0, 0, 0, 0.6);
     font-family: "KB_medium_font";
+    z-index: 1;
 }
 
-.modalBox {
+.transferModalBox {
     background-color: white;
     display: flex;
     position: fixed;
@@ -20,14 +21,16 @@
     border: 2px solid #FFCE0A;
     flex-direction: column;
     font-size: 25px;
+    z-index: 1;
 }
 
-.modalButton {
+.transferModalButton {
     display: flex;
     gap: 20px;
+    z-index: 1;
 }
 
-.modalButton button {
+.transferModalButton button {
     text-align: center;
     border: none;
     color: white;

@@ -2,6 +2,8 @@
     margin-top: 10px;
     display: flex;
     justify-content: space-around;
+    padding: 20px;
+    border-bottom: 2px solid rgba(0,0,0,0.3);
 }
 
 .mainLogo {
@@ -9,36 +11,51 @@
     height: 70px;
 }
 
+.navHeader {
+    display: flex;
+}
+
 .headerLogin {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
     width: 249px;
     align-self : center;
-    font-size: 23px;
+    font-size: 19px;
     color: black;
     font-family: "KB_medium_font";
+    gap: 20px;
+
 }
 
 .nav {
     display: flex;
-    margin-top: 20px;
     height: 70px;
     justify-content: center;
     align-items: center;
-    background-color: #FFCE0A;
+    background-color: white;
+    gap: 5px;
+
 }
 
 .navTab {
-    width: 200px;
+    width: 150px;
     height: 70px;
     font-size: 19px;
     text-align: center;
     line-height: 70px;
     font-family: "KB_medium_font";
+    border-radius: 20px;
+    color: black;
 }
 
 .navTab:hover {
+    transition : ease-in 0.2s;
     background-color:#F8BA1F;
+    color: white;
 }
 
 .active{
     background-color: #F8BA1F;
+    color: white;
 }

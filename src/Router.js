@@ -6,6 +6,7 @@ import ChatBot from "./components/chatbot/ChatBot";
 import Footer from "./components/footer/Footer";
 
 import Main from "./pages/main/Main";
+import Login from "./pages/Login";
 import AccountCreate from "./pages/account_create/AccountCreate";
 import AccountCreateInform from "./pages/account_create/AccountCreateInform";
 import AccountCreatePurpose from "./pages/account_create/AccountCreatePurpose";
@@ -27,6 +28,7 @@ function Router() {
       <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/account_create" element={<AccountCreate />} />
         <Route
           path="/account_create_inform"
