@@ -17,15 +17,17 @@
     display: flex;
     width: 65%;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 }
 
 .headerLogin {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-around;
     width: 15%;
+    height: 100%;
     align-self : center;
     font-size: 19px;
     color: black;
@@ -79,4 +81,21 @@
 .active {
     background-color: #F8BA1F;
     color: white;
+}
+
+.loginButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    background-color: #F8BA1F;
+    border-radius: 20px;
+}
+
+.loginButton:hover {
+    transition : ease-in 0.2s;
+    color: white;
+    background-color:#F8BA1F;
+    cursor: pointer;
 }

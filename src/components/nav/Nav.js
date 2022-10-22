@@ -25,8 +25,7 @@ function logout() {
     .post(
       "/logout",
       {},
-      {
-      },
+      {},
       {
         headers: {
           "content-type": "application/json",
@@ -40,33 +39,29 @@ function logout() {
     .catch(function (error) {
       console.log("실패");
     });
-    
-};
-const login_click = () =>{
-  if (getCookieValue("name").length > 0) {
-      logout();
-    } 
-    else {
-      window.location.href = "/login";
-    };
 }
+const login_click = () => {
+  if (getCookieValue("name").length > 0) {
+    logout();
+  } else {
+    window.location.href = "/login";
+  }
+};
 function Nav() {
-
-
   const login = () => {
-    let login_name = "로그인을 해주세요";
+    let login_name = "";
     let user_name = getCookieValue("name");
-    let login_text = "Login"
+    let login_text = "Login";
     if (user_name.length > 0) {
       login_name = "안녕하세요 " + user_name + "님";
-      login_text = "Logout"
+      login_text = "Logout";
     }
-    let login_data = [login_name,login_text]
+    let login_data = [login_name, login_text];
     return login_data;
-  }
+  };
   var login_data = login();
-  var login_name =login_data[0]
-  var login_text = login_data[1]
+  var login_name = login_data[0];
+  var login_text = login_data[1];
 
   return (
     <div>
@@ -80,7 +75,6 @@ function Nav() {
               exact
               to="/account_create"
               style={{ textDecoration: "none" }}
-
               className="navTab"
             >
               계좌개설
@@ -120,15 +114,13 @@ function Nav() {
           </div>
           <div className="headerLogin">
             <div>{login_name}</div>
+            <div className="loginButton" onClick={login_click}>
+              {login_text}
+            </div>
           </div>
-          <div onClick= {login_click}>
-            {login_text}
-          </div>
-        </div>
-        {/* 여기있는 Navlink 제거 */}
         </div>
       </div>
-    
+    </div>
   );
 }
 
