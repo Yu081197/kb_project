@@ -125,19 +125,10 @@ function Nav() {
             {login_text}
           </div>
         </div>
-          <NavLink
-          to="/logout"
-          style={{ textDecoration: "none", color: "black" }}
-          className="navTab"
-          activeClassName="active"
-
-          >
-            {login_text}
-          </NavLink>
+        {/* 여기있는 Navlink 제거 */}
         </div>
-
       </div>
-    </div>
+    
   );
 }
 
