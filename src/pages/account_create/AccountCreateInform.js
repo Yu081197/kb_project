@@ -10,8 +10,6 @@ function AccountCreateInform() {
     setModalOpen(true);
   };
 
-  const [isAllFill, setIsAllFill] = useState(false);
-
   const [emailState, setEmailState] = useState("");
   const [emailError, setEmailError] = useState(false);
 
@@ -45,6 +43,7 @@ function AccountCreateInform() {
   ];
 
   const saveAccountData = () => {
+    console.log("local에 저장 성공!");
     window.localStorage.setItem("name", JSON.stringify(nameState));
     window.localStorage.setItem("email", JSON.stringify(emailState));
     window.localStorage.setItem(
@@ -60,13 +59,17 @@ function AccountCreateInform() {
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
     if (!e.target.value || emailRegex.test(e.target.value))
       setEmailError(false);
-    else setEmailError(true);
+    else {
+      setEmailError(true);
+    }
     setEmailState(e.target.value);
   };
   const onChangeName = (e) => {
     const nameRegex = /^[가-힣]{1,10}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
     if (!e.target.value || nameRegex.test(e.target.value)) setNameError(false);
-    else setNameError(true);
+    else {
+      setNameError(true);
+    }
     setNameState(e.target.value);
   };
 
@@ -74,7 +77,9 @@ function AccountCreateInform() {
     const phoneNumberRegex = /^(\d{2,3})(\d{3,4})(\d{4})$/;
     if (!e.target.value || phoneNumberRegex.test(e.target.value))
       setPhoneNumberError(false);
-    else setPhoneNumberError(true);
+    else {
+      setPhoneNumberError(true);
+    }
     setPhoneNumberState(e.target.value);
   };
 
@@ -86,17 +91,19 @@ function AccountCreateInform() {
     setJobState(e.target.value);
   };
 
-  useEffect(() => {
+  function checkedAllFill() {
     if (
-      emailError === true &&
-      nameError === true &&
-      phoneNumberError === true
+      emailError === false &&
+      nameError === false &&
+      phoneNumberError === false
     ) {
-      setIsAllFill(true);
+      console.log("성공");
+      saveAccountData();
+      handleClickNext();
     } else {
-      setIsAllFill(false);
+      showModal();
     }
-  }, [emailError, nameError, phoneNumberError]);
+  }
 
   function handleClickNext(e) {
     window.location.href = "/account_create_purpose";
@@ -198,25 +205,11 @@ function AccountCreateInform() {
                 뒤로
               </button>
             </div>
-            <div className="button">
-              <button type="button" onClick={saveAccountData}>
-                버튼
-              </button>
-            </div>
           </div>
 
           <div className="buttonContainer">
             <div className="button">
-              <button
-                type="button"
-                onClick={
-                  isAllFill === true
-                    ? { handleClickNext, saveAccountData } /*, handleSubmit */
-                    : showModal
-                }
-              >
-                확인
-              </button>
+              <button onClick={checkedAllFill}>확인</button>
               {modalOpen && (
                 <AccountCreateInformModal setModalOpen={setModalOpen} />
               )}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Image } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import "./Nav.scss";
 import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
