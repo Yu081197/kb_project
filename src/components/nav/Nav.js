@@ -55,6 +55,7 @@ function Nav() {
     if (user_name.length > 0) {
       login_name = "안녕하세요 " + user_name + "님";
       login_text = "Logout";
+      window.location.href = "/main";
     }
     let login_data = [login_name, login_text];
     return login_data;
