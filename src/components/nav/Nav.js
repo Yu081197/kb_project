@@ -20,50 +20,53 @@ const getCookieValue = (key) => {
   }
   return result;
 };
-
+function logout() {
+  axios
+    .post(
+      "/logout",
+      {},
+      {
+      },
+      {
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    )
+    .then(function (response) {
+      console.log("성공");
+      window.location.reload();
+    })
+    .catch(function (error) {
+      console.log("실패");
+    });
+    
+};
+const login_click = () =>{
+  if (getCookieValue("name").length > 0) {
+      logout();
+    } 
+    else {
+      window.location.href = "/login";
+    };
+}
 function Nav() {
-  // function logout() {
-  //   alert("로그아웃!!");
-  //   axios
-  //     .post(
-  //       "/logout",
-  //       {},
-  //       {
-  //       },
-  //       {
-  //         headers: {
-  //           "content-type": "application/json",
-  //         },
-  //       }
-  //     )
-  //     .then(function (response) {
-  //       console.log("성공");
-  //     })
-  //     .catch(function (error) {
-  //       console.log("실패");
-  //     });
-  // };
-  // function login_url(){
-  //   if (getCookieValue("name").length > 0) {
-  //     logout();
-  //   } 
-  //   else {"/login"};
-  // }
 
-  function login() {
+
+  const login = () => {
     let login_name = "로그인을 해주세요";
     let user_name = getCookieValue("name");
-    let login_text = "Login";
+    let login_text = "Login"
     if (user_name.length > 0) {
       login_name = "안녕하세요 " + user_name + "님";
-      login_text = "Logout";
+      login_text = "Logout"
     }
-    let login_data = [login_name, login_text];
+    let login_data = [login_name,login_text]
     return login_data;
   }
   var login_data = login();
-  var login_name = login_data[0];
-  var login_text = login_data[1];
+  var login_name =login_data[0]
+  var login_text = login_data[1]
 
   return (
     <div>
@@ -77,6 +80,7 @@ function Nav() {
               exact
               to="/account_create"
               style={{ textDecoration: "none" }}
+
               className="navTab"
             >
               계좌개설
@@ -117,6 +121,10 @@ function Nav() {
           <div className="headerLogin">
             <div>{login_name}</div>
           </div>
+          <div onClick= {login_click}>
+            {login_text}
+          </div>
+        </div>
           <NavLink
           to="/logout"
           style={{ textDecoration: "none", color: "black" }}
@@ -127,6 +135,7 @@ function Nav() {
             {login_text}
           </NavLink>
         </div>
+
       </div>
     </div>
   );
