@@ -1,4 +1,4 @@
-.accountCreateModalContainer {
+.modalContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,12 +8,12 @@
     font-family: "KB_medium_font";
 }
 
-.accountCreateModalBox {
+.modalBox {
     background-color: white;
     display: flex;
     position: fixed;
     justify-content: space-around;
-    padding-top: 20px;
+    padding-top: 5px;
     align-items: center;
     height: 200px;
     width: 350px;
@@ -22,12 +22,20 @@
     font-size: 25px;
 }
 
-.accountCreateModalButton {
+.modalButton {
     display: flex;
     gap: 20px;
 }
 
-.accountCreateModalButton button {
+.modalText {
+    text-align: center;
+}
+
+.modalText span {
+    line-height: 1.3em;
+}
+
+.modalButton button {
     text-align: center;
     border: none;
     color: white;
@@ -38,7 +46,7 @@
     border-radius: 15px;
     width: 80px;
     outline: none;
+    cursor: pointer;
     border: 0;
-    animation: Modal-show 0.3s;
-    
+    animation: modal-show 0.3s;
 }

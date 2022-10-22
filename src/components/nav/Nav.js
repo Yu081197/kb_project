@@ -52,6 +52,7 @@ const login_click = () =>{
 }
 function Nav() {
 
+
   const login = () => {
     let login_name = "로그인을 해주세요";
     let user_name = getCookieValue("name");
@@ -67,26 +68,26 @@ function Nav() {
   var login_name =login_data[0]
   var login_text = login_data[1]
 
-
   return (
     <div>
       <div className="header">
         <Link to="/">
-          <Image className="mainLogo" src="image/kbmain.png" />
+          <Image className="mainLogo" src="image/dokb_2.png" />
         </Link>
         <div className="navHeader">
           <div className="nav">
             <NavLink
               exact
               to="/account_create"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none" }}
+
               className="navTab"
             >
               계좌개설
             </NavLink>
             <NavLink
               to="/account_lookup"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none" }}
               activeClassName="active"
               className="navTab"
             >
@@ -94,7 +95,7 @@ function Nav() {
             </NavLink>
             <NavLink
               to="/transfer"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none" }}
               className="navTab"
               activeClassName="active"
             >
@@ -102,7 +103,7 @@ function Nav() {
             </NavLink>
             <NavLink
               to="/find"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none" }}
               className="navTab"
               activeClassName="active"
             >
@@ -110,7 +111,7 @@ function Nav() {
             </NavLink>
             <NavLink
               to="/predict"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none" }}
               className="navTab"
               activeClassName="active"
             >
@@ -123,6 +124,16 @@ function Nav() {
           <div onClick= {login_click}>
             {login_text}
           </div>
+        </div>
+          <NavLink
+          to="/logout"
+          style={{ textDecoration: "none", color: "black" }}
+          className="navTab"
+          activeClassName="active"
+
+          >
+            {login_text}
+          </NavLink>
         </div>
 
       </div>

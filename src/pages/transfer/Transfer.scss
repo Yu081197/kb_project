@@ -81,6 +81,7 @@
 .transferRecentHead {
     padding: 30px;
     font-size: 32px;
+    border-bottom: 3px solid white;
 }
 
 .transferRecentContainer {
@@ -89,25 +90,26 @@
 }
 
 .transferRecentList {
-    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+    cursor: pointer;
 }
 
-.transferRecentListDate {
-    font-size: 25px;
-    padding: 10px 30px;
-}
+// .transferRecentListDate {
+//     font-size: 25px;
+//     padding: 10px 30px;
+// }
 
-.transferRecentListTime {
-    font-size: 20px;
-    padding: 10px 30px;
-}
+// .transferRecentListTime {
+//     font-size: 20px;
+//     padding: 10px 30px;
+// }
 
 .transferRecentListBox {
     display: flex;
     flex-direction: row;
     line-height: 100%;
     justify-content: space-between;
-    padding: 10px 30px;
+    padding: 20px 30px;
 }
 
 .transferRecentListName {
@@ -118,17 +120,17 @@
 .transferRecentListAmount {
     display: flex;
     gap: 20px;
-    color: red;
+    color: blue;
     font-size: 23px;
 }
 
-.transferRecentListBalance {
-    display: flex;
-    gap: 20px;
-    font-size: 23px;
-    padding: 10px 30px;
-    text-align: center;
-}
+// .transferRecentListBalance {
+//     display: flex;
+//     gap: 20px;
+//     font-size: 23px;
+//     padding: 10px 30px;
+//     text-align: center;
+// }
 
 .opponentAcoount {
     height: 70px;
