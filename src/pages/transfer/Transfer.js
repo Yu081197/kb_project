@@ -7,16 +7,16 @@ import AlertModal from "../../components/Modal/AlertModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Transfer() {
-  const addCommas = (num) =>
-    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const formatAccount = (input) => input.toString().replace(/[^0-9]/g, '').replace(/^(\d{0,6})(\d{0,2})(\d{0,6})$/g, "$1-$2-$3").replace(/\-{1,2}$/g, "");
+  const addCommas = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const removeCommas = (num) => num.toString().replace(/[^\d]+/g, "");
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState();
   const [accounts, setAccounts] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState("");
   const [selectedAccountBalance, setSelectedAccountBalance] = useState(0);
-  const [historys, setHistorys] = useState([]);
+  const [recentTransferAccounts, setRecentTransferAccounts] = useState([]);
   const [opponentBankId, setOpponentBankId] = useState("");
   const [opponentAccount, setOpponentAccount] = useState("");
   const [alertModalOpen, setAlertModalOpen] = useState(false);
@@ -67,18 +67,18 @@ function Transfer() {
     const uncomma = (str) => {
       return String(str).replace(/[^\d]+/g, "");
     };
-    return comma(uncomma(str));
+    return comma(uncomma(str)).replace(/(^0+)/, "");
   };
 
   // 계좌잔액 및 월별내역 초기화
   function initData() {
     setSelectedAccountBalance(0);
-    setHistorys([]);
+    setRecentTransferAccounts([]);
   }
 
   useEffect(() => {
     axios
-      .get("/api/account/all") // 로그인 구현 후 ?registerNumber=string 제거..
+      .get("/api/account/all")
       .then(function (response) {
         initData();
         setAccounts(response.data);
@@ -92,7 +92,7 @@ function Transfer() {
   /* 계좌잔액 및 월별내역 초기화 */
   function initData() {
     setSelectedAccountBalance(0);
-    setHistorys([]);
+    setRecentTransferAccounts([]);
   }
 
   /* 계좌변경 : 최근거래 계좌목록 불러오기 */
@@ -108,10 +108,10 @@ function Transfer() {
     );
 
     axios
-      .get("/api/history/all/" + e.target.value)
+      .get("/api/account/recent_transfer/" + e.target.value)
       .then(function (response) {
-        setHistorys(response.data);
-        console.log("거래내역조회 성공");
+        setRecentTransferAccounts(response.data);
+        console.log("최근보낸계좌 조회 성공");
         if (response.data.length == 0) {
           // 조회된 내역이 없습니다.
         }
@@ -131,7 +131,7 @@ function Transfer() {
   };
 
   const onChangeOpponentAccount = async (e) => {
-    setOpponentAccount(e.target.value);
+    setOpponentAccount(formatAccount(e.target.value));
   };
 
   return (
@@ -169,17 +169,17 @@ function Transfer() {
               <div>최근 보낸 계좌</div>
             </div>
             <div className="transferRecentContainer">
-              {historys.map((history) => (
+              {recentTransferAccounts.map((recentTransferAccount) => (
                 <div className="transferRecentList">
                   <div
                     className="transferRecentListBox"
                     onClick={() =>
-                      setOpponentAccountInfo("7", history.opponent_account)
+                      setOpponentAccountInfo("7", recentTransferAccount.account_number)
                     }
                   >
                     <span className="transferRecentListName">국민은행</span>
                     <span className="transferRecentListAmount">
-                      {history.opponent_account}
+                      {recentTransferAccount.account_number}
                     </span>
                   </div>
                 </div>
@@ -225,6 +225,7 @@ function Transfer() {
             <input
               name="opponentAccount"
               value={opponentAccount}
+              maxLength="16"
               onChange={onChangeOpponentAccount}
             />
           </div>
@@ -234,6 +235,7 @@ function Transfer() {
               <input
                 type="text"
                 value={num}
+                placeholder="0"
                 maxLength="12"
                 onChange={(e) => setNum(inputPriceFormat(e.target.value))}
               ></input>

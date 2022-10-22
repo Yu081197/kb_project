@@ -21,7 +21,7 @@ function AccountLookup() {
 
   useEffect(() => {
     axios
-      .get("/api/account/all")  // 로그인 구현 후 ?registerNumber=string 제거..
+      .get("/api/account/all")
       .then(function (response) {
         initData();
         setAccounts(response.data);
