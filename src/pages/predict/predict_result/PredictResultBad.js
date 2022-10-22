@@ -8,6 +8,7 @@ window.$ = window.jquery = jquery;
 
 class PredictResultBad extends React.Component {
   componentDidMount() {
+    console.log("test");
     $(document).ready(function () {
       $("#badrabbit").animate(
         {
