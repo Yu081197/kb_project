@@ -6,7 +6,7 @@ import ChatBot from "./components/chatbot/ChatBot";
 import Footer from "./components/footer/Footer";
 
 import Main from "./pages/main/Main";
-import Login from "./pages/Login";
+import Login from "./pages/login/Login";
 import AccountCreate from "./pages/account_create/AccountCreate";
 import AccountCreateInform from "./pages/account_create/AccountCreateInform";
 import AccountCreatePurpose from "./pages/account_create/AccountCreatePurpose";

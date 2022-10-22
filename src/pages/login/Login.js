@@ -34,7 +34,7 @@ function Login() {
       .then(function (response) {
         console.log(response.data.account_number);
         console.log("성공");
-        window.location.href = "/main";
+        window.location.href = "/"
       })
       .catch(function (error) {
         console.log("실패");
