@@ -24,6 +24,20 @@ class ChatBot extends React.Component {
 
     let recong_ing = true;
 
+    /* 기타 설정들... */
+    // input options
+    const inputService = 1;
+
+    // page info
+    const pages = new Map();
+        pages.set('계좌개설', '/account_create');
+        pages.set('계좌조회', '/account_lookup');
+        pages.set('이체', '/transfer');
+        pages.set('이채', '/transfer');
+        pages.set('점포찾기', '/find');
+        pages.set('신용등급예측', '/predict');
+    /* END 기타 설정들... */
+
     /* speak to text */
     let output = document.querySelector("#output");
     let input_request = false;
@@ -47,24 +61,41 @@ class ChatBot extends React.Component {
     recognition.onend = function (event) {
       console.log("SpeechRecognition.onend");
 
+      console.log(result);
+
+      let result_remove_blank = result.replaceAll(' ', '');
+
       // 깨비 호출
       if (result.includes("깨비")) {
         console.log("===== 꺠비호출 =====");
         speak("네, 말씀하세요");
       } 
 
+      // 입력인 경우
+      else if (inputOption != null) {
+        console.log("===== 서비스 선택 =====");
+        if (inputOption == inputService) {  // 음성서비스 입력
+          if (result_remove_blank.includes("음성서비스")) { // 음성서비스 사용설정
+            localStorage.setItem("useVoiceService", true);
+            inputOption = null;
+          } else if (result_remove_blank.includes("헤드트래킹") || result_remove_blank.includes("헤드트레킹")) {  // 음성서비스 미사용설정 및 헤드트레킹 다운로드
+            localStorage.setItem("useVoiceService", false);
+            inputOption = null;
+            recognition.stop();
+            // 헤드트레킹 다운로드 기능 추가
+            return;
+          } else if (result_remove_blank.includes("이용안함")) {  // 음성서비스 미사용설정
+            localStorage.setItem("useVoiceService", false);
+            inputOption = null;
+            recognition.stop();
+            return;
+          }
+        }
+      }
+
       // 페이지 이동
       else if (result.includes("이동")) {
         console.log("===== 페이지이동 =====");
-        let result_remove_blank = result.replaceAll(' ', '');
-
-        const pages = new Map();
-        pages.set('계좌개설', '/account_create');
-        pages.set('계좌조회', '/account_lookup');
-        pages.set('이체', '/transfer');
-        pages.set('이채', '/transfer');
-        pages.set('점포찾기', '/find');
-        pages.set('신용등급예측', '/predict');
 
         for(let key of pages.keys()) {
           if (result_remove_blank.includes(key)) {
@@ -72,6 +103,8 @@ class ChatBot extends React.Component {
           }
         }
       }
+
+      
 
       // 데이터 입력
 
@@ -138,13 +171,17 @@ class ChatBot extends React.Component {
     }
 
     /* text to speak */
-    function speak(inputTxt) {
+    let inputOption = null;
+    function speak(inputTxt, isInput=false, option=null) {
       if (synth.speaking) {
         console.error("speechSynthesis.speaking", inputTxt);
         return;
       }
 
-      if (inputTxt !== "") {
+      if (isInput !== "") {
+
+        if (isInput) inputOption = option;
+
         const utterThis = new SpeechSynthesisUtterance(inputTxt);
 
         utterThis.onend = function (event) {
@@ -170,11 +207,22 @@ class ChatBot extends React.Component {
     }
 
     $(function () {
-      speak(
-        "어떤 서비스를 이용하시겠습니까? 일번 음성서비스, 이번 아이트래킹, 삼번 이용안함 중 선택해주세요."
-      );
 
-      recognition.start();
+      // 음성 및 헤드트래킹 사용설정
+      let useVoiceService = localStorage.getItem("useVoiceService");
+      if (useVoiceService == null) {  // 선택한 서비스가 없는 경우 서비스선택요청
+        speak(
+          "어떤 서비스를 이용하시겠습니까? 일번 음성서비스, 이번 헤드트래킹, 삼번 이용안함 중 선택해주세요.", true, inputService
+        );
+
+        setTimeout(function() {
+          recognition.start();
+        }, 8000);
+        
+      } else if (useVoiceService == true) {
+        recognition.start();
+      }
+
     });
   }
   render() {
