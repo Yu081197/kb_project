@@ -52,8 +52,9 @@ function Router() {
         <Route path="/predict_result_soso" element={<PredictResultSoso />} />
         <Route path="/predict_result_good" element={<PredictResultGood />} />
         <Route path="/warning_modal" element={<WarningModal />} />
-        <Route path="/chatbot" element={<ChatBot />} />
+        {/* <Route path="/chatbot" element={<ChatBot />} /> */}
       </Routes>
+      <ChatBot />
       <Footer />
     </BrowserRouter>
   );

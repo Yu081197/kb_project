@@ -10,10 +10,6 @@ class ChatBot extends React.Component {
       window.SpeechRecognition || window.webkitSpeechRecognition;
     var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList;
 
-    if (SpeechGrammarList) {
-      let speechRecognitionList = new SpeechGrammarList();
-    }
-
     let recognition = new SpeechRecognition();
 
     if (SpeechGrammarList) {
@@ -27,19 +23,29 @@ class ChatBot extends React.Component {
     recognition.maxAlternatives = 100;
 
     let recong_ing = true;
-    let call_kb = false;
+
+    /* 기타 설정들... */
+    // input options
+    const inputService = 1;
+
+    // page info
+    const pages = new Map();
+        pages.set('계좌개설', '/account_create');
+        pages.set('계좌조회', '/account_lookup');
+        pages.set('이체', '/transfer');
+        pages.set('이채', '/transfer');
+        pages.set('점포찾기', '/find');
+        pages.set('신용등급예측', '/predict');
+    /* END 기타 설정들... */
 
     /* speak to text */
     let output = document.querySelector("#output");
+    let input_request = false;
+    let result = "";  // 음성인식결과
     recognition.onresult = function (event) {
       let input = event.results[0][0].transcript;
       output.value = input;
-      if (!call_kb && input.includes("깨비")) {
-        recong_ing = false;
-        call_kb = true;
-        speak("네!");
-        console.log("===== 꺠비호출 =====");
-      }
+      result = input;
     };
 
     // recognition.onsaudiostart = function (event) {
@@ -50,8 +56,60 @@ class ChatBot extends React.Component {
     //     console.log("SpeechRecognition.onaudioend");
     // }
 
+    // 음성인식 후 연동기능
+    // : 깨비 호출, 페이지 이동, 데이터 입력, 속도조절
     recognition.onend = function (event) {
       console.log("SpeechRecognition.onend");
+
+      console.log(result);
+
+      let result_remove_blank = result.replaceAll(' ', '');
+
+      // 깨비 호출
+      if (result.includes("깨비")) {
+        console.log("===== 꺠비호출 =====");
+        speak("네, 말씀하세요");
+      } 
+
+      // 입력인 경우
+      else if (inputOption != null) {
+        console.log("===== 서비스 선택 =====");
+        if (inputOption == inputService) {  // 음성서비스 입력
+          if (result_remove_blank.includes("음성서비스")) { // 음성서비스 사용설정
+            localStorage.setItem("useVoiceService", true);
+            inputOption = null;
+          } else if (result_remove_blank.includes("헤드트래킹") || result_remove_blank.includes("헤드트레킹")) {  // 음성서비스 미사용설정 및 헤드트레킹 다운로드
+            localStorage.setItem("useVoiceService", false);
+            inputOption = null;
+            recognition.stop();
+            // 헤드트레킹 다운로드 기능 추가
+            return;
+          } else if (result_remove_blank.includes("이용안함")) {  // 음성서비스 미사용설정
+            localStorage.setItem("useVoiceService", false);
+            inputOption = null;
+            recognition.stop();
+            return;
+          }
+        }
+      }
+
+      // 페이지 이동
+      else if (result.includes("이동")) {
+        console.log("===== 페이지이동 =====");
+
+        for(let key of pages.keys()) {
+          if (result_remove_blank.includes(key)) {
+            window.location.href = pages.get(key);
+          }
+        }
+      }
+
+      
+
+      // 데이터 입력
+
+      // 속도조절
+
       console.log(recong_ing);
       if (recong_ing) {
         recognition.start();
@@ -60,6 +118,8 @@ class ChatBot extends React.Component {
 
     recognition.onerror = function (event) {
       console.log("SpeechRecognition.onerror");
+      console.log(`Speech recognition error detected: ${event.error}`);
+      console.log(`Additional information: ${event.message}`);
     };
 
     recognition.onnomatch = function (event) {
@@ -111,13 +171,17 @@ class ChatBot extends React.Component {
     }
 
     /* text to speak */
-    function speak(inputTxt) {
+    let inputOption = null;
+    function speak(inputTxt, isInput=false, option=null) {
       if (synth.speaking) {
         console.error("speechSynthesis.speaking", inputTxt);
         return;
       }
 
-      if (inputTxt !== "") {
+      if (isInput !== "") {
+
+        if (isInput) inputOption = option;
+
         const utterThis = new SpeechSynthesisUtterance(inputTxt);
 
         utterThis.onend = function (event) {
@@ -126,14 +190,11 @@ class ChatBot extends React.Component {
 
         utterThis.onerror = function (event) {
           console.error("SpeechSynthesisUtterance.onerror");
-          console.log(`Speech recognition error detected: ${event.error}`);
-          console.log(`Additional information: ${event.message}`);
+          console.log(`An error has occurred with the speech synthesis: ${event.error}`);
         };
 
-        // console.log(voices);
         for (let i = 0; i < voices.length; i++) {
           if (voices[i].name === voiceNameKO) {
-            // console.log(voices[i]);
             utterThis.voice = voices[i];
             break;
           }
@@ -146,11 +207,22 @@ class ChatBot extends React.Component {
     }
 
     $(function () {
-      speak(
-        "어떤 서비스를 이용하시겠습니까? 1번 음성서비스, 2번 아이트래킹, 3번 이용안함 중 선택해주세요."
-      );
 
-      recognition.start();
+      // 음성 및 헤드트래킹 사용설정
+      let useVoiceService = localStorage.getItem("useVoiceService");
+      if (useVoiceService == null) {  // 선택한 서비스가 없는 경우 서비스선택요청
+        speak(
+          "어떤 서비스를 이용하시겠습니까? 일번 음성서비스, 이번 헤드트래킹, 삼번 이용안함 중 선택해주세요.", true, inputService
+        );
+
+        setTimeout(function() {
+          recognition.start();
+        }, 8000);
+        
+      } else if (useVoiceService == true) {
+        recognition.start();
+      }
+
     });
   }
   render() {
