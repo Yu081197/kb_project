@@ -1,19 +1,35 @@
 import React, { useState } from "react";
 import axios from "axios";
+import AccountCreatePWModal from "./AccountCreateModal/AccountCreatePWModal";
 
 function AccountCreatePW() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
   const [passwordState, setPasswordState] = useState("");
+  const [passwordError, setpasswordError] = useState(false);
   const [validPasswordState, setValidPasswordState] = useState();
   const [validPasswordError, setValidPasswordError] = useState(false);
 
   const onChangePassword = (e) => {
+    const passwordRegex = /^[0-9]+$/;
+    if (!e.target.value || passwordRegex.test(e.target.value))
+      setpasswordError(false);
+    else {
+      setpasswordError(true);
+    }
     setPasswordState(e.target.value);
   };
 
   const onChangeValidPassword = (e) => {
-    if (!validPasswordState(e.target.value) || passwordState(e.target.value))
+    if (e.target.value === passwordState) {
+      setValidPasswordError(false);
+    } else {
       setValidPasswordError(true);
-    else setValidPasswordError(false);
+    }
     setValidPasswordState(e.target.value);
   };
 
@@ -26,8 +42,12 @@ function AccountCreatePW() {
   }
 
   function saveAndNext() {
-    saveAccountData();
-    handleClickNext();
+    if (passwordError === false && validPasswordError === false) {
+      saveAccountData();
+      handleClickNext();
+    } else {
+      showModal();
+    }
   }
 
   function handleClickBack(e) {
@@ -60,6 +80,11 @@ function AccountCreatePW() {
             placeholder="비밀번호를 입력하세요."
           />
         </div>
+        {passwordError && (
+          <div style={{ color: "red", fontSize: "14px" }}>
+            숫자만 입력할 수 있습니다.
+          </div>
+        )}
         <div className="input">
           <div>계좌비밀번호 확인</div>
           <input
@@ -70,7 +95,7 @@ function AccountCreatePW() {
             value={validPasswordState}
             placeholder="다시 한 번 입력하세요."
             onChange={onChangeValidPassword}
-          />{" "}
+          />
           {validPasswordError && (
             <div style={{ color: "red", fontSize: "14px" }}>
               비밀번호를 확인해주세요.
@@ -87,7 +112,10 @@ function AccountCreatePW() {
 
           <div className="buttonContainer">
             <div className="button" onClick={saveAndNext}>
-              <button type="button">확인</button>
+              <button type="button">확인</button>{" "}
+              {modalOpen && (
+                <AccountCreatePWModal setModalOpen={setModalOpen} />
+              )}
             </div>
           </div>
         </div>
