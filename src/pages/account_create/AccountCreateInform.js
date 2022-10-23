@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "./AccountCreateInform.scss";
 import AccountCreateInformModal from "./AccountCreateModal/AccountCreateInformModal";
@@ -15,6 +14,9 @@ function AccountCreateInform() {
 
   const [nameState, setNameState] = useState("");
   const [nameError, setNameError] = useState(false);
+
+  const [registerNumberState, setRegisterNumberState] = useState("");
+  const [registerNumberError, setRegisterNumberError] = useState(false);
 
   const [phoneNumberState, setPhoneNumberState] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState(false);
@@ -45,6 +47,10 @@ function AccountCreateInform() {
   const saveAccountData = () => {
     console.log("local에 저장 성공!");
     window.localStorage.setItem("name", JSON.stringify(nameState));
+    window.localStorage.setItem(
+      "registerNumber",
+      JSON.stringify(registerNumberState)
+    );
     window.localStorage.setItem("email", JSON.stringify(emailState));
     window.localStorage.setItem(
       "phoneNumber",
@@ -73,6 +79,28 @@ function AccountCreateInform() {
     setNameState(e.target.value);
   };
 
+  const onChangeRegisterNumber = (e) => {
+    const registerNumberRegex =
+      /^\d{2}([0]\d|[1][0-2])([0][1-9]|[1-2]\d|[3][0-1])[-]*[1-4]\d{6}$/;
+    if (!e.target.value || registerNumberRegex.test(e.target.value))
+      setRegisterNumberError(false);
+    else {
+      setRegisterNumberError(true);
+    }
+    setRegisterNumberState(e.target.value);
+  };
+
+  useEffect(() => {
+    if (registerNumberState.length === 13) {
+      setRegisterNumberState(
+        registerNumberState
+          .replace(/[^0-9]/g, "")
+          .replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2")
+          .replace(/-{1,2}$/g, "")
+      );
+    }
+  }, [registerNumberState]);
+
   const onChangePhoneNumber = (e) => {
     const phoneNumberRegex = /^(\d{2,3})(\d{3,4})(\d{4})$/;
     if (!e.target.value || phoneNumberRegex.test(e.target.value))
@@ -82,6 +110,14 @@ function AccountCreateInform() {
     }
     setPhoneNumberState(e.target.value);
   };
+
+  useEffect(() => {
+    if (phoneNumberState.length === 11) {
+      setPhoneNumberState(
+        phoneNumberState.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
+      );
+    }
+  }, [phoneNumberState]);
 
   const onChangeAddress = (e) => {
     setAddressState(e.target.value);
@@ -95,7 +131,8 @@ function AccountCreateInform() {
     if (
       emailError === false &&
       nameError === false &&
-      phoneNumberError === false
+      phoneNumberError === false &&
+      registerNumberError === false
     ) {
       console.log("성공");
       saveAccountData();
@@ -143,11 +180,28 @@ function AccountCreateInform() {
           )}
         </div>
         <div className="input">
+          <div>주민등록번호</div>
+          <input
+            type="text"
+            name="register"
+            id="register"
+            maxlength="14"
+            value={registerNumberState}
+            placeholder="주민번호를 - 없이 입력해주세요."
+            onChange={onChangeRegisterNumber}
+          />
+          {registerNumberError && (
+            <div style={{ color: "red", fontSize: "14px" }}>
+              잘못된 양식입니다.
+            </div>
+          )}
+        </div>
+        <div className="input">
           <div>휴대폰 번호</div>
           <input
             name="phone"
             id="phonenumber"
-            maxlength="13"
+            maxlength="11"
             value={phoneNumberState}
             placeholder="휴대전화번호를 입력해 주세요."
             onChange={onChangePhoneNumber}
