@@ -11,6 +11,8 @@ function AccountCreateSelf() {
     window.localStorage.getItem("userRegisterNumber");
   const nameState = window.localStorage.getItem("name");
   const emailState = window.localStorage.getItem("email");
+  const registerNumberState = window.localStorage.getItem("registerNumber");
+  const phoneNumberState = window.localStorage.getItem("phoneNumber");
   const passwordState = window.localStorage.getItem("password");
   const addressState = window.localStorage.getItem("address");
   const jobState = window.localStorage.getItem("job");
@@ -40,7 +42,7 @@ function AccountCreateSelf() {
   };
 
   const saveAccountData = () => {
-    window.localStorage.setItem(imgSrc, JSON.stringify(imgSrc));
+    window.localStorage.setItem("imgSrc", JSON.stringify(imgSrc));
   };
 
   const sendAccountData = useEffect(() => {
@@ -52,6 +54,8 @@ function AccountCreateSelf() {
           params: {
             userRegisterNumber: userRegisterNumberState,
             name: nameState,
+            registerNumber: registerNumberState,
+            phoneNumber: phoneNumberState,
             email: emailState,
             password: passwordState,
             address: addressState,
@@ -74,6 +78,7 @@ function AccountCreateSelf() {
         console.log("실패");
       });
   }, []);
+
   const sendImgData = useEffect(() => {
     axios
       .post(
