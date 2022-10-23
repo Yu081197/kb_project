@@ -167,7 +167,7 @@ gap:150px;
     box-shadow: 5px 5px 5px 5px gray;
 }
 
-.predictBtn button {
+.predictBtn div {
     width: 300px;
     height: 80px;
     justify-content: center;
@@ -180,6 +180,13 @@ gap:150px;
     font-size: 23px;
     border-radius: 15px;
     font-weight: bold;
+    line-height: 80px;
+}
+
+.predictBtn :hover {
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+    background-color: #e0a000;
 }
 
 /* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
@@ -206,3 +213,7 @@ gap:150px;
 .section input[id="slide16"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1500%);}
 .section input[id="slide17"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1600%);}
 .section input[id="slide18"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-1700%);}
+
+.selectBox {
+    line-height: 5px;
+}

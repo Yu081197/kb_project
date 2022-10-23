@@ -34,15 +34,15 @@ function Login() {
       .then(function (response) {
         console.log(response.data.account_number);
         console.log("성공");
-        window.location.href = "/"
+        window.location.href = "/";
       })
       .catch(function (error) {
         console.log("실패");
       });
   }
   return (
-    <div className="loginContainer">
-      <div className="loginHeader">로 그 인</div>
+    <div className="loginPageContainer">
+      <div className="loginPageHeader">로 그 인</div>
       <div class="all_cover">
         <div class="login-form">
           <form>

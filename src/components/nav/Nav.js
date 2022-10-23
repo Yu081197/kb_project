@@ -54,7 +54,7 @@ function Nav() {
     let user_name = getCookieValue("name");
     let login_text = "Login";
     if (user_name.length > 0) {
-      login_name = "안녕하세요 " + user_name + "님";
+      login_name = user_name + "님";
       login_text = "Logout";
     }
     let login_data = [login_name, login_text];
@@ -65,58 +65,64 @@ function Nav() {
   var login_text = login_data[1];
 
   return (
-    <div>
+    <div style={{ width: "100vw " }}>
       <div className="header">
-        <Link to="/">
-          <Image className="mainLogo" src="image/dokb_2.png" />
-        </Link>
-        <div className="navHeader">
-          <div className="nav">
-            <NavLink
-              exact
-              to="/account_create"
-              style={{ textDecoration: "none" }}
-              className="navTab"
-            >
-              계좌개설
-            </NavLink>
-            <NavLink
-              to="/account_lookup"
-              style={{ textDecoration: "none" }}
-              activeClassName="active"
-              className="navTab"
-            >
-              계좌조회
-            </NavLink>
-            <NavLink
-              to="/transfer"
-              style={{ textDecoration: "none" }}
-              className="navTab"
-              activeClassName="active"
-            >
-              이체
-            </NavLink>
-            <NavLink
-              to="/find"
-              style={{ textDecoration: "none" }}
-              className="navTab"
-              activeClassName="active"
-            >
-              점포찾기
-            </NavLink>
-            <NavLink
-              to="/predict"
-              style={{ textDecoration: "none" }}
-              className="navTab"
-              activeClassName="active"
-            >
-              신용등급예측
-            </NavLink>
+        <div className="navLoginContainer">
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Link to="/">
+              <Image className="mainLogo" src="image/dokb_2.png" />
+            </Link>
           </div>
-          <div className="headerLogin">
-            <div>{login_name}</div>
-            <div className="loginButton" onClick={login_click}>
-              {login_text}
+          <div className="navHeader">
+            <div className="nav">
+              <NavLink
+                exact
+                to="/account_create"
+                style={{ textDecoration: "none" }}
+                className="navTab"
+              >
+                계좌개설
+              </NavLink>
+              <NavLink
+                to="/account_lookup"
+                style={{ textDecoration: "none" }}
+                activeClassName="active"
+                className="navTab"
+              >
+                계좌조회
+              </NavLink>
+              <NavLink
+                to="/transfer"
+                style={{ textDecoration: "none" }}
+                className="navTab"
+                activeClassName="active"
+              >
+                이체
+              </NavLink>
+              <NavLink
+                to="/find"
+                style={{ textDecoration: "none" }}
+                className="navTab"
+                activeClassName="active"
+              >
+                점포찾기
+              </NavLink>
+              <NavLink
+                to="/predict"
+                style={{ textDecoration: "none" }}
+                className="navTab"
+                activeClassName="active"
+              >
+                신용등급예측
+              </NavLink>
+            </div>
+            <div className="loginContainer">
+              <div className="headerLogin">
+                <div className="loginName">{login_name}</div>
+                <div className="loginButton" onClick={login_click}>
+                  {login_text}
+                </div>
+              </div>
             </div>
           </div>
         </div>

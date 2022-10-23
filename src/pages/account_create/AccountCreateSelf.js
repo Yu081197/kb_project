@@ -40,7 +40,7 @@ function AccountCreateSelf() {
   };
 
   const saveAccountData = () => {
-    window.localStorage.setItem("imgSrc", JSON.stringify({ imgSrc }));
+    window.localStorage.setItem(imgSrc, JSON.stringify(imgSrc));
   };
 
   const sendAccountData = useEffect(() => {

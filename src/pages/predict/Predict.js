@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import "./Predict.scss";
 function Predict() {
-  const [jobtypeState, setJobTypeState] = useState("");
-
-  const onChangeJobtype = (e) => {
-    setJobTypeState(e.target.value);
-  };
-
   //페이지 이동
   function handleClick(e) {
     window.location.href = "/predict_result";
@@ -254,9 +248,9 @@ function Predict() {
                     <div className="BtnContainer">
                       <h2>모든 질문에 답하셨다면!!</h2>
                       <div className="predictBtn">
-                        <button type="submit" name="pred">
+                        <div onClick={handleClick} name="pred">
                           신용등급 예측하기
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </a>
