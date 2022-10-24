@@ -104,8 +104,6 @@ class ChatBot extends React.Component {
         }
       }
 
-      
-
       // 데이터 입력
 
       // 속도조절
@@ -184,8 +182,16 @@ class ChatBot extends React.Component {
 
         const utterThis = new SpeechSynthesisUtterance(inputTxt);
 
+        utterThis.onstart = function (event) {
+          console.log("SpeechSynthesisUtterance.onstart");
+          if (isInput) {
+            recognition.stop();
+          }
+        };
+
         utterThis.onend = function (event) {
           console.log("SpeechSynthesisUtterance.onend");
+          recognition.start();
         };
 
         utterThis.onerror = function (event) {
@@ -207,7 +213,6 @@ class ChatBot extends React.Component {
     }
 
     $(function () {
-
       // 음성 및 헤드트래킹 사용설정
       let useVoiceService = localStorage.getItem("useVoiceService");
       if (useVoiceService == null) {  // 선택한 서비스가 없는 경우 서비스선택요청
@@ -215,11 +220,11 @@ class ChatBot extends React.Component {
           "어떤 서비스를 이용하시겠습니까? 일번 음성서비스, 이번 헤드트래킹, 삼번 이용안함 중 선택해주세요.", true, inputService
         );
 
-        setTimeout(function() {
-          recognition.start();
-        }, 8000);
+        // setTimeout(function() {
+        //   recognition.start();
+        // }, 8000);
         
-      } else if (useVoiceService == true) {
+      } else if (useVoiceService) {
         recognition.start();
       }
 
