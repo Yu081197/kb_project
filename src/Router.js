@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Nav from "./components/nav/Nav.js";
 import ChatBot from "./components/chatbot/ChatBot";
+import ReactChatBot from "./components/chatbot/ReactChatBot";
 import Footer from "./components/footer/Footer";
 
 import Main from "./pages/main/Main";
@@ -54,7 +55,8 @@ function Router() {
         <Route path="/warning_modal" element={<WarningModal />} />
         {/* <Route path="/chatbot" element={<ChatBot />} /> */}
       </Routes>
-      <ChatBot />
+      {/* <ChatBot /> */}
+      <ReactChatBot />
       <Footer />
     </BrowserRouter>
   );

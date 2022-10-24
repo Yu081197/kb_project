@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./AccountCreate.scss";
 import AccountCreateModal from "./AccountCreateModal/AccountCreateModal";
+import ReactChatBot, {speak} from "../../components/chatbot/ReactChatBot";
 
 function AccountCreate() {
+  speak("약관동의 화면입니다.");
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const showModal = () => {
