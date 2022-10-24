@@ -7,7 +7,7 @@ function ReactChatBot() {
         let useVoiceService = localStorage.getItem("useVoiceService");
         if (useVoiceService == null) {  // 선택한 서비스가 없는 경우 서비스선택요청
             speak(
-                "어떤 서비스를 이용하시겠습니까? 일번 음성서비스, 이번 헤드트래킹, 삼번 이용안함 중 선택해주세요.", true, inputService
+                "어떤 서비스를 이용하시겠습니까? 일번 음성서비스, 이번 헤드트래킹, 삼번 이용안함 중 선택해주세요.", true, recogInputService
             );
         } else if (useVoiceService) {
             recognitionStart();
@@ -85,7 +85,9 @@ let recong_ing = true;
 
 /* 기타 설정들... */
 // input options
-const inputService = 1;
+const recogInputService = 1;
+const recogInputAgree = 2;
+const recogInputNext = 3;
 
 // page info
 const pages = new Map();
@@ -96,6 +98,12 @@ pages.set('이채', '/transfer');
 pages.set('점포찾기', '/find');
 pages.set('신용등급예측', '/predict');
 /* END 기타 설정들... */
+
+
+recognition.onstart = function (event) {
+    console.log("SpeechRecognition.onstart");
+    result = "";
+}
 
 /* speak to text */
 let result = "";  // 음성인식결과
@@ -115,6 +123,7 @@ recognition.onresult = function (event) {
 // 음성인식 후 연동기능
 // : 깨비 호출, 페이지 이동, 데이터 입력, 속도조절
 let inputOption = null;
+let inputArg = null;
 recognition.onend = function (event) {
     console.log("SpeechRecognition.onend");
 
@@ -131,8 +140,9 @@ recognition.onend = function (event) {
 
     // 입력인 경우
     else if (inputOption != null) {
-        console.log("===== 서비스 선택 =====");
-        if (inputOption == inputService) {  // 음성서비스 입력
+        /* 서비스 선택 */
+        if (inputOption == recogInputService) {
+            console.log("===== 서비스 선택 =====");
             if (result_remove_blank.includes("음성")) { // 음성서비스 사용설정
                 localStorage.setItem("useVoiceService", true);
                 inputOption = null;
@@ -150,6 +160,30 @@ recognition.onend = function (event) {
             } else {
                 speak("이해하지 못했습니다.");
                 recognition.start();
+            }
+        }
+
+        /* 약관동의 */
+        else if (inputOption == recogInputAgree) {   // 2
+            console.log("===== 약관동의 =====");
+            if (result_remove_blank.includes("예") || result_remove_blank.includes("네")) {
+                document.querySelector("#allAgree").checked = true;
+                document.querySelector("#useAgree").checked = true;
+                document.querySelector("#itemAgree").checked = true;
+                document.querySelector("#specialAgree").checked = true;
+                document.querySelector("#basicAgree").checked = true;
+                document.querySelector("#freeAgree").checked = true;
+                document.querySelector("#personalAgree").checked = true;
+                inputOption = null;
+            }
+        }
+
+        /* 계좌개설 :: 다음페이지로 이동 */
+        else if (inputOption == recogInputNext) {   // 3
+            console.log("===== 계좌개설 :: 다음페이지로 이동 =====");
+            if (result_remove_blank.includes("예") || result_remove_blank.includes("네")) {
+                window.location.href = inputArg;
+                inputOption = null;
             }
         }
     }
@@ -234,15 +268,21 @@ export function recognitionStart() {
     recognition.start();
 }
 
-export function speak(inputTxt, isInput = false, option = null) {
-    console.log("isInput: " + isInput + " / option: " + option);
+export function speak(inputTxt, isInput = false, recogInputOption = null, arg = null) {
+    console.log("===== arg =====");
+    console.log(arg);
+    console.log("===== arg =====");
+    console.log("isInput: " + isInput + " / recogInputOption: " + recogInputOption);
 
     if (synth.speaking) {
         console.error("speechSynthesis.speaking", inputTxt);
         return;
     }
 
-    if (isInput) inputOption = option;
+    if (isInput) {
+        inputOption = recogInputOption;
+        inputArg = arg;
+    }
 
     const utterThis = new SpeechSynthesisUtterance(inputTxt);
 
