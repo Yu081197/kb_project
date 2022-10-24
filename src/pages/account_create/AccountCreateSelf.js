@@ -48,7 +48,7 @@ function AccountCreateSelf() {
   const sendAccountData = useEffect(() => {
     axios
       .post(
-        "/openaccount",
+        "api/openaccount",
         {},
         {
           params: {
@@ -82,7 +82,9 @@ function AccountCreateSelf() {
   const sendImgData = useEffect(() => {
     axios
       .post(
+
         "/certification",
+
         {},
         {
           params: {
