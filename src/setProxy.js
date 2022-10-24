@@ -10,7 +10,7 @@ module.exports = function (app) {
   );
 
   app.use(
-    "/img",
+    "/certification",
     createProxyMiddleware({
       target: "http://localhost:8000",
       changeOrigin: true,

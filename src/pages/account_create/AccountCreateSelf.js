@@ -35,20 +35,21 @@ function AccountCreateSelf() {
 
   const [btnDisabled, setBtnDisabled] = useState(false);
   const showAndCapture = () => {
-    console.log(imgSrc["imgSrc"]);
+    console.log(imgSrc);
     showModal();
+    sendImgData();
     saveAccountData();
     capture();
   };
 
   const saveAccountData = () => {
-    window.localStorage.setItem("imgSrc", JSON.stringify(imgSrc["imgSrc"]));
+    window.localStorage.setItem("imgSrc", JSON.stringify(imgSrc));
   };
 
   const sendAccountData = useEffect(() => {
     axios
       .post(
-        "api/openaccount",
+        "/api/openaccount",
         {},
         {
           params: {
@@ -79,12 +80,10 @@ function AccountCreateSelf() {
       });
   }, []);
 
-  const sendImgData = useEffect(() => {
+  const sendImgData = () => {
     axios
       .post(
-
         "/certification",
-
         {},
         {
           params: {
@@ -102,9 +101,9 @@ function AccountCreateSelf() {
         console.log("성공");
       })
       .catch(function (error) {
-        console.log("실패");
+        console.log(error);
       });
-  }, []);
+  };
 
   function handleClickNext(e) {
     window.location.href = "/account_create_complete";
