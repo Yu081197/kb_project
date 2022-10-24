@@ -16,52 +16,52 @@ function ReactChatBot() {
 
     return (
         <div>
-          <div
-            id="chatbot"
-            style={{
-              position: "fixed",
-              width: "100%",
-              height: "100%",
-            }}
-          >
             <div
-              style={{
-                position: "fixed",
-                right: "5%",
-                bottom: "5%",
-              }}
-            >
-              <div class="tip">
-                <textarea
-                  name="output"
-                  id="output"
-                  cols="30"
-                  style={{
-                    width: "200px",
-                    height: "300px",
-                    fontSize: "15px",
-                    backgroundColor: "#2b2b36",
-                    color: "white",
-                  }}
-                ></textarea>
-              </div>
-              <div class="icon">
-                <Image
-                  className="mainLogo"
-                  src="image/kkebi.png"
-                  style={{
+                id="chatbot"
+                style={{
                     position: "fixed",
-                    right: "3%",
-                    bottom: "2%",
-                    width: "150px",
-                    height: "180px",
-                  }}
-                />
-              </div>
+                    width: "100%",
+                    height: "100%",
+                }}
+            >
+                <div
+                    style={{
+                        position: "fixed",
+                        right: "5%",
+                        bottom: "5%",
+                    }}
+                >
+                    <div class="tip">
+                        <textarea
+                            name="output"
+                            id="output"
+                            cols="30"
+                            style={{
+                                width: "200px",
+                                height: "300px",
+                                fontSize: "15px",
+                                backgroundColor: "#2b2b36",
+                                color: "white",
+                            }}
+                        ></textarea>
+                    </div>
+                    <div class="icon">
+                        <Image
+                            className="mainLogo"
+                            src="image/kkebi.png"
+                            style={{
+                                position: "fixed",
+                                right: "3%",
+                                bottom: "2%",
+                                width: "150px",
+                                height: "180px",
+                            }}
+                        />
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      );
+    );
 }
 
 // ================== STT settings ==================
@@ -133,7 +133,7 @@ recognition.onend = function (event) {
     else if (inputOption != null) {
         console.log("===== 서비스 선택 =====");
         if (inputOption == inputService) {  // 음성서비스 입력
-            if (result_remove_blank.includes("음성서비스")) { // 음성서비스 사용설정
+            if (result_remove_blank.includes("음성")) { // 음성서비스 사용설정
                 localStorage.setItem("useVoiceService", true);
                 inputOption = null;
             } else if (result_remove_blank.includes("헤드트래킹") || result_remove_blank.includes("헤드트레킹")) {  // 음성서비스 미사용설정 및 헤드트레킹 다운로드
@@ -142,11 +142,14 @@ recognition.onend = function (event) {
                 recognition.stop();
                 // 헤드트레킹 다운로드 기능 추가
                 return;
-            } else if (result_remove_blank.includes("이용안함")) {  // 음성서비스 미사용설정
+            } else if (result_remove_blank.includes("이용안함") || result_remove_blank.includes("사용안함")) {  // 음성서비스 미사용설정
                 localStorage.setItem("useVoiceService", false);
                 inputOption = null;
                 recognition.stop();
                 return;
+            } else {
+                speak("이해하지 못했습니다.");
+                recognition.start();
             }
         }
     }
@@ -230,6 +233,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
 export function recognitionStart() {
     recognition.start();
 }
+
 export function speak(inputTxt, isInput = false, option = null) {
     console.log("isInput: " + isInput + " / option: " + option);
 
@@ -238,41 +242,37 @@ export function speak(inputTxt, isInput = false, option = null) {
         return;
     }
 
-    if (isInput !== "") {
+    if (isInput) inputOption = option;
 
-        if (isInput) inputOption = option;
+    const utterThis = new SpeechSynthesisUtterance(inputTxt);
 
-        const utterThis = new SpeechSynthesisUtterance(inputTxt);
+    utterThis.onstart = function (event) {
+        console.log("SpeechSynthesisUtterance.onstart");
+        console.log("SpeechSynthesisUtterance.onstart :: recognition.stop");
+        recognition.stop();
+    };
 
-        utterThis.onstart = function (event) {
-            console.log("SpeechSynthesisUtterance.onstart");
-            if (isInput) {
-                console.log("speak onstart isInput true");
-                recognition.stop();
-            }
-        };
+    utterThis.onend = function (event) {
+        console.log("SpeechSynthesisUtterance.onend");
+        recognition.start();
+    };
 
-        utterThis.onend = function (event) {
-            console.log("SpeechSynthesisUtterance.onend");
-            recognition.start();
-        };
+    utterThis.onerror = function (event) {
+        console.error("SpeechSynthesisUtterance.onerror");
+        console.log(`An error has occurred with the speech synthesis: ${event.error}`);
+    };
 
-        utterThis.onerror = function (event) {
-            console.error("SpeechSynthesisUtterance.onerror");
-            console.log(`An error has occurred with the speech synthesis: ${event.error}`);
-        };
-
-        for (let i = 0; i < voices.length; i++) {
-            if (voices[i].name === voiceNameKO) {
-                utterThis.voice = voices[i];
-                break;
-            }
+    for (let i = 0; i < voices.length; i++) {
+        if (voices[i].name === voiceNameKO) {
+            utterThis.voice = voices[i];
+            break;
         }
-        utterThis.pitch = pitch;
-        utterThis.rate = rate;
-        synth.speak(utterThis);
-        console.log("speak: ", inputTxt);
     }
+
+    utterThis.pitch = pitch;
+    utterThis.rate = rate;
+    synth.speak(utterThis);
+    console.log("speak: ", inputTxt);
 }
 
 export default ReactChatBot;
