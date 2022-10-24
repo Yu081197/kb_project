@@ -1,16 +1,51 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./AccountLookup.scss";
-import AccountLookupModal from "./account_lookup_modal/AccountLookupModal";
-import Moment from "moment";
 
+import Moment from "moment";
+import { getYear } from "date-fns";
+const _ = require("lodash");
 function AccountLookup() {
+  const years = _.range(1990, getYear(new Date()) + 1, 1); // 수정
+  const months = [
+    "1월",
+    "2월",
+    "3월",
+    "4월",
+    "5월",
+    "6월",
+    "7월",
+    "8월",
+    "9월",
+    "10월",
+    "11월",
+    "12월",
+  ];
   const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  const [accounts, setAccounts] = useState([]);
+  const [account, setAccount] = useState("");
+  const [accountsList, setAccountsList] = useState([]);
   // const [selectedAccount, setSelectedAccount] = useState([]);
   const [selectedAccountBalance, setSelectedAccountBalance] = useState([]);
   const [historys, setHistorys] = useState([]);
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [year, setYear] = useState(new Date().getFullYear());
+
+
+  const onSelected = (option,type) =>{
+    if (option == type){
+      return (
+      <option value={option} selected>
+        {option}
+      </option>
+      );}
+      else{
+      return(
+      <option value={option}>
+        {option}
+      </option>
+      );}
+  }
 
   // 계좌잔액 및 월별내역 초기화
   function initData() {
@@ -18,13 +53,15 @@ function AccountLookup() {
     setSelectedAccountBalance(0);
     setHistorys([]);
   }
-
+  
   useEffect(() => {
+
+
     axios
       .get("/api/account/all")
       .then(function (response) {
         initData();
-        setAccounts(response.data);
+        setAccountsList(response.data);
         console.log("계좌조회 성공");
       })
       .catch(function (error) {
@@ -32,21 +69,10 @@ function AccountLookup() {
       });
   }, []);
 
-  function handleClick(e) {
-    window.location.href = "/transfer";
-  }
-
-  const handleAccountSelectChange = async (e) => {
-    if (e.target.value == "") {
-      initData();
-      return;
-    }
-    
+  const handleAccountSelectChange =  (selectedAccount,selectedYear,selectedMonth) => {
     // setSelectedAccount(e.target.value);
-    setSelectedAccountBalance(e.target.options[e.target.selectedIndex].dataset['balance']);
-    
     axios
-      .get("/api/history/all/" + e.target.value)
+      .get("/api/history/all/" + selectedAccount+"/"+selectedYear+"/"+selectedMonth)
       .then(function (response) {
         setHistorys(response.data);
         console.log("거래내역조회 성공");
@@ -58,16 +84,59 @@ function AccountLookup() {
         console.log(error);
       });
   };
-  
+
+
+  function handleClick(e) {
+    window.location.href = "/transfer";
+  }
+
+
+  const handleAccountSelect = async(e) =>{
+    if (e.target.value == "") {
+      initData();
+      console.log(e.target.value)
+      return;
+    }
+
+
+    console.log(typeof(e.target.value))
+
+    setSelectedAccountBalance(e.target.options[e.target.selectedIndex].dataset['balance']);
+
+    setAccount(e.target.value);
+    handleAccountSelectChange(e.target.value,year,month);
+  }
+
+
+  const handleYearSelect = async(e) =>{
+    if (e.target.value == "") {
+      initData();
+      return;
+    }
+    setYear(e.target.value);
+    handleAccountSelectChange(account,e.target.value,month);
+  }
+
+
+  const handleMonthSelect = async(e) =>{
+    if (e.target.value == "") {
+      initData();
+      return;
+    }
+
+    setMonth(e.target.value.slice(0,-1));
+    handleAccountSelectChange(account,year,e.target.value.slice(0,-1));
+  }
+
   return (
     <div className="lookupContainer">
       <div className="lookupBox">
         <div className="informBox">
           <div className="informHeadBox">저축예금</div>
           <div className="informSelectBox">
-            <select onChange={handleAccountSelectChange}>
+            <select onChange={handleAccountSelect} value = {account}>
             <option value="">계좌선택</option>
-              {accounts.map(account =>
+              {accountsList.map(account =>
                 <option value={account.account_number} data-balance={account.balance}>국민은행 : {account.account_number}</option>
               )}
             </select>
@@ -92,7 +161,34 @@ function AccountLookup() {
           <div className="listHeadBox">
             <div className="listHead">월별내역</div>
             <div className="listHeadCalender">
-              <AccountLookupModal />
+            
+            
+            <div className="monthPickerContainer">
+          <div
+            style={{
+              margin: 10,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+
+            <select onChange={handleYearSelect}>
+              {years.map((option) => (
+                onSelected(option,year)
+              ))}
+            </select>
+
+            <select onChange={handleMonthSelect}>
+              {months.map((option) => (
+                onSelected(option,month +"월")
+              ))}
+            </select>
+
+          </div>
+
+
+
+    </div>
             </div>
           </div>
           <div className="listDetailBox">
