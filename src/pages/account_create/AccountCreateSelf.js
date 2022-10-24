@@ -4,6 +4,8 @@ import Webcam from "react-webcam";
 import AccountCreateSelfModal from "./AccountCreateModal/AccountCreateSelfModal";
 import axios from "axios";
 
+const WebcamComponent = () => <Webcam />;
+
 function AccountCreateSelf() {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -26,23 +28,23 @@ function AccountCreateSelf() {
   };
 
   const webcamRef = React.useRef(null);
-  const [imgSrc, setImgSrc] = React.useState(null);
+  const [imgSrc, setImgSrc] = useState(null);
 
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
-  }, [webcamRef, setImgSrc]);
+  });
 
   const [btnDisabled, setBtnDisabled] = useState(false);
   const showAndCapture = () => {
-    console.log(imgSrc["imgSrc"]);
+    console.log(imgSrc);
     showModal();
     saveAccountData();
     capture();
   };
 
   const saveAccountData = () => {
-    window.localStorage.setItem("imgSrc", JSON.stringify(imgSrc["imgSrc"]));
+    window.localStorage.setItem("imgSrc", JSON.stringify(imgSrc));
   };
 
   const sendAccountData = useEffect(() => {
@@ -82,7 +84,6 @@ function AccountCreateSelf() {
   const sendImgData = useEffect(() => {
     axios
       .post(
-
         "/certification",
 
         {},
