@@ -1,11 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./AccountCreate.scss";
 import AccountCreateModal from "./AccountCreateModal/AccountCreateModal";
-import ReactChatBot, {speak} from "../../components/chatbot/ReactChatBot";
+import ReactChatBot, { speak } from "../../components/chatbot/ReactChatBot";
 
 function AccountCreate() {
+  const allCheckRef = useRef();
+  const recogInputAgree = 2; // ReactChatBot 동의 옵션
+  const recogInputNext = 3; // ReactChatBot 동의 옵션
   useEffect(() => {
     speak("약관동의 화면입니다.");
+
+    setTimeout(function () {
+
+      speak("케이비 국민은행 계좌개설 약관 동의하시겠습니까?", true, recogInputAgree);
+
+      setTimeout(function () {
+        speak("다음 절차로 이동하시겠습니까?", true, recogInputNext, "/account_create_inform");
+      }, 8000);
+
+    }, 3000);
   }, []);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -125,8 +138,10 @@ function AccountCreate() {
         <div className="allAgree">
           <div>전체동의하기</div>
           <input
+            ref={allCheckRef}
             type="checkbox"
             value="allAgree"
+            id="allAgree"
             checked={allCheck}
             onChange={allBtnEvent}
           ></input>
@@ -141,6 +156,7 @@ function AccountCreate() {
               <input
                 type="checkbox"
                 value="useAgree"
+                id="useAgree"
                 checked={useCheck}
                 onChange={useBtnEvent}
               ></input>
@@ -152,6 +168,7 @@ function AccountCreate() {
               <input
                 type="checkbox"
                 value="itemAgree"
+                id="itemAgree"
                 checked={itemCheck}
                 onChange={itemBtnEvent}
               ></input>
@@ -163,6 +180,7 @@ function AccountCreate() {
               <input
                 type="checkbox"
                 value="specialAgree"
+                id="specialAgree"
                 checked={specialCheck}
                 onChange={specialCheckBtnEvent}
               ></input>
@@ -174,6 +192,7 @@ function AccountCreate() {
               <input
                 type="checkbox"
                 value="basicAgree"
+                id="basicAgree"
                 checked={basicCheck}
                 onChange={basicBtnEvent}
               ></input>
@@ -185,6 +204,7 @@ function AccountCreate() {
               <input
                 type="checkbox"
                 value="freeAgree"
+                id="freeAgree"
                 checked={freeCheck}
                 onChange={freeBtnEvent}
               ></input>
@@ -198,6 +218,7 @@ function AccountCreate() {
               <input
                 type="checkbox"
                 value="personalAgree"
+                id="personalAgree"
                 checked={personalCheck}
                 onChange={personalBtnEvent}
               ></input>
