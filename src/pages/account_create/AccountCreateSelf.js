@@ -35,14 +35,14 @@ function AccountCreateSelf() {
 
   const [btnDisabled, setBtnDisabled] = useState(false);
   const showAndCapture = () => {
-    console.log(imgSrc);
+    console.log(imgSrc["imgSrc"]);
     showModal();
     saveAccountData();
     capture();
   };
 
   const saveAccountData = () => {
-    window.localStorage.setItem("imgSrc", JSON.stringify(imgSrc));
+    window.localStorage.setItem("imgSrc", JSON.stringify(imgSrc["imgSrc"]));
   };
 
   const sendAccountData = useEffect(() => {
@@ -82,7 +82,7 @@ function AccountCreateSelf() {
   const sendImgData = useEffect(() => {
     axios
       .post(
-        "/",
+        "/certification",
         {},
         {
           params: {
