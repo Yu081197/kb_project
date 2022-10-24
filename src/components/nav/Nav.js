@@ -70,7 +70,11 @@ function Nav() {
         <div className="navLoginContainer">
           <div style={{ display: "flex", alignItems: "center" }}>
             <Link to="/">
-              <Image className="mainLogo" src="image/dokb_2.png" />
+              <Image
+                className="mainLogo"
+                src="image/dokb_2.png"
+                onClick={false}
+              />
             </Link>
           </div>
           <div className="navHeader">
