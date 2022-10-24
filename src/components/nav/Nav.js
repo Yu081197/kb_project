@@ -53,17 +53,22 @@ function Nav() {
     let login_name = "";
     let user_name = getCookieValue("name");
     let login_text = "Login";
+    let account_lookup_url = "/login";
+    let transfer_url = "/login";
     if (user_name.length > 0) {
       login_name = user_name + "님";
       login_text = "Logout";
+      account_lookup_url = "/account_lookup";
+      transfer_url = "/transfer";
     }
-    let login_data = [login_name, login_text];
+    let login_data = [login_name, login_text,account_lookup_url,transfer_url];
     return login_data;
   };
   var login_data = login();
   var login_name = login_data[0];
   var login_text = login_data[1];
-
+  var account_lookup_url = login_data[2];
+  var transfer_url = login_data[3]
   return (
     <div style={{ width: "100vw " }}>
       <div className="header">
@@ -84,7 +89,7 @@ function Nav() {
                 계좌개설
               </NavLink>
               <NavLink
-                to="/account_lookup"
+                to={account_lookup_url}
                 style={{ textDecoration: "none" }}
                 activeClassName="active"
                 className="navTab"
@@ -92,7 +97,7 @@ function Nav() {
                 계좌조회
               </NavLink>
               <NavLink
-                to="/transfer"
+                to={transfer_url}
                 style={{ textDecoration: "none" }}
                 className="navTab"
                 activeClassName="active"
