@@ -4,15 +4,17 @@ import "./ChatBot.scss";
 
 function ReactChatBot() {
     useEffect(() => {
+        console.log("useEffect :: ReactChatBot");
         let useVoiceService = localStorage.getItem("useVoiceService");
+        // console.log("useVoiceService: " + useVoiceService);
         if (useVoiceService == null) {  // 선택한 서비스가 없는 경우 서비스선택요청
             speak(
                 "어떤 서비스를 이용하시겠습니까? 일번 음성서비스, 이번 헤드트래킹, 삼번 이용안함 중 선택해주세요.", true, recogInputService
             );
-        } else if (useVoiceService) {
+        } else if (useVoiceService == "true") {
             recognitionStart();
         }
-    })
+    }, []);
 
     return (
         <div>
@@ -79,9 +81,7 @@ let lang = "ko-KR";
 recognition.lang = lang;
 recognition.continuous = false;
 recognition.interimResults = true;
-recognition.maxAlternatives = 100;
-
-let recong_ing = true;
+recognition.maxAlternatives = 1;
 
 /* 기타 설정들... */
 // input options
@@ -112,14 +112,6 @@ recognition.onresult = function (event) {
     result = input;
 };
 
-// recognition.onsaudiostart = function (event) {
-//     console.log("SpeechRecognition.onaudiostart");
-// }
-
-// recognition.onaudioend = function (event) {
-//     console.log("SpeechRecognition.onaudioend");
-// }
-
 // 음성인식 후 연동기능
 // : 깨비 호출, 페이지 이동, 데이터 입력, 속도조절
 let inputOption = null;
@@ -131,6 +123,14 @@ recognition.onend = function (event) {
     document.querySelector("#output").value = result;
 
     let result_remove_blank = result.replaceAll(' ', '');
+
+    // 강제종료
+    if (result.includes("꺼져")) {
+        console.log("===== 음성인식 강제종료 =====");
+        localStorage.setItem("useVoiceService", false);
+        recognition.stop();
+        return;
+    }
 
     // 깨비 호출
     if (result.includes("깨비")) {
@@ -202,9 +202,10 @@ recognition.onend = function (event) {
     // 데이터 입력
 
     // 속도조절
+    
 
-    console.log("recong_ing: " + recong_ing);
-    if (recong_ing) {
+    var useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
         recognition.start();
     }
 };
@@ -217,22 +218,6 @@ recognition.onerror = function (event) {
 
 recognition.onnomatch = function (event) {
     console.log("SpeechRecognition.onnomatch");
-};
-
-// recognition.onsoundstart = function (event) {
-//     console.log("SpeechRecognition.onsoundstart");
-// }
-
-// recognition.onsoundend = function (event) {
-//     console.log("SpeechRecognition.onsoundend");
-// }
-
-recognition.onspeechstart = function (event) {
-    console.log("SpeechRecognition.onspeechstart");
-};
-
-recognition.onspeechend = function (event) {
-    console.log("SpeechRecognition.onspeechend");
 };
 
 
@@ -265,6 +250,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
 }
 
 export function recognitionStart() {
+    console.log("recognition.start() in recognitionStart");
     recognition.start();
 }
 
@@ -294,6 +280,7 @@ export function speak(inputTxt, isInput = false, recogInputOption = null, arg = 
 
     utterThis.onend = function (event) {
         console.log("SpeechSynthesisUtterance.onend");
+        console.log("SpeechSynthesisUtterance.onend :: recognition.start");
         recognition.start();
     };
 
