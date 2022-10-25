@@ -1,36 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import AccountCreatePWModal from "./AccountCreateModal/AccountCreatePWModal";
+import { speak } from "../../components/chatbot/ReactChatBot";
 
 function AccountCreatePW() {
+  const recogInputNext = 3; // ReactChatBot 다음페이지 이동 옵션
+  const recogInput = 4; // ReactChatBot 데이터입력 옵션
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const showModal = () => {
     setModalOpen(true);
   };
 
+  const passwordRef = useRef();
+  const validPasswordRef = useRef();
   const [passwordState, setPasswordState] = useState("");
   const [passwordError, setpasswordError] = useState(false);
   const [validPasswordState, setValidPasswordState] = useState();
   const [validPasswordError, setValidPasswordError] = useState(false);
 
+  useEffect(() => {
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("계좌비밀번호를 말씀해주세요.", true, recogInput, passwordRef);
+      }, 1000);
+    }
+  }, []);
+
   const onChangePassword = (e) => {
+    let formatNumber = e.target.value.replace(/[^0-9]/g, '');
     const passwordRegex = /^[0-9]+$/;
-    if (!e.target.value || passwordRegex.test(e.target.value))
+    if (!formatNumber || passwordRegex.test(formatNumber))
       setpasswordError(false);
     else {
       setpasswordError(true);
     }
-    setPasswordState(e.target.value);
+    setPasswordState(formatNumber);
+
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("계좌비밀번호를 다시 한 번 말씀해주세요.", true, recogInput, validPasswordRef);
+      }, 1000);
+    }
   };
 
   const onChangeValidPassword = (e) => {
-    if (e.target.value === passwordState) {
+    let formatNumber = e.target.value.replace(/[^0-9]/g, '');
+    if (formatNumber === passwordState) {
       setValidPasswordError(false);
     } else {
       setValidPasswordError(true);
     }
-    setValidPasswordState(e.target.value);
+    setValidPasswordState(formatNumber);
+
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("다음 절차로 이동하시겠습니까?", true, recogInputNext, saveAndNext);
+      }, 1000);
+    }
   };
 
   const saveAccountData = () => {
@@ -71,6 +102,7 @@ function AccountCreatePW() {
         <div className="input">
           <div>계좌비밀번호</div>
           <input
+            ref={passwordRef}
             type="password"
             maxlength="4"
             name="Password"
@@ -88,6 +120,7 @@ function AccountCreatePW() {
         <div className="input">
           <div>계좌비밀번호 확인</div>
           <input
+            ref={validPasswordRef}
             type="password"
             maxlength="4"
             name="Password"
