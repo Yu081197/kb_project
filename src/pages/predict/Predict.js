@@ -4,7 +4,8 @@ import "./Predict.scss";
 function Predict() {
   //페이지 이동
   function handleClick(e) {
-    window.location.href = "/predict_result";
+    sendPredictData();
+    // window.location.href = "/predict_result";
   }
 
   const [predictAgeState, setPredictAgeState] = useState("");
@@ -157,7 +158,7 @@ function Predict() {
                           type="text"
                           name="연간소득"
                           required=""
-                          value={predictAgeState}
+                          value={predictIncomeState}
                           onChange={onChangePredictIncome}
                         />{" "}
                         원
