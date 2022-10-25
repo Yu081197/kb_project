@@ -18,7 +18,7 @@ function Transfer() {
   const removeCommas = (num) => num.toString().replace(/[^\d]+/g, "");
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [num, setNum] = useState();
+  const [num, setNum] = useState(0);
   const [accounts, setAccounts] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState("");
   const [selectedAccountBalance, setSelectedAccountBalance] = useState(0);
@@ -27,7 +27,16 @@ function Transfer() {
   const [opponentAccount, setOpponentAccount] = useState("");
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-
+  /*돈추가*/
+  const addMoney = async (e) =>{
+    if(e.target.value == "reset"){
+      console.log("========================",num)
+      setNum(0);
+      return;
+    }
+    console.log("========================",num)
+    setNum(num+parseInt(e.target.value));
+  }
   /* 입력값 체크 및 이체확인 모달 띄우기 */
   const showModal = () => {
     if (selectedAccount == "") {
@@ -276,11 +285,11 @@ function Transfer() {
                 width: "500px",
               }}
             >
-              <button className="transferBtn">십</button>
-              <button className="transferBtn">백</button>
-              <button className="transferBtn">천</button>
-              <button className="transferBtn">만</button>
-              <button className="transferBtn">초기화</button>
+              <button className="transferBtn" onClick={addMoney} value={1000}>+천</button>
+              <button className="transferBtn" onClick={addMoney} value={10000}>+만</button>
+              <button className="transferBtn" onClick={addMoney} value={100000}>+십만</button>
+              <button className="transferBtn" onClick={addMoney} value={1000000}>+백만</button>
+              <button className="transferBtn" onClick={addMoney} value="reset">초기화</button>
             </div>
           </div>
         </div>
