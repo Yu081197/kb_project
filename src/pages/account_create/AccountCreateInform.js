@@ -1,8 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./AccountCreateInform.scss";
 import AccountCreateInformModal from "./AccountCreateModal/AccountCreateInformModal";
+import ReactChatBot, { speak } from "../../components/chatbot/ReactChatBot";
 
 function AccountCreateInform() {
+  const recogInputNext = 3; // ReactChatBot 다음페이지 이동 옵션
+  const recogInput = 4; // ReactChatBot 데이터입력 옵션
+
+  const nameRef = useRef();
+  const registerNumberRef = useRef();
+  const phoneNumberRef = useRef();
+  const emailRef = useRef();
+  const addressRef = useRef();
+  const jobRef = useRef();
+
+  useEffect(() => {
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      speak("정보입력 화면입니다.");
+
+      setTimeout(function () {
+        speak("이름을 말씀해주세요.", true, recogInput, nameRef);
+      }, 3000);
+    }
+  }, []);
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const showModal = () => {
@@ -69,7 +91,15 @@ function AccountCreateInform() {
       setEmailError(true);
     }
     setEmailState(e.target.value);
+
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("주소를 말씀해주세요.", true, recogInput, addressRef);
+      }, 1000);
+    }
   };
+
   const onChangeName = (e) => {
     const nameRegex = /^[가-힣]{1,10}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
     if (!e.target.value || nameRegex.test(e.target.value)) setNameError(false);
@@ -77,17 +107,33 @@ function AccountCreateInform() {
       setNameError(true);
     }
     setNameState(e.target.value);
+
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("주민번호를 말씀해주세요.", true, recogInput, registerNumberRef);
+      }, 1000);
+    }
   };
 
   const onChangeRegisterNumber = (e) => {
+    let formatNumber = e.target.value.replace(/[^0-9]/g, '');
+
     const registerNumberRegex =
       /^\d{2}([0]\d|[1][0-2])([0][1-9]|[1-2]\d|[3][0-1])[-]*[1-4]\d{6}$/;
-    if (!e.target.value || registerNumberRegex.test(e.target.value))
+    if (!formatNumber || registerNumberRegex.test(formatNumber))
       setRegisterNumberError(false);
-    else {
+    else  
       setRegisterNumberError(true);
+
+    setRegisterNumberState(formatNumber);
+
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("휴대전화번호를 말씀해주세요.", true, recogInput, phoneNumberRef);
+      }, 1000);
     }
-    setRegisterNumberState(e.target.value);
   };
 
   useEffect(() => {
@@ -102,13 +148,22 @@ function AccountCreateInform() {
   }, [registerNumberState]);
 
   const onChangePhoneNumber = (e) => {
+    let formatNumber = e.target.value.replace(/[^0-9]/g, '');
+
     const phoneNumberRegex = /^(\d{2,3})(\d{3,4})(\d{4})$/;
-    if (!e.target.value || phoneNumberRegex.test(e.target.value))
+    if (!formatNumber || phoneNumberRegex.test(formatNumber))
       setPhoneNumberError(false);
     else {
       setPhoneNumberError(true);
     }
-    setPhoneNumberState(e.target.value);
+    setPhoneNumberState(formatNumber);
+    
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("이메일을 말씀해주세요.", true, recogInput, emailRef);
+      }, 1000);
+    }
   };
 
   useEffect(() => {
@@ -121,6 +176,13 @@ function AccountCreateInform() {
 
   const onChangeAddress = (e) => {
     setAddressState(e.target.value);
+
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("직업을 말씀해주세요.", true, recogInput, jobRef);
+      }, 1000);
+    }
   };
 
   const onChangeJob = (e) => {
@@ -171,6 +233,7 @@ function AccountCreateInform() {
         <div className="input">
           <div>이름</div>
           <input
+            ref={nameRef}
             type="text"
             name="name"
             id="name"
@@ -187,6 +250,7 @@ function AccountCreateInform() {
         <div className="input">
           <div>주민등록번호</div>
           <input
+            ref={registerNumberRef}
             type="text"
             name="register"
             id="register"
@@ -204,6 +268,7 @@ function AccountCreateInform() {
         <div className="input">
           <div>휴대폰 번호</div>
           <input
+            ref={phoneNumberRef}
             name="phone"
             id="phonenumber"
             maxlength="11"
@@ -220,6 +285,7 @@ function AccountCreateInform() {
         <div className="input">
           <div>이메일</div>
           <input
+            ref={emailRef}
             type="text"
             name="email"
             id="email"
@@ -236,6 +302,7 @@ function AccountCreateInform() {
         <div className="input">
           <div>주소</div>
           <input
+            ref={addressRef}
             type="text"
             name="address"
             value={addressState}
@@ -247,10 +314,19 @@ function AccountCreateInform() {
         <div className="input">
           <div>직업</div>
           <select
+            ref={jobRef}
             form="jobForm"
             value={jobState}
             // onSubmit={handleSubmit}
-            onChange={(e) => setJobState(e.target.value)}
+            onChange={(e) => {
+              setJobState(e.target.value);
+              let useVoiceService = localStorage.getItem("useVoiceService");
+              if (useVoiceService == "true") {
+                setTimeout(function () {
+                  speak("다음 절차로 이동하시겠습니까?", true, recogInputNext, checkedAllFill);
+                }, 1000);
+              }
+            }}
           >
             {jobOptions.map((option) => (
               <option value={option.value}>{option.label}</option>
