@@ -3,27 +3,27 @@ import { Image } from "react-bootstrap";
 import "./ChatBot.scss";
 
 function ReactChatBot() {
-    useEffect(() => {
-        console.log("useEffect :: ReactChatBot");
+  useEffect(() => {
+    console.log("useEffect :: ReactChatBot");
 
-        let useVoiceService = localStorage.getItem("useVoiceService");
-        // console.log("useVoiceService: " + useVoiceService);
-        // console.log("useVoiceService type :: " + typeof(useVoiceService));
-        if (useVoiceService == null) {  // 선택한 서비스가 없는 경우 서비스선택요청
-            speak(
-                "어떤 서비스를 이용하시겠습니까? 일번 음성서비스, 이번 헤드트래킹, 삼번 이용안함 중 선택해주세요.", true, recogInputService
-            );
-        } else if (useVoiceService == "true") {
-            recognitionStart();
-        }
-        
-    }, []);
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    // console.log("useVoiceService: " + useVoiceService);
+    // console.log("useVoiceService type :: " + typeof(useVoiceService));
+    if (useVoiceService == null) {  // 선택한 서비스가 없는 경우 서비스선택요청
+      speak(
+        "어떤 서비스를 이용하시겠습니까? 일번 음성서비스, 이번 헤드트래킹, 삼번 이용안함 중 선택해주세요.", true, recogInputService
+      );
+    } else if (useVoiceService == "true") {
+      recognitionStart();
+    }
 
-    return (
-        <div>
-            <div
-                id="chatbot"
-                style={{
+  }, []);
+
+  return (
+    <div>
+      <div
+        id="chatbot"
+        style={{
           position: "fixed",
           width: "100%",
           height: "100%",
@@ -62,39 +62,39 @@ function ReactChatBot() {
                 height: "180px",
               }}
             />
-              <div class="tip">
-                <textarea
-                  name="output"
-                  id="output"
-                  cols="30"
-                  style={{
-                    width: "200px",
-                    height: "300px",
-                    fontSize: "15px",
-                    backgroundColor: "#2b2b36",
-                    color: "white",
-                    padding: "20px",
-                    
-                  }}
-                ></textarea>
-              </div>
-              <div class="icon">
-                <Image
-                  className="mainLogo"
-                  src="image/kkebi.png"
-                  style={{
-                    position: "fixed",
-                    right: "3%",
-                    bottom: "2%",
-                    width: "150px",
-                    height: "180px",
-                  }}
-                />
-              </div>
+            <div class="tip">
+              <textarea
+                name="output"
+                id="output"
+                cols="30"
+                style={{
+                  width: "200px",
+                  height: "300px",
+                  fontSize: "15px",
+                  backgroundColor: "#2b2b36",
+                  color: "white",
+                  padding: "20px",
+
+                }}
+              ></textarea>
+            </div>
+            <div class="icon">
+              <Image
+                className="mainLogo"
+                src="image/kkebi.png"
+                style={{
+                  position: "fixed",
+                  right: "3%",
+                  bottom: "2%",
+                  width: "150px",
+                  height: "180px",
+                }}
+              />
             </div>
           </div>
         </div>
       </div>
+    </div>
   );
 }
 
@@ -170,47 +170,49 @@ recognition.onend = function (event) {
     speak("네, 말씀하세요");
   }
 
+  // 속도조절
+
+
+  // 페이지 이동
+  else if (result.includes("이동")) {
+    console.log("===== 페이지이동 =====");
+
+    for (let key of pages.keys()) {
+      if (result_remove_blank.includes(key)) {
+        window.location.href = pages.get(key);
+      }
+    }
+  }
+
   // 입력인 경우
   else if (inputOption != null) {
     /* 서비스 선택 */
     if (inputOption == recogInputService) {
       console.log("===== 서비스 선택 =====");
-      if (result_remove_blank.includes("음성")) {
-        // 음성서비스 사용설정
+      if (result_remove_blank.includes("음성")) { // 음성서비스 사용설정
         localStorage.setItem("useVoiceService", true);
         inputOption = null;
-      } else if (
-        result_remove_blank.includes("헤드트래킹") ||
-        result_remove_blank.includes("헤드트레킹")
-      ) {
-        // 음성서비스 미사용설정 및 헤드트레킹 다운로드
+      } else if (result_remove_blank.includes("헤드트래킹") || result_remove_blank.includes("헤드트레킹")) {  // 음성서비스 미사용설정 및 헤드트레킹 다운로드
         localStorage.setItem("useVoiceService", false);
         inputOption = null;
         recognition.stop();
         // 헤드트레킹 다운로드 기능 추가
         return;
-      } else if (
-        result_remove_blank.includes("이용안함") ||
-        result_remove_blank.includes("사용안함")
-      ) {
-        // 음성서비스 미사용설정
+      } else if (result_remove_blank.includes("이용안함") || result_remove_blank.includes("사용안함")) {  // 음성서비스 미사용설정
         localStorage.setItem("useVoiceService", false);
         inputOption = null;
         recognition.stop();
         return;
       } else {
         speak("이해하지 못했습니다.");
-        recognition.start();
+        // recognition.start();
       }
-    } else if (inputOption == recogInputAgree) {
+    }
 
     /* 약관동의 */
-      // 2
+    else if (inputOption == recogInputAgree) {   // 2
       console.log("===== 약관동의 =====");
-      if (
-        result_remove_blank.includes("예") ||
-        result_remove_blank.includes("네")
-      ) {
+      if (result_remove_blank.includes("예") || result_remove_blank.includes("네")) {
         document.querySelector("#allAgree").checked = true;
         document.querySelector("#useAgree").checked = true;
         document.querySelector("#itemAgree").checked = true;
@@ -220,112 +222,38 @@ recognition.onend = function (event) {
         document.querySelector("#personalAgree").checked = true;
         inputOption = null;
       }
-    } else if (inputOption == recogInputNext) {
+    }
 
     /* 계좌개설 :: 다음페이지로 이동 */
-      // 3
+    else if (inputOption == recogInputNext) {   // 3
       console.log("===== 계좌개설 :: 다음페이지로 이동 =====");
-      if (
-        result_remove_blank.includes("예") ||
-        result_remove_blank.includes("네")
-      ) {
-        window.location.href = inputArg;
-        inputOption = null;
+      if (result_remove_blank.includes("예") || result_remove_blank.includes("네")) {
+        if (typeof (inputArg) == "string") {
+          inputOption = null;
+          window.location.href = inputArg;
+        }
+        else {
+          inputOption = null;
+          inputArg();
+        }
       }
     }
-  }
 
-    // 깨비 호출
-    if (result.includes("깨비")) {
-        console.log("===== 꺠비호출 =====");
-        speak("네, 말씀하세요");
-    }
-
-    // 속도조절
-
-
-    // 페이지 이동
-    else if (result.includes("이동")) {
-        console.log("===== 페이지이동 =====");
-
-        for (let key of pages.keys()) {
-            if (result_remove_blank.includes(key)) {
-                window.location.href = pages.get(key);
-            }
-        }
-    }
-
-    // 입력인 경우
-    else if (inputOption != null) {
-        /* 서비스 선택 */
-        if (inputOption == recogInputService) {
-            console.log("===== 서비스 선택 =====");
-            if (result_remove_blank.includes("음성")) { // 음성서비스 사용설정
-                localStorage.setItem("useVoiceService", true);
-                inputOption = null;
-            } else if (result_remove_blank.includes("헤드트래킹") || result_remove_blank.includes("헤드트레킹")) {  // 음성서비스 미사용설정 및 헤드트레킹 다운로드
-                localStorage.setItem("useVoiceService", false);
-                inputOption = null;
-                recognition.stop();
-                // 헤드트레킹 다운로드 기능 추가
-                return;
-            } else if (result_remove_blank.includes("이용안함") || result_remove_blank.includes("사용안함")) {  // 음성서비스 미사용설정
-                localStorage.setItem("useVoiceService", false);
-                inputOption = null;
-                recognition.stop();
-                return;
-            } else {
-                speak("이해하지 못했습니다.");
-                // recognition.start();
-            }
-        }
-
-        /* 약관동의 */
-        else if (inputOption == recogInputAgree) {   // 2
-            console.log("===== 약관동의 =====");
-            if (result_remove_blank.includes("예") || result_remove_blank.includes("네")) {
-                document.querySelector("#allAgree").checked = true;
-                document.querySelector("#useAgree").checked = true;
-                document.querySelector("#itemAgree").checked = true;
-                document.querySelector("#specialAgree").checked = true;
-                document.querySelector("#basicAgree").checked = true;
-                document.querySelector("#freeAgree").checked = true;
-                document.querySelector("#personalAgree").checked = true;
-                inputOption = null;
-            }
-        }
-
-        /* 계좌개설 :: 다음페이지로 이동 */
-        else if (inputOption == recogInputNext) {   // 3
-            console.log("===== 계좌개설 :: 다음페이지로 이동 =====");
-            if (result_remove_blank.includes("예") || result_remove_blank.includes("네")) {
-                if (typeof(inputArg) == "string") {
-                    inputOption = null;
-                    window.location.href = inputArg;
-                }
-                else {
-                    inputOption = null;
-                    inputArg();
-                }
-            }
-        }
-
-        /* 입력 :: useRef */
-        else if (inputOption == recogInput) {   // 4
-            console.log("===== 입력 :: 다음페이지로 이동 =====");
-            console.log(inputArg);
-            inputArg.current.setAttribute('value', result_remove_blank);
-            inputArg.current.dispatchEvent(new Event('change', { bubbles: true }));
-        }
+    /* 입력 :: useRef */
+    else if (inputOption == recogInput) {   // 4
+      console.log("===== 입력 :: 다음페이지로 이동 =====");
+      console.log(inputArg);
+      inputArg.current.setAttribute('value', result_remove_blank);
+      inputArg.current.dispatchEvent(new Event('change', { bubbles: true }));
     }
   }
 
-    // 음성인식 사용인 경우 계속 음성인식 진행..
-    // speak 중인 경우에는 음성인식 진행 안 함
-    var useVoiceService = localStorage.getItem("useVoiceService");
-    if (useVoiceService == "true" && !synth.speaking) {
-        recognition.start();
-    }
+  // 음성인식 사용인 경우 계속 음성인식 진행..
+  // speak 중인 경우에는 음성인식 진행 안 함
+  var useVoiceService = localStorage.getItem("useVoiceService");
+  if (useVoiceService == "true" && !synth.speaking) {
+    recognition.start();
+  }
 };
 
 recognition.onerror = function (event) {
