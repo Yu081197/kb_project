@@ -14,12 +14,8 @@ function AccountCreate() {
       speak("약관동의 화면입니다.");
 
       setTimeout(function () {
-        speak("케이비 국민은행 계좌개설 약관 동의하시겠습니까?", true, recogInputAgree);
+        speak("케이비 국민은행 계좌개설 약관 동의하시겠습니까?", true, recogInputAgree, allBtnEvent);
       }, 3000);
-
-      setTimeout(function () {
-        speak("다음 절차로 이동하시겠습니까?", true, recogInputNext, "/account_create_inform");
-      }, 10000);
     }
   }, []);
 
@@ -39,6 +35,7 @@ function AccountCreate() {
   const [personalCheck, setPersonalCheck] = useState(false);
 
   const allBtnEvent = () => {
+    console.log("allBtnEvent");
     if (allCheck === false) {
       setAllCheck(true);
       setUseCheck(true);
@@ -47,6 +44,13 @@ function AccountCreate() {
       setBasicCheck(true);
       setFreeCheck(true);
       setPersonalCheck(true);
+
+      let useVoiceService = localStorage.getItem("useVoiceService");
+      if (useVoiceService == "true") {
+        setTimeout(function () {
+          speak("다음 절차로 이동하시겠습니까?", true, recogInputNext, "/account_create_inform");
+        }, 1000);
+      }
     } else {
       setAllCheck(false);
       setUseCheck(false);
