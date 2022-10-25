@@ -51,14 +51,22 @@ function Predict() {
     setPredictJobState(e.target.value);
   };
 
-  const onClick = async () => {
-    try {
-      const response = await axios.post("http://localhost:8000/dapi/predict");
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const onClick = () =>
+    fetch("/dapi/predict", {
+      method: "POST",
+      body: JSON.stringify({
+        age: predictAgeState,
+        income: predictIncomeState,
+        annual: predictAnnualState,
+        job: predictJobState,
+        issue: predictIssueState,
+        family: predictFamilyState,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        // Other possible headers
+      },
+    });
 
   function sendPredictData() {
     // axios
