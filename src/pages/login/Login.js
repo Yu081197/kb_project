@@ -7,16 +7,9 @@ function Login() {
   const [passwordState, setPasswordState] = useState();
 
   const onChangeAccountNumber = (e) => {
-    setAccountNumberState(e.target.value);
+    let formatNumber = e.target.value.replace(/[^0-9]/g, '');
+    setAccountNumberState(formatNumber.replace(/(\d{6})(\d{2})(\d{6})/, "$1-$2-$3"));
   };
-
-  useEffect(() => {
-    if (accountNumberState.length === 14) {
-      setAccountNumberState(
-        accountNumberState.replace(/(\d{6})(\d{2})(\d{6})/, "$1-$2-$3")
-      );
-    }
-  }, [accountNumberState]);
 
   const onChangePassword = (e) => {
     setPasswordState(e.target.value);
