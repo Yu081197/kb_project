@@ -51,33 +51,42 @@ function Predict() {
     setPredictJobState(e.target.value);
   };
 
+  const onClick = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/dapi/predict");
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   function sendPredictData() {
-    axios
-      .post(
-        "/dapi/predict",
-        {},
-        {
-          params: {
-            age: predictAgeState,
-            income: predictIncomeState,
-            annual: predictAnnualState,
-            job: predictJobState,
-            issue: predictIssueState,
-            family: predictFamilyState,
-          },
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then(function (response) {
-        console.log("성공");
-      })
-      .catch(function (error) {
-        console.log("실패");
-      });
+    // axios
+    //   .post(
+    //     "/dapi/predict",
+    //     {},
+    //     {
+    //       params: {
+    //         age: predictAgeState,
+    //         income: predictIncomeState,
+    //         annual: predictAnnualState,
+    //         job: predictJobState,
+    //         issue: predictIssueState,
+    //         family: predictFamilyState,
+    //       },
+    //     },
+    //     {
+    //       headers: {
+    //         "content-type": "application/json",
+    //       },
+    //     }
+    //   )
+    //   .then(function (response) {
+    //     console.log("성공");
+    //   })
+    //   .catch(function (error) {
+    //     console.log("실패");
+    //   });
   }
 
   return (
@@ -360,7 +369,7 @@ function Predict() {
                     <div className="BtnContainer">
                       <h2>모든 질문에 답하셨다면!!</h2>
                       <div className="predictBtn">
-                        <div onClick={handleClick} name="pred">
+                        <div onClick={onClick} name="pred">
                           신용등급 예측하기
                         </div>
                       </div>
