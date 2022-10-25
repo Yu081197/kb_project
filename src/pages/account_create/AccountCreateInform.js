@@ -47,24 +47,24 @@ function AccountCreateInform() {
 
   const [jobState, setJobState] = useState("");
 
-  const jobOptions = [
-    {
-      label: "무직",
-      value: "무직",
-    },
-    {
-      label: "자영업자",
-      value: "자영업자",
-    },
-    {
-      label: "회사원",
-      value: "회사원",
-    },
-    {
-      label: "학생",
-      value: "학생",
-    },
-  ];
+  // const jobOptions = [
+  //   {
+  //     label: "무직",
+  //     value: "무직",
+  //   },
+  //   {
+  //     label: "자영업자",
+  //     value: "자영업자",
+  //   },
+  //   {
+  //     label: "회사원",
+  //     value: "회사원",
+  //   },
+  //   {
+  //     label: "학생",
+  //     value: "학생",
+  //   },
+  // ];
 
   const saveAccountData = () => {
     console.log("local에 저장 성공!");
@@ -162,7 +162,7 @@ function AccountCreateInform() {
     if (useVoiceService == "true") {
       setTimeout(function () {
         speak("이메일을 말씀해주세요.", true, recogInput, emailRef);
-      }, 1000);
+      }, 2000);
     }
   };
 
@@ -187,6 +187,13 @@ function AccountCreateInform() {
 
   const onChangeJob = (e) => {
     setJobState(e.target.value);
+
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("다음 절차로 이동하시겠습니까?", true, recogInputNext, checkedAllFill);
+      }, 1000);
+    }
   };
 
   function checkedAllFill() {
@@ -313,7 +320,16 @@ function AccountCreateInform() {
         </div>
         <div className="input">
           <div>직업</div>
-          <select
+          <input
+            ref={jobRef}
+            type="text"
+            name="job"
+            value={jobState}
+            id="job"
+            placeholder="직업을 입력해주세요."
+            onChange={onChangeJob}
+          />
+          {/* <select
             ref={jobRef}
             form="jobForm"
             value={jobState}
@@ -331,7 +347,7 @@ function AccountCreateInform() {
             {jobOptions.map((option) => (
               <option value={option.value}>{option.label}</option>
             ))}
-          </select>
+          </select> */}
         </div>
         <div className="btn">
           <div className="buttonContainer">

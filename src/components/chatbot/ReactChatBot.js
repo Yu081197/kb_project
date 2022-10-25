@@ -236,7 +236,8 @@ recognition.onend = function (event) {
     /* 입력 :: useRef */
     else if (inputOption == recogInput) {   // 4
       console.log("===== 입력 :: 다음페이지로 이동 =====");
-      console.log(inputArg);
+      // console.log(inputArg);
+      console.log(result_remove_blank);
       inputArg.current.setAttribute('value', result_remove_blank);
       inputArg.current.dispatchEvent(new Event('change', { bubbles: true }));
     }
