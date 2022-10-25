@@ -92,7 +92,13 @@ function AccountCreatePW() {
   }
 
   function saveAndNext() {
-    if (passwordError === false && validPasswordError === false) {
+    if (
+      //모두 빈값일 때
+      // passwordState !== "" &&
+      // validPasswordState !== "" &&
+      passwordError === false &&
+      validPasswordError === false
+    ) {
     }
   }
 
