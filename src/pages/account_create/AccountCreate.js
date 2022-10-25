@@ -7,25 +7,29 @@ function AccountCreate() {
   const allCheckRef = useRef();
   const recogInputAgree = 2; // ReactChatBot 동의 옵션
   const recogInputNext = 3; // ReactChatBot 동의 옵션
-  useEffect(() => {
-    speak("약관동의 화면입니다.");
 
-    setTimeout(function () {
-      speak(
-        "케이비 국민은행 계좌개설 약관 동의하시겠습니까?",
-        true,
-        recogInputAgree
-      );
+  useEffect(() => {
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      speak("약관동의 화면입니다.");
 
       setTimeout(function () {
         speak(
-          "다음 절차로 이동하시겠습니까?",
+          "케이비 국민은행 계좌개설 약관 동의하시겠습니까?",
           true,
-          recogInputNext,
-          "/account_create_inform"
+          recogInputAgree
         );
-      }, 8000);
-    }, 3000);
+
+        setTimeout(function () {
+          speak(
+            "다음 절차로 이동하시겠습니까?",
+            true,
+            recogInputNext,
+            "/account_create_inform"
+          );
+        }, 8000);
+      }, 3000);
+    }
   }, []);
 
   const [modalOpen, setModalOpen] = useState(false);

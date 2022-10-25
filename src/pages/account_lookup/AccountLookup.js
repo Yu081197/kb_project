@@ -46,7 +46,13 @@ function AccountLookup() {
       </option>
       );}
   }
-
+  const inOut = (c) => {
+    if (c == "i"){
+      return "입금"
+    }else{
+      return "출금"
+    }
+  }
   // 계좌잔액 및 월별내역 초기화
   function initData() {
     // setSelectedAccount("");
@@ -172,13 +178,13 @@ function AccountLookup() {
             }}
           >
 
-            <select onChange={handleYearSelect}>
+            <select onChange={handleYearSelect} className = "selectDate">
               {years.map((option) => (
                 onSelected(option,year)
               ))}
             </select>
 
-            <select onChange={handleMonthSelect}>
+            <select onChange={handleMonthSelect} className = "selectDate">
               {months.map((option) => (
                 onSelected(option,month +"월")
               ))}
@@ -201,7 +207,7 @@ function AccountLookup() {
                   <div className="listDetailSummury">
                     <div className="listDetailName">KB 국민은행</div>
                     <div className="listDetailTransfer">
-                      <div>출금</div>
+                      <div>{inOut(history.in_out)}</div>
                       <div>{addCommas(history.amount)}</div>
                       <div>원</div>
                     </div>
