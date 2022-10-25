@@ -58,12 +58,12 @@ function Predict() {
         {},
         {
           params: {
-            나이: predictAgeState,
-            연간소득: predictIncomeState,
-            연차: predictAnnualState,
-            직업유형: predictJobState,
-            카드발급년수: predictIssueState,
-            가족수: predictFamilyState,
+            age: predictAgeState,
+            income: predictIncomeState,
+            annual: predictAnnualState,
+            job: predictJobState,
+            issue: predictIssueState,
+            family: predictFamilyState,
           },
         },
         {

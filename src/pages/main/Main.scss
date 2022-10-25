@@ -1,26 +1,20 @@
-body {
+.mainContainer {
     width: 100%;
     height: auto;
     background: url(web_main_img/background2.png) no-repeat center;
     background-size:cover;
+
 }
 
-header{
-    color:  white;
-    background-color: black;
-    padding: 10px;
-}
-footer{
-    color:  white;
-    background-color: black;
-    padding: 10px;
-}
 
 section {
     display: flex;
     flex-direction: row;
 }
 
+#exp_ment {
+    height: 50px;
+}
 
 #canvas_section{
     display: flex;
@@ -29,6 +23,7 @@ section {
     font-weight: bold;
     height: 300px;
     z-index: 2;
+    font-family: "KB_medium_font";
 
 }
 
@@ -67,12 +62,13 @@ section {
     font-weight: bold;
     background-color: rgb(255, 204, 0);
     border-radius: 10px;
-    margin-left: 20px;
+    margin-left: 70px;
     font-size: 20px;
     text-align: center;
-    width: 150px;
-    height: 20px;
-    padding: 5px;
+    width: 200px;
+    height: 100px;
+    padding: 10px;
+    line-height: 90px;
 }
 
 

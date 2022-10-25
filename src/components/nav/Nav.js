@@ -13,17 +13,20 @@ function Nav() {
   };
 
   const validOnclick = (e) => {
-    console.log("======nav클릭======");
     let user_name = getCookieValue("name");
     if (user_name.length > 0) {
       setClick(true);
-      console.log("======nav클릭 on======");
     } else {
       setClick(false);
-      console.log("======nav클릭 off======");
       showModal();
     }
   };
+
+  function modalOff() {
+    if (modalOpen === true) {
+      setModalOpen(false);
+    }
+  }
 
   const getCookieValue = (key) => {
     let cookieKey = key + "=";
@@ -93,7 +96,11 @@ function Nav() {
         <div className="navLoginContainer">
           <div style={{ display: "flex", alignItems: "center" }}>
             <Link to="/">
-              <Image className="mainLogo" src="image/dokb_2.png" />
+              <Image
+                className="mainLogo"
+                src="image/dokb_2.png"
+                onClick={modalOff}
+              />
             </Link>
           </div>
           <div className="navHeader">
@@ -103,6 +110,7 @@ function Nav() {
                 to="/account_create"
                 style={{ textDecoration: "none" }}
                 className="navTab"
+                onClick={modalOff}
               >
                 계좌개설
               </NavLink>
@@ -129,6 +137,7 @@ function Nav() {
                 style={{ textDecoration: "none" }}
                 className="navTab"
                 activeClassName="active"
+                onClick={modalOff}
               >
                 점포찾기
               </NavLink>
@@ -137,6 +146,7 @@ function Nav() {
                 style={{ textDecoration: "none" }}
                 className="navTab"
                 activeClassName="active"
+                onClick={modalOff}
               >
                 신용등급예측
               </NavLink>

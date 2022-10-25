@@ -39,7 +39,7 @@ class Main extends React.Component {
   }
   render() {
     return (
-      <>
+      <div className="mainContainer">
         <section id="canvas_section">
           <div id="slogan">
             You is kind. <br />
@@ -64,7 +64,7 @@ class Main extends React.Component {
               <Image
                 src="image/image1.png"
                 alt=""
-                style={{ width: "70%", height: "70%" }}
+                style={{ width: "100%", height: "100%" }}
                 id="stt_img"
               />
             </div>
@@ -79,7 +79,7 @@ class Main extends React.Component {
               <Image
                 src="image/image2.png"
                 alt=""
-                style={{ width: "70%", height: "70%" }}
+                style={{ width: "100%", height: "100%" }}
                 id="gaze_img"
               />
             </div>
@@ -94,7 +94,7 @@ class Main extends React.Component {
               <Image
                 src="image/image3.png"
                 alt=""
-                style={{ width: "70%", height: "70%" }}
+                style={{ width: "100%", height: "100%" }}
                 id="cred_img"
               />
             </div>
@@ -106,7 +106,7 @@ class Main extends React.Component {
           </div>
           <div style={{ width: 100 }} />
         </section>
-      </>
+      </div>
     );
   }
 }
