@@ -269,6 +269,7 @@ function Transfer() {
           </div>
           <div className="transferAmountBox transferAmountBtn">
             <div
+              className="transferAmountBtnContainer"
               style={{
                 display: "flex",
                 gap: "10px",
