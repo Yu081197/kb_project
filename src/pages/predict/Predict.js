@@ -53,7 +53,7 @@ function Predict() {
 
   const onClick = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/dapi/predict");
+      const response = await axios.post("http://localhost:8000/dapi/predict");
       console.log(response.data);
     } catch (e) {
       console.log(e);
