@@ -3,10 +3,16 @@ import "./AccountCreateSelf.scss";
 import Webcam from "react-webcam";
 import AccountCreateSelfModal from "./AccountCreateModal/AccountCreateSelfModal";
 import axios from "axios";
+import { speak } from "../../components/chatbot/ReactChatBot";
 
 const WebcamComponent = () => <Webcam />;
 
 function AccountCreateSelf() {
+  const anywayOnClickTrigger = 5; // ReactChatBot onclick 옵션
+  const recogInputOnClickTrigger = 6; // ReactChatBot onclick 옵션
+
+  const shootRef = useRef();
+  const confirmRef = useRef();
   const [modalOpen, setModalOpen] = useState(false);
 
   const userRegisterNumberState =
@@ -22,6 +28,15 @@ function AccountCreateSelf() {
   const sofState = window.localStorage.getItem("sof");
 
   const imgState = window.localStorage.getItem("imgSrc");
+
+  useEffect(() => {
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("본인인증을 위해 촬영이 진행됩니다. 가만히 있어주세요.", true, anywayOnClickTrigger, shootRef);
+      }, 1000);
+    }
+  }, []);
 
   const showModal = () => {
     setModalOpen(true);
@@ -41,6 +56,20 @@ function AccountCreateSelf() {
     showModal();
     saveAccountData();
     capture();
+
+    // 음성인식인 경우 팝업창 자동으로 닫기..
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setModalOpen(false);
+      setTimeout(function () {
+        speak(
+          "촬영이 완료되었습니다. 계좌개설을 완료하시겠습니까?",
+          true,
+          recogInputOnClickTrigger,
+          confirmRef
+        );
+      }, 1000);
+    }
   };
 
   const saveAccountData = () => {
@@ -136,7 +165,10 @@ function AccountCreateSelf() {
         <div className="btn">
           <div className="buttonContainer">
             <div className="button">
-              <button type="button" onClick={showAndCapture}>
+              <button 
+                ref={shootRef}
+                type="button" 
+                onClick={showAndCapture}>
                 촬영
               </button>
               {modalOpen && (
@@ -155,6 +187,7 @@ function AccountCreateSelf() {
 
           <div className="buttonContainer">
             <div
+              ref={confirmRef}
               className="button"
               onClick={(sendAccountData, sendImgData, handleClickNext)}
             >
