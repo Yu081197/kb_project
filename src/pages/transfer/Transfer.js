@@ -7,8 +7,14 @@ import AlertModal from "../../components/Modal/AlertModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Transfer() {
-  const formatAccount = (input) => input.toString().replace(/[^0-9]/g, '').replace(/^(\d{0,6})(\d{0,2})(\d{0,6})$/g, "$1-$2-$3").replace(/\-{1,2}$/g, "");
-  const addCommas = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const formatAccount = (input) =>
+    input
+      .toString()
+      .replace(/[^0-9]/g, "")
+      .replace(/^(\d{0,6})(\d{0,2})(\d{0,6})$/g, "$1-$2-$3")
+      .replace(/\-{1,2}$/g, "");
+  const addCommas = (num) =>
+    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const removeCommas = (num) => num.toString().replace(/[^\d]+/g, "");
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -151,19 +157,6 @@ function Transfer() {
               ))}
             </select>
           </div>
-          <div className="transferInformMoneyBox">
-            <div>금액</div>
-            <div>{addCommas(selectedAccountBalance)}</div>
-            <div>원</div>
-          </div>
-          <div className="transferInformPossibleBox">
-            <div>출금가능잔액</div>
-            <div>{addCommas(selectedAccountBalance)}</div>
-            <div>원</div>
-          </div>
-        </div>
-
-        <div className="transfer">
           <div className="transferRecentBox">
             <div className="transferRecentHead">
               <div>최근 보낸 계좌</div>
@@ -174,7 +167,10 @@ function Transfer() {
                   <div
                     className="transferRecentListBox"
                     onClick={() =>
-                      setOpponentAccountInfo("7", recentTransferAccount.account_number)
+                      setOpponentAccountInfo(
+                        "7",
+                        recentTransferAccount.account_number
+                      )
                     }
                   >
                     <span className="transferRecentListName">국민은행</span>
@@ -186,7 +182,19 @@ function Transfer() {
               ))}
             </div>
           </div>
+        </div>
 
+        <div className="transfer">
+          <div className="transferInformMoneyBox">
+            <div>금액</div>
+            <div>{addCommas(selectedAccountBalance)}</div>
+            <div>원</div>
+          </div>
+          <div className="transferInformPossibleBox">
+            <div>출금가능잔액</div>
+            <div>{addCommas(selectedAccountBalance)}</div>
+            <div>원</div>
+          </div>
           <div className="opponentAcoount">
             <select
               name="account_bank_id"
@@ -257,6 +265,20 @@ function Transfer() {
                   alertMessage={alertMessage}
                 />
               )}
+            </div>
+          </div>
+          <div className="transferAmountBox">
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                justifyContent: "space-around",
+              }}
+            >
+              <button>십</button>
+              <button>백</button>
+              <button>천</button>
+              <button>만</button>
             </div>
           </div>
         </div>
