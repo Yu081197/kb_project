@@ -13,6 +13,15 @@ function AccountCreatePW() {
     setModalOpen(true);
   };
 
+  function checkedAllFill() {
+    if (passwordError === false && validPasswordError === false) {
+      saveAccountData();
+      handleClickNext();
+    } else {
+      showModal();
+    }
+  }
+
   const passwordRef = useRef();
   const validPasswordRef = useRef();
   const [passwordState, setPasswordState] = useState("");
@@ -30,7 +39,7 @@ function AccountCreatePW() {
   }, []);
 
   const onChangePassword = (e) => {
-    let formatNumber = e.target.value.replace(/[^0-9]/g, '');
+    let formatNumber = e.target.value.replace(/[^0-9]/g, "");
     const passwordRegex = /^[0-9]+$/;
     if (!formatNumber || passwordRegex.test(formatNumber))
       setpasswordError(false);
@@ -42,13 +51,18 @@ function AccountCreatePW() {
     let useVoiceService = localStorage.getItem("useVoiceService");
     if (useVoiceService == "true") {
       setTimeout(function () {
-        speak("계좌비밀번호를 다시 한 번 말씀해주세요.", true, recogInput, validPasswordRef);
+        speak(
+          "계좌비밀번호를 다시 한 번 말씀해주세요.",
+          true,
+          recogInput,
+          validPasswordRef
+        );
       }, 1000);
     }
   };
 
   const onChangeValidPassword = (e) => {
-    let formatNumber = e.target.value.replace(/[^0-9]/g, '');
+    let formatNumber = e.target.value.replace(/[^0-9]/g, "");
     if (formatNumber === passwordState) {
       setValidPasswordError(false);
     } else {
@@ -59,7 +73,12 @@ function AccountCreatePW() {
     let useVoiceService = localStorage.getItem("useVoiceService");
     if (useVoiceService == "true") {
       setTimeout(function () {
-        speak("다음 절차로 이동하시겠습니까?", true, recogInputNext, saveAndNext);
+        speak(
+          "다음 절차로 이동하시겠습니까?",
+          true,
+          recogInputNext,
+          saveAndNext
+        );
       }, 1000);
     }
   };
@@ -74,10 +93,6 @@ function AccountCreatePW() {
 
   function saveAndNext() {
     if (passwordError === false && validPasswordError === false) {
-      saveAccountData();
-      handleClickNext();
-    } else {
-      showModal();
     }
   }
 
@@ -145,7 +160,9 @@ function AccountCreatePW() {
 
           <div className="buttonContainer">
             <div className="button" onClick={saveAndNext}>
-              <button type="button">확인</button>{" "}
+              <button type="button" onClick={checkedAllFill}>
+                확인
+              </button>{" "}
               {modalOpen && (
                 <AccountCreatePWModal setModalOpen={setModalOpen} />
               )}
