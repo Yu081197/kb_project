@@ -25,12 +25,16 @@
 
 .transferInformBox {
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
     width: 500px;
     height: 500px;
 }
 
 .transfer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 500px;
     height: 500px;
 }
@@ -54,10 +58,9 @@
     background-color: #F5F5F5;
     border-radius: 20px;
     padding: 30px;
-    text-align: end;
+    align-items: center;
     font-size: 40px;
-    margin-top: 15px;
-    height: 261px;
+    height: 161px;
     line-height: 200px;
 }
 
@@ -162,13 +165,12 @@
 
 .transferAmountBox {
     display: flex;
-    height: 70px;
+    height: 60px;
     background-color: #F5F5F5;
     padding: 10px 30px;
     justify-content: flex-end;
     gap: 20px;
     align-items: center;
-    margin-top: 15px;
     border-radius: 20px;
 }
 
@@ -200,4 +202,23 @@
     font-family: "KB_medium_font";
     font-size: 23px;
     border-radius: 15px;
+}
+
+.transferAmountBtn button{ 
+    background-color: #848484;
+    width: 80px;
+}
+
+// .transferAmountBtn :hover{ 
+//     background-color: #F8BA1F;
+//     transition : ease-in 0.2s;
+// }
+
+.transferAmountBtnContainer button :hover {
+    background-color: #F8BA1F;
+    transition : ease-in 0.2s;
+}
+
+.transferBtn :hover {
+
 }

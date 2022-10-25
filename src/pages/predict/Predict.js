@@ -4,7 +4,8 @@ import "./Predict.scss";
 function Predict() {
   //페이지 이동
   function handleClick(e) {
-    window.location.href = "/predict_result";
+    sendPredictData();
+    // window.location.href = "/predict_result";
   }
 
   const [predictAgeState, setPredictAgeState] = useState("");
@@ -50,19 +51,19 @@ function Predict() {
     setPredictJobState(e.target.value);
   };
 
-  const sendPredictData = useEffect(() => {
+  function sendPredictData() {
     axios
       .post(
-        "/predict",
+        "/dapi/predict",
         {},
         {
           params: {
-            나이: predictAgeState,
-            연간소득: predictIncomeState,
-            연차: predictAnnualState,
-            직업유형: predictJobState,
-            카드발급년수: predictIssueState,
-            가족수: predictFamilyState,
+            age: predictAgeState,
+            income: predictIncomeState,
+            annual: predictAnnualState,
+            job: predictJobState,
+            issue: predictIssueState,
+            family: predictFamilyState,
           },
         },
         {
@@ -77,7 +78,7 @@ function Predict() {
       .catch(function (error) {
         console.log("실패");
       });
-  }, []);
+  }
 
   return (
     <div>
@@ -157,7 +158,7 @@ function Predict() {
                           type="text"
                           name="연간소득"
                           required=""
-                          value={predictAgeState}
+                          value={predictIncomeState}
                           onChange={onChangePredictIncome}
                         />{" "}
                         원
@@ -359,7 +360,7 @@ function Predict() {
                     <div className="BtnContainer">
                       <h2>모든 질문에 답하셨다면!!</h2>
                       <div className="predictBtn">
-                        <div onClick={sendPredictData} name="pred">
+                        <div onClick={handleClick} name="pred">
                           신용등급 예측하기
                         </div>
                       </div>

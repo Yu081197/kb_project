@@ -191,6 +191,11 @@ function AccountCreateInform() {
 
   function checkedAllFill() {
     if (
+      // 모두 빈값일 때 valid
+      // emailState !== "" &&
+      // nameState !== "" &&
+      // phoneNumberState !== "" &&
+      // registerNumberState !== "" &&
       emailError === false &&
       nameError === false &&
       phoneNumberError === false &&

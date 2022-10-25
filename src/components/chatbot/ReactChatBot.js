@@ -24,60 +24,89 @@ function ReactChatBot() {
             <div
                 id="chatbot"
                 style={{
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <div
+          style={{
+            position: "fixed",
+            right: "5%",
+            bottom: "5%",
+          }}
+        >
+          <div class="tip">
+            <textarea
+              name="output"
+              id="output"
+              cols="30"
+              style={{
+                width: "200px",
+                height: "300px",
+                fontSize: "15px",
+                backgroundColor: "#2b2b36",
+                color: "white",
+              }}
+            ></textarea>
+          </div>
+          <div class="icon">
+            <Image
+              className="mainLogo"
+              src="image/kkebi.png"
+              style={{
+                position: "fixed",
+                right: "3%",
+                bottom: "2%",
+                width: "150px",
+                height: "180px",
+              }}
+            />
+              <div class="tip">
+                <textarea
+                  name="output"
+                  id="output"
+                  cols="30"
+                  style={{
+                    width: "200px",
+                    height: "300px",
+                    fontSize: "15px",
+                    backgroundColor: "#2b2b36",
+                    color: "white",
+                    padding: "20px",
+                    
+                  }}
+                ></textarea>
+              </div>
+              <div class="icon">
+                <Image
+                  className="mainLogo"
+                  src="image/kkebi.png"
+                  style={{
                     position: "fixed",
-                    width: "100%",
-                    height: "100%",
-                }}
-            >
-                <div
-                    style={{
-                        position: "fixed",
-                        right: "5%",
-                        bottom: "5%",
-                    }}
-                >
-                    <div class="tip">
-                        <textarea
-                            name="output"
-                            id="output"
-                            cols="30"
-                            style={{
-                                width: "200px",
-                                height: "300px",
-                                fontSize: "15px",
-                                backgroundColor: "#2b2b36",
-                                color: "white",
-                            }}
-                        ></textarea>
-                    </div>
-                    <div class="icon">
-                        <Image
-                            className="mainLogo"
-                            src="image/kkebi.png"
-                            style={{
-                                position: "fixed",
-                                right: "3%",
-                                bottom: "2%",
-                                width: "150px",
-                                height: "180px",
-                            }}
-                        />
-                    </div>
-                </div>
+                    right: "3%",
+                    bottom: "2%",
+                    width: "150px",
+                    height: "180px",
+                  }}
+                />
+              </div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+  );
 }
 
 // ================== STT settings ==================
 const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
+  window.SpeechRecognition || window.webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList;
 
 let recognition = new SpeechRecognition();
 
 if (SpeechGrammarList) {
-    let speechRecognitionList = new SpeechGrammarList();
+  let speechRecognitionList = new SpeechGrammarList();
 }
 
 let lang = "ko-KR";
@@ -95,25 +124,24 @@ const recogInput = 4;
 
 // page info
 const pages = new Map();
-pages.set('계좌개설', '/account_create');
-pages.set('계좌조회', '/account_lookup');
-pages.set('이체', '/transfer');
-pages.set('이채', '/transfer');
-pages.set('점포찾기', '/find');
-pages.set('신용등급예측', '/predict');
+pages.set("계좌개설", "/account_create");
+pages.set("계좌조회", "/account_lookup");
+pages.set("이체", "/transfer");
+pages.set("이채", "/transfer");
+pages.set("점포찾기", "/find");
+pages.set("신용등급예측", "/predict");
 /* END 기타 설정들... */
 
-
 recognition.onstart = function (event) {
-    console.log("SpeechRecognition.onstart");
-    result = "";
-}
+  console.log("SpeechRecognition.onstart");
+  result = "";
+};
 
 /* speak to text */
-let result = "";  // 음성인식결과
+let result = ""; // 음성인식결과
 recognition.onresult = function (event) {
-    let input = event.results[0][0].transcript;
-    result = input;
+  let input = event.results[0][0].transcript;
+  result = input;
 };
 
 // 음성인식 후 연동기능
@@ -121,20 +149,91 @@ recognition.onresult = function (event) {
 let inputOption = null;
 let inputArg = null;
 recognition.onend = function (event) {
-    console.log("SpeechRecognition.onend");
+  console.log("SpeechRecognition.onend");
 
-    console.log("SpeechRecognition.onend => 음성인식 result: " + result);
-    document.querySelector("#output").value = result;
+  console.log("SpeechRecognition.onend => 음성인식 result: " + result);
+  document.querySelector("#output").value = result;
 
-    let result_remove_blank = result.replaceAll(' ', '');
+  let result_remove_blank = result.replaceAll(" ", "");
 
-    // 강제종료
-    if (result.includes("꺼져")) {
-        console.log("===== 음성인식 강제종료 =====");
+  // 강제종료
+  if (result.includes("꺼져")) {
+    console.log("===== 음성인식 강제종료 =====");
+    localStorage.setItem("useVoiceService", false);
+    recognition.stop();
+    return;
+  }
+
+  // 깨비 호출
+  if (result.includes("깨비")) {
+    console.log("===== 꺠비호출 =====");
+    speak("네, 말씀하세요");
+  }
+
+  // 입력인 경우
+  else if (inputOption != null) {
+    /* 서비스 선택 */
+    if (inputOption == recogInputService) {
+      console.log("===== 서비스 선택 =====");
+      if (result_remove_blank.includes("음성")) {
+        // 음성서비스 사용설정
+        localStorage.setItem("useVoiceService", true);
+        inputOption = null;
+      } else if (
+        result_remove_blank.includes("헤드트래킹") ||
+        result_remove_blank.includes("헤드트레킹")
+      ) {
+        // 음성서비스 미사용설정 및 헤드트레킹 다운로드
         localStorage.setItem("useVoiceService", false);
+        inputOption = null;
+        recognition.stop();
+        // 헤드트레킹 다운로드 기능 추가
+        return;
+      } else if (
+        result_remove_blank.includes("이용안함") ||
+        result_remove_blank.includes("사용안함")
+      ) {
+        // 음성서비스 미사용설정
+        localStorage.setItem("useVoiceService", false);
+        inputOption = null;
         recognition.stop();
         return;
+      } else {
+        speak("이해하지 못했습니다.");
+        recognition.start();
+      }
+    } else if (inputOption == recogInputAgree) {
+
+    /* 약관동의 */
+      // 2
+      console.log("===== 약관동의 =====");
+      if (
+        result_remove_blank.includes("예") ||
+        result_remove_blank.includes("네")
+      ) {
+        document.querySelector("#allAgree").checked = true;
+        document.querySelector("#useAgree").checked = true;
+        document.querySelector("#itemAgree").checked = true;
+        document.querySelector("#specialAgree").checked = true;
+        document.querySelector("#basicAgree").checked = true;
+        document.querySelector("#freeAgree").checked = true;
+        document.querySelector("#personalAgree").checked = true;
+        inputOption = null;
+      }
+    } else if (inputOption == recogInputNext) {
+
+    /* 계좌개설 :: 다음페이지로 이동 */
+      // 3
+      console.log("===== 계좌개설 :: 다음페이지로 이동 =====");
+      if (
+        result_remove_blank.includes("예") ||
+        result_remove_blank.includes("네")
+      ) {
+        window.location.href = inputArg;
+        inputOption = null;
+      }
     }
+  }
 
     // 깨비 호출
     if (result.includes("깨비")) {
@@ -219,6 +318,7 @@ recognition.onend = function (event) {
             inputArg.current.dispatchEvent(new Event('change', { bubbles: true }));
         }
     }
+  }
 
     // 음성인식 사용인 경우 계속 음성인식 진행..
     // speak 중인 경우에는 음성인식 진행 안 함
@@ -229,15 +329,14 @@ recognition.onend = function (event) {
 };
 
 recognition.onerror = function (event) {
-    console.log("SpeechRecognition.onerror");
-    console.log(`Speech recognition error detected: ${event.error}`);
-    console.log(`Additional information: ${event.message}`);
+  console.log("SpeechRecognition.onerror");
+  console.log(`Speech recognition error detected: ${event.error}`);
+  console.log(`Additional information: ${event.message}`);
 };
 
 recognition.onnomatch = function (event) {
-    console.log("SpeechRecognition.onnomatch");
+  console.log("SpeechRecognition.onnomatch");
 };
-
 
 // ================== TTS settings ==================
 let pitch = 1; // 음높이
@@ -248,76 +347,85 @@ const synth = window.speechSynthesis;
 /* synth voice 목록 가져오기 */
 let voices = [];
 function populateVoiceList() {
-    voices = synth.getVoices().sort(function (a, b) {
-        const aname = a.name.toUpperCase();
-        const bname = b.name.toUpperCase();
+  voices = synth.getVoices().sort(function (a, b) {
+    const aname = a.name.toUpperCase();
+    const bname = b.name.toUpperCase();
 
-        if (aname < bname) {
-            return -1;
-        } else if (aname == bname) {
-            return 0;
-        } else {
-            return +1;
-        }
-    });
+    if (aname < bname) {
+      return -1;
+    } else if (aname == bname) {
+      return 0;
+    } else {
+      return +1;
+    }
+  });
 }
 populateVoiceList();
 
 if (speechSynthesis.onvoiceschanged !== undefined) {
-    speechSynthesis.onvoiceschanged = populateVoiceList;
+  speechSynthesis.onvoiceschanged = populateVoiceList;
 }
 
 export function recognitionStart() {
-    console.log("recognition.start() in recognitionStart");
-    recognition.start();
+  console.log("recognition.start() in recognitionStart");
+  recognition.start();
 }
 
-export function speak(inputTxt, isInput = false, recogInputOption = null, arg = null) {
-    console.log("===== arg =====");
-    console.log(arg);
-    console.log("===== arg =====");
-    console.log("isInput: " + isInput + " / recogInputOption: " + recogInputOption);
+export function speak(
+  inputTxt,
+  isInput = false,
+  recogInputOption = null,
+  arg = null
+) {
+  console.log("===== arg =====");
+  console.log(arg);
+  console.log("===== arg =====");
+  console.log(
+    "isInput: " + isInput + " / recogInputOption: " + recogInputOption
+  );
 
-    if (synth.speaking) {
-        console.error("speechSynthesis.speaking", inputTxt);
-        return;
+  if (synth.speaking) {
+    console.error("speechSynthesis.speaking", inputTxt);
+    return;
+  }
+
+  if (isInput) {
+    inputOption = recogInputOption;
+    inputArg = arg;
+  }
+
+  const utterThis = new SpeechSynthesisUtterance(inputTxt);
+
+  utterThis.onstart = function (event) {
+    console.log("SpeechSynthesisUtterance.onstart");
+    console.log("SpeechSynthesisUtterance.onstart :: recognition.stop");
+    recognition.stop();
+  };
+
+  utterThis.onend = function (event) {
+    console.log("SpeechSynthesisUtterance.onend");
+    console.log("SpeechSynthesisUtterance.onend :: recognition.start");
+    recognition.start();
+  };
+
+  utterThis.onerror = function (event) {
+    console.error("SpeechSynthesisUtterance.onerror");
+    console.log(
+      `An error has occurred with the speech synthesis: ${event.error}`
+    );
+  };
+
+  for (let i = 0; i < voices.length; i++) {
+    if (voices[i].name === voiceNameKO) {
+      utterThis.voice = voices[i];
+      break;
     }
+  }
 
-    if (isInput) {
-        inputOption = recogInputOption;
-        inputArg = arg;
-    }
-
-    const utterThis = new SpeechSynthesisUtterance(inputTxt);
-
-    utterThis.onstart = function (event) {
-        console.log("SpeechSynthesisUtterance.onstart");
-        console.log("SpeechSynthesisUtterance.onstart :: recognition.stop");
-        recognition.stop();
-    };
-
-    utterThis.onend = function (event) {
-        console.log("SpeechSynthesisUtterance.onend");
-        console.log("SpeechSynthesisUtterance.onend :: recognition.start");
-        recognition.start();
-    };
-
-    utterThis.onerror = function (event) {
-        console.error("SpeechSynthesisUtterance.onerror");
-        console.log(`An error has occurred with the speech synthesis: ${event.error}`);
-    };
-
-    for (let i = 0; i < voices.length; i++) {
-        if (voices[i].name === voiceNameKO) {
-            utterThis.voice = voices[i];
-            break;
-        }
-    }
-
-    utterThis.pitch = pitch;
-    utterThis.rate = rate;
-    synth.speak(utterThis);
-    console.log("speak: ", inputTxt);
+  utterThis.pitch = pitch;
+  utterThis.rate = rate;
+  synth.speak(utterThis);
+  console.log("speak: ", inputTxt);
 }
 
 export default ReactChatBot;
