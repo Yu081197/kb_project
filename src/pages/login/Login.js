@@ -10,6 +10,14 @@ function Login() {
     setAccountNumberState(e.target.value);
   };
 
+  useEffect(() => {
+    if (accountNumberState.length === 14) {
+      setAccountNumberState(
+        accountNumberState.replace(/(\d{6})(\d{2})(\d{6})/, "$1-$2-$3")
+      );
+    }
+  }, [accountNumberState]);
+
   const onChangePassword = (e) => {
     setPasswordState(e.target.value);
   };
@@ -51,6 +59,7 @@ function Login() {
               name="accountNumber"
               class="text-field"
               placeholder="계좌번호"
+              maxLength={16}
               value={accountNumberState}
               onChange={onChangeAccountNumber}
             />
@@ -58,6 +67,7 @@ function Login() {
               type="password"
               name="password"
               class="text-field"
+              maxLength={4}
               placeholder="비밀번호"
               value={passwordState}
               onChange={onChangePassword}

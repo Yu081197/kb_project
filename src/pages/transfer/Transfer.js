@@ -27,16 +27,17 @@ function Transfer() {
   const [opponentAccount, setOpponentAccount] = useState("");
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [loadAccountData, setLoadAccountData] = useState("");
   /*돈추가*/
-  const addMoney = async (e) =>{
-    if(e.target.value == "reset"){
-      console.log("========================",num)
+  const addMoney = async (e) => {
+    if (e.target.value == "reset") {
+      console.log("========================", num);
       setNum(0);
       return;
     }
-    console.log("========================",num)
-    setNum(num+parseInt(e.target.value));
-  }
+    console.log("========================", num);
+    setNum(num + parseInt(e.target.value));
+  };
   /* 입력값 체크 및 이체확인 모달 띄우기 */
   const showModal = () => {
     if (selectedAccount == "") {
@@ -135,6 +136,10 @@ function Transfer() {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    console.log("==========페이지 열렸을 때=========");
+  }, []);
 
   function setOpponentAccountInfo(bankId, opponentAccount) {
     setOpponentBankId(bankId);
@@ -286,11 +291,25 @@ function Transfer() {
                 width: "500px",
               }}
             >
-              <button className="transferBtn" onClick={addMoney} value={1000}>+천</button>
-              <button className="transferBtn" onClick={addMoney} value={10000}>+만</button>
-              <button className="transferBtn" onClick={addMoney} value={100000}>+십만</button>
-              <button className="transferBtn" onClick={addMoney} value={1000000}>+백만</button>
-              <button className="transferBtn" onClick={addMoney} value="reset">초기화</button>
+              <button className="transferBtn" onClick={addMoney} value={1000}>
+                +천
+              </button>
+              <button className="transferBtn" onClick={addMoney} value={10000}>
+                +만
+              </button>
+              <button className="transferBtn" onClick={addMoney} value={100000}>
+                +십만
+              </button>
+              <button
+                className="transferBtn"
+                onClick={addMoney}
+                value={1000000}
+              >
+                +백만
+              </button>
+              <button className="transferBtn" onClick={addMoney} value="reset">
+                초기화
+              </button>
             </div>
           </div>
         </div>

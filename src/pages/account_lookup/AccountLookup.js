@@ -21,7 +21,8 @@ function AccountLookup() {
     "11월",
     "12월",
   ];
-  const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const addCommas = (num) =>
+    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   const [account, setAccount] = useState("");
   const [accountsList, setAccountsList] = useState([]);
@@ -31,38 +32,32 @@ function AccountLookup() {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
 
-
-  const onSelected = (option,type) =>{
-    if (option == type){
+  const onSelected = (option, type) => {
+    if (option == type) {
       return (
-      <option value={option} selected>
-        {option}
-      </option>
-      );}
-      else{
-      return(
-      <option value={option}>
-        {option}
-      </option>
-      );}
-  }
-  const inOut = (c) => {
-    if (c == "i"){
-      return "입금"
-    }else{
-      return "출금"
+        <option value={option} selected>
+          {option}
+        </option>
+      );
+    } else {
+      return <option value={option}>{option}</option>;
     }
-  }
+  };
+  const inOut = (c) => {
+    if (c == "i") {
+      return "입금";
+    } else {
+      return "출금";
+    }
+  };
   // 계좌잔액 및 월별내역 초기화
   function initData() {
     // setSelectedAccount("");
     setSelectedAccountBalance(0);
     setHistorys([]);
   }
-  
+
   useEffect(() => {
-
-
     axios
       .get("/api/account/all")
       .then(function (response) {
@@ -75,10 +70,21 @@ function AccountLookup() {
       });
   }, []);
 
-  const handleAccountSelectChange =  (selectedAccount,selectedYear,selectedMonth) => {
+  const handleAccountSelectChange = (
+    selectedAccount,
+    selectedYear,
+    selectedMonth
+  ) => {
     // setSelectedAccount(e.target.value);
     axios
-      .get("/api/history/all/" + selectedAccount+"/"+selectedYear+"/"+selectedMonth)
+      .get(
+        "/api/history/all/" +
+          selectedAccount +
+          "/" +
+          selectedYear +
+          "/" +
+          selectedMonth
+      )
       .then(function (response) {
         setHistorys(response.data);
         console.log("거래내역조회 성공");
@@ -91,48 +97,48 @@ function AccountLookup() {
       });
   };
 
-
   function handleClick(e) {
     window.location.href = "/transfer";
   }
 
-
-  const handleAccountSelect = async(e) =>{
+  const handleAccountSelect = async (e) => {
     if (e.target.value == "") {
       initData();
-      console.log(e.target.value)
+      console.log(e.target.value);
       return;
     }
 
+    console.log(typeof e.target.value);
 
-    console.log(typeof(e.target.value))
-
-    setSelectedAccountBalance(e.target.options[e.target.selectedIndex].dataset['balance']);
+    setSelectedAccountBalance(
+      e.target.options[e.target.selectedIndex].dataset["balance"]
+    );
 
     setAccount(e.target.value);
-    handleAccountSelectChange(e.target.value,year,month);
-  }
+    handleAccountSelectChange(e.target.value, year, month);
 
+    //로컬스토리지에 계좌 선택 데이터 저장
+    window.localStorage.setItem("accountNumber", e.target.value);
+  };
 
-  const handleYearSelect = async(e) =>{
+  const handleYearSelect = async (e) => {
     if (e.target.value == "") {
       initData();
       return;
     }
     setYear(e.target.value);
-    handleAccountSelectChange(account,e.target.value,month);
-  }
+    handleAccountSelectChange(account, e.target.value, month);
+  };
 
-
-  const handleMonthSelect = async(e) =>{
+  const handleMonthSelect = async (e) => {
     if (e.target.value == "") {
       initData();
       return;
     }
 
-    setMonth(e.target.value.slice(0,-1));
-    handleAccountSelectChange(account,year,e.target.value.slice(0,-1));
-  }
+    setMonth(e.target.value.slice(0, -1));
+    handleAccountSelectChange(account, year, e.target.value.slice(0, -1));
+  };
 
   return (
     <div className="lookupContainer">
@@ -140,11 +146,16 @@ function AccountLookup() {
         <div className="informBox">
           <div className="informHeadBox">저축예금</div>
           <div className="informSelectBox">
-            <select onChange={handleAccountSelect} value = {account}>
-            <option value="">계좌선택</option>
-              {accountsList.map(account =>
-                <option value={account.account_number} data-balance={account.balance}>국민은행 : {account.account_number}</option>
-              )}
+            <select onChange={handleAccountSelect} value={account}>
+              <option value="">계좌선택</option>
+              {accountsList.map((account) => (
+                <option
+                  value={account.account_number}
+                  data-balance={account.balance}
+                >
+                  국민은행 : {account.account_number}
+                </option>
+              ))}
             </select>
           </div>
           <div className="informMoneyBox">
@@ -167,58 +178,47 @@ function AccountLookup() {
           <div className="listHeadBox">
             <div className="listHead">월별내역</div>
             <div className="listHeadCalender">
-            
-            
-            <div className="monthPickerContainer">
-          <div
-            style={{
-              margin: 10,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+              <div className="monthPickerContainer">
+                <div
+                  style={{
+                    margin: 10,
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <select onChange={handleYearSelect} className="selectDate">
+                    {years.map((option) => onSelected(option, year))}
+                  </select>
 
-            <select onChange={handleYearSelect} className = "selectDate">
-              {years.map((option) => (
-                onSelected(option,year)
-              ))}
-            </select>
-
-            <select onChange={handleMonthSelect} className = "selectDate">
-              {months.map((option) => (
-                onSelected(option,month +"월")
-              ))}
-            </select>
-
-          </div>
-
-
-
-    </div>
+                  <select onChange={handleMonthSelect} className="selectDate">
+                    {months.map((option) => onSelected(option, month + "월"))}
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
           <div className="listDetailBox">
-              {historys.map(history =>
-                <div className="listDetailSubBox">
-                  <div className="listDetailDate">
-                    {Moment(history.deal_date).format('YYYY-MM-DD HH:mm:ss')}
-                  </div>
-                  {/* <div className="listDetailClock">12 : 30 : 49</div> */}
-                  <div className="listDetailSummury">
-                    <div className="listDetailName">KB 국민은행</div>
-                    <div className="listDetailTransfer">
-                      <div>{inOut(history.in_out)}</div>
-                      <div>{addCommas(history.amount)}</div>
-                      <div>원</div>
-                    </div>
-                  </div>
-                  <div className="listDetailBalance">
-                    <div>잔액</div>
-                    <div>{addCommas(history.balance)}</div>
+            {historys.map((history) => (
+              <div className="listDetailSubBox">
+                <div className="listDetailDate">
+                  {Moment(history.deal_date).format("YYYY-MM-DD HH:mm:ss")}
+                </div>
+                {/* <div className="listDetailClock">12 : 30 : 49</div> */}
+                <div className="listDetailSummury">
+                  <div className="listDetailName">KB 국민은행</div>
+                  <div className="listDetailTransfer">
+                    <div>{inOut(history.in_out)}</div>
+                    <div>{addCommas(history.amount)}</div>
                     <div>원</div>
                   </div>
                 </div>
-              )}
+                <div className="listDetailBalance">
+                  <div>잔액</div>
+                  <div>{addCommas(history.balance)}</div>
+                  <div>원</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
