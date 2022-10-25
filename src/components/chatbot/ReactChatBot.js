@@ -62,10 +62,39 @@ function ReactChatBot() {
                 height: "180px",
               }}
             />
+              <div class="tip">
+                <textarea
+                  name="output"
+                  id="output"
+                  cols="30"
+                  style={{
+                    width: "200px",
+                    height: "300px",
+                    fontSize: "15px",
+                    backgroundColor: "#2b2b36",
+                    color: "white",
+                    padding: "20px",
+                    
+                  }}
+                ></textarea>
+              </div>
+              <div class="icon">
+                <Image
+                  className="mainLogo"
+                  src="image/kkebi.png"
+                  style={{
+                    position: "fixed",
+                    right: "3%",
+                    bottom: "2%",
+                    width: "150px",
+                    height: "180px",
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

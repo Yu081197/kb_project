@@ -9,6 +9,7 @@ const WebcamComponent = () => <Webcam />;
 function AccountCreateSelf() {
   const [modalOpen, setModalOpen] = useState(false);
 
+
   const userRegisterNumberState =
     window.localStorage.getItem("userRegisterNumber");
   const nameState = window.localStorage.getItem("name");
@@ -20,9 +21,9 @@ function AccountCreateSelf() {
   const jobState = window.localStorage.getItem("job");
   const purposeState = window.localStorage.getItem("purpose");
   const sofState = window.localStorage.getItem("sof");
-
   const imgState = window.localStorage.getItem("imgSrc");
 
+  
   const showModal = () => {
     setModalOpen(true);
   };
@@ -37,10 +38,13 @@ function AccountCreateSelf() {
 
   const [btnDisabled, setBtnDisabled] = useState(false);
   const showAndCapture = () => {
+    console.log("===== showAndCapture =====");
     console.log(imgSrc);
     showModal();
     saveAccountData();
     capture();
+
+    sendImgData();
   };
 
   const saveAccountData = () => {
@@ -81,7 +85,8 @@ function AccountCreateSelf() {
       });
   }, []);
 
-  const sendImgData = useEffect(() => {
+  function sendImgData() {
+    console.log("===== showAndCapture =====");
     axios
       .post(
         "/dapi/certification",
@@ -89,7 +94,7 @@ function AccountCreateSelf() {
         {},
         {
           params: {
-            img: imgState,
+            img : imgState,
           },
         },
         {
@@ -105,7 +110,7 @@ function AccountCreateSelf() {
       .catch(function (error) {
         console.log("실패");
       });
-  }, []);
+  }
 
   function handleClickNext(e) {
     window.location.href = "/account_create_complete";
