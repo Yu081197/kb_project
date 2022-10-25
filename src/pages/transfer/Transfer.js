@@ -267,18 +267,20 @@ function Transfer() {
               )}
             </div>
           </div>
-          <div className="transferAmountBox">
+          <div className="transferAmountBox transferAmountBtn">
             <div
               style={{
                 display: "flex",
                 gap: "10px",
                 justifyContent: "space-around",
+                width: "500px",
               }}
             >
-              <button>십</button>
-              <button>백</button>
-              <button>천</button>
-              <button>만</button>
+              <button className="transferBtn">십</button>
+              <button className="transferBtn">백</button>
+              <button className="transferBtn">천</button>
+              <button className="transferBtn">만</button>
+              <button className="transferBtn">초기화</button>
             </div>
           </div>
         </div>

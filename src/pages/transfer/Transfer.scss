@@ -204,14 +204,21 @@
     border-radius: 15px;
 }
 
-.transferBtnBox {
-    display: flex;
-    height: 70px;
-    background-color: #F5F5F5;
-    padding: 10px 30px;
-    justify-content: flex-end;
-    gap: 20px;
-    align-items: center;
-    margin-top: 15px;
-    border-radius: 20px;
+.transferAmountBtn button{ 
+    background-color: #848484;
+    width: 80px;
+}
+
+// .transferAmountBtn :hover{ 
+//     background-color: #F8BA1F;
+//     transition : ease-in 0.2s;
+// }
+
+.transferAmountBtnContainer button :hover {
+    background-color: #F8BA1F;
+    transition : ease-in 0.2s;
+}
+
+.transferBtn :hover {
+
 }
