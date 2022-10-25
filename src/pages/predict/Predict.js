@@ -51,7 +51,7 @@ function Predict() {
     setPredictJobState(e.target.value);
   };
 
-  const sendPredictData = useEffect(() => {
+  function sendPredictData() {
     axios
       .post(
         "/dapi/predict",
@@ -78,7 +78,7 @@ function Predict() {
       .catch(function (error) {
         console.log("실패");
       });
-  }, []);
+  }
 
   return (
     <div>
@@ -360,7 +360,7 @@ function Predict() {
                     <div className="BtnContainer">
                       <h2>모든 질문에 답하셨다면!!</h2>
                       <div className="predictBtn">
-                        <div onClick={sendPredictData} name="pred">
+                        <div onClick={handleClick} name="pred">
                           신용등급 예측하기
                         </div>
                       </div>
