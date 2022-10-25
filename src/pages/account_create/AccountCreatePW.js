@@ -77,7 +77,7 @@ function AccountCreatePW() {
           "다음 절차로 이동하시겠습니까?",
           true,
           recogInputNext,
-          saveAndNext
+          checkedAllFill
         );
       }, 1000);
     }

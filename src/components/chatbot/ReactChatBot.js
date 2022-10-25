@@ -121,6 +121,8 @@ const recogInputService = 1;
 const recogInputAgree = 2;
 const recogInputNext = 3;
 const recogInput = 4;
+const anywayOnClickTrigger = 5;
+const recogInputOnClickTrigger = 6;
 
 // page info
 const pages = new Map();
@@ -151,10 +153,11 @@ let inputArg = null;
 recognition.onend = function (event) {
   console.log("SpeechRecognition.onend");
 
-  console.log("SpeechRecognition.onend => 음성인식 result: " + result);
+  console.log("SpeechRecognition.onend => 음성인식 result :: " + result);
   document.querySelector("#output").value = result;
 
-  let result_remove_blank = result.replaceAll(" ", "");
+  // 공백 제거 및 마지막 특수문자 제거
+  let result_remove_blank = result.replaceAll(" ", "").replace(/[.?]$/g, '');
 
   // 강제종료
   if (result.includes("꺼져")) {
@@ -212,7 +215,7 @@ recognition.onend = function (event) {
     /* 약관동의 */
     else if (inputOption == recogInputAgree) {   // 2
       console.log("===== 약관동의 =====");
-      if (result_remove_blank.includes("예") || result_remove_blank.includes("네")) {
+      if (isPositive(result_remove_blank)) {
         inputArg();
         inputOption = null;
       }
@@ -221,7 +224,7 @@ recognition.onend = function (event) {
     /* 계좌개설 :: 다음페이지로 이동 */
     else if (inputOption == recogInputNext) {   // 3
       console.log("===== 계좌개설 :: 다음페이지로 이동 =====");
-      if (result_remove_blank.includes("예") || result_remove_blank.includes("네")) {
+      if (isPositive(result_remove_blank)) {
         if (typeof (inputArg) == "string") {
           inputOption = null;
           window.location.href = inputArg;
@@ -235,11 +238,27 @@ recognition.onend = function (event) {
 
     /* 입력 :: useRef */
     else if (inputOption == recogInput) {   // 4
-      console.log("===== 입력 :: 다음페이지로 이동 =====");
+      console.log("===== 입력 :: useRef =====");
       // console.log(inputArg);
-      console.log(result_remove_blank);
+      // console.log(result_remove_blank);
       inputArg.current.setAttribute('value', result_remove_blank);
       inputArg.current.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    /* 클릭(무조건 클릭) :: anywayOnClickTrigger */
+    else if (inputOption == anywayOnClickTrigger) {   // 5
+      console.log("===== 클릭(무조건 클릭) :: anywayOnClickTrigger =====");
+      // console.log(inputArg);
+      inputArg.current.dispatchEvent(new Event('click', { bubbles: true }));
+    }
+
+    /* 클릭(음성확인 후 클릭) :: recogInputOnClickTrigger */
+    else if (inputOption == recogInputOnClickTrigger) {   // 6
+      console.log("===== 클릭(음성확인 후 클릭) :: recogInputOnClickTrigger =====");
+      // console.log(inputArg);
+      if (isPositive(result_remove_blank)) {
+        inputArg.current.dispatchEvent(new Event('click', { bubbles: true }));
+      }
     }
   }
 
@@ -289,6 +308,10 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
   speechSynthesis.onvoiceschanged = populateVoiceList;
 }
 
+function isPositive(recongText) {
+  return recongText.includes("예") || recongText.includes("네") || recongText.includes("응");
+}
+
 export function recognitionStart() {
   console.log("recognition.start() in recognitionStart");
   recognition.start();
@@ -300,12 +323,12 @@ export function speak(
   recogInputOption = null,
   arg = null
 ) {
-  console.log("===== arg =====");
-  console.log(arg);
-  console.log("===== arg =====");
-  console.log(
-    "isInput: " + isInput + " / recogInputOption: " + recogInputOption
-  );
+  // console.log("===== arg =====");
+  // console.log(arg);
+  // console.log("===== arg =====");
+  // console.log(
+  //   "isInput: " + isInput + " / recogInputOption: " + recogInputOption
+  // );
 
   if (synth.speaking) {
     console.error("speechSynthesis.speaking", inputTxt);
