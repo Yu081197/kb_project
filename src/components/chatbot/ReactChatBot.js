@@ -42,6 +42,8 @@ function ReactChatBot() {
                     fontSize: "15px",
                     backgroundColor: "#2b2b36",
                     color: "white",
+                    padding: "20px",
+                    
                   }}
                 ></textarea>
               </div>
