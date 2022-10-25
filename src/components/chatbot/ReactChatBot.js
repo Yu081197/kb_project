@@ -213,13 +213,7 @@ recognition.onend = function (event) {
     else if (inputOption == recogInputAgree) {   // 2
       console.log("===== 약관동의 =====");
       if (result_remove_blank.includes("예") || result_remove_blank.includes("네")) {
-        document.querySelector("#allAgree").checked = true;
-        document.querySelector("#useAgree").checked = true;
-        document.querySelector("#itemAgree").checked = true;
-        document.querySelector("#specialAgree").checked = true;
-        document.querySelector("#basicAgree").checked = true;
-        document.querySelector("#freeAgree").checked = true;
-        document.querySelector("#personalAgree").checked = true;
+        inputArg();
         inputOption = null;
       }
     }
