@@ -9,7 +9,9 @@ const AccountCreateInformModal = ({ setModalOpen }) => {
   return (
     <div className="accountCreateModalContainer">
       <div className="accountCreateModalBox">
-        <div className="accountCreateModal">모든 항목을 입력해주세요</div>
+        <div className="accountCreateModal">
+          모든 항목을 올바르게 입력해주세요
+        </div>
         <div className="accountCreateModalButton">
           <button onClick={closeModal}>확인</button>
         </div>
