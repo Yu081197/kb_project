@@ -5,6 +5,7 @@ import "./OnClickModal.scss";
 const OnClickModal = ({ setModalOpen }) => {
   const closeModal = () => {
     setModalOpen(false);
+    window.location.href = "/login";
   };
   return (
     <div className="OnClickModalContainer">

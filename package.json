@@ -21,7 +21,6 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.38.0",
     "react-lodash": "^0.1.2",
-    "react-month-picker": "^2.2.1",
     "react-native-web": "^0.18.9",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
