@@ -10,7 +10,7 @@ module.exports = function (app) {
   );
 
   app.use(
-    "/img",
+    "/dapi",
     createProxyMiddleware({
       target: "http://localhost:8000",
       changeOrigin: true,

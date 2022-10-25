@@ -84,7 +84,7 @@ function AccountCreateSelf() {
   const sendImgData = useEffect(() => {
     axios
       .post(
-        "/certification",
+        "/dapi/certification",
 
         {},
         {

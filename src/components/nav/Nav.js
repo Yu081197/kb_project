@@ -8,17 +8,20 @@ import OnClickModal from "../Modal/OnClickModal";
 function Nav() {
   const [modalOpen, setModalOpen] = useState(false);
   const [click, setClick] = useState(false);
-
   const showModal = () => {
     setModalOpen(true);
   };
 
-  const validOnclick = () => {
+  const validOnclick = (e) => {
+    console.log("======nav클릭======");
     let user_name = getCookieValue("name");
     if (user_name.length > 0) {
       setClick(true);
+      console.log("======nav클릭 on======");
     } else {
       setClick(false);
+      console.log("======nav클릭 off======");
+      showModal();
     }
   };
 
@@ -108,7 +111,7 @@ function Nav() {
                 style={{ textDecoration: "none" }}
                 activeClassName="active"
                 className="navTab"
-                onClick={validOnclick === true ? setClick(false) : showModal}
+                onClick={validOnclick}
               >
                 계좌조회
               </NavLink>
@@ -117,7 +120,7 @@ function Nav() {
                 style={{ textDecoration: "none" }}
                 className="navTab"
                 activeClassName="active"
-                onClick={click}
+                onClick={validOnclick}
               >
                 이체
               </NavLink>

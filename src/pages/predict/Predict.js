@@ -53,7 +53,7 @@ function Predict() {
   const sendPredictData = useEffect(() => {
     axios
       .post(
-        "/predict",
+        "/dapi/predict",
         {},
         {
           params: {
