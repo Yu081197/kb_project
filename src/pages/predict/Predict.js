@@ -99,10 +99,8 @@ function Predict() {
         // Other possible headers
       },
     })
-      .then(function (response) {
-    console.log("성공");
-    console.log(response.json(Promise));
-  })
+      .then(response =>response.json())
+  .then(response=>{console.log(response)})
   .catch(function (error) {
     console.log("실패");
   });;
