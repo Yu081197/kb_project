@@ -4,9 +4,11 @@ import "./Predict.scss";
 function Predict() {
   //페이지 이동
   function handleClick(e) {
-    sendPredictData();
+    // sendPredictData();
     // window.location.href = "/predict_result";
   }
+
+
 
   const [predictAgeState, setPredictAgeState] = useState("");
   const [predictAnnualState, setPredictAnnualState] = useState("");
@@ -14,6 +16,8 @@ function Predict() {
   const [predictIssueState, setPredictIssueState] = useState("");
   const [predictFamilyState, setPredictFamilyState] = useState("");
   const [predictJobState, setPredictJobState] = useState("");
+
+  const [posts, setPosts] = useState([])
 
   const onChangePredictAge = (e) => {
     console.log("========나이==========");
@@ -51,8 +55,36 @@ function Predict() {
     setPredictJobState(e.target.value);
   };
 
-  const onClick = () =>
-    fetch("/dapi/predict", {
+  // const onClick = () =>(
+  // axios
+  // .post(
+  //   "http://192.168.0.18:8000/dapi/predict",
+  //   {},
+  //   {
+  //     params: {
+  //       age: predictAgeState,
+  //       income: predictIncomeState,
+  //       annual: predictAnnualState,
+  //       job: predictJobState,
+  //       issue: predictIssueState,
+  //       family: predictFamilyState,
+  //     },
+  //   },
+  //   {
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //   }
+  // )
+  // .then(function (response) {
+  //   console.log("성공");
+  // })
+  // .catch(function (error) {
+  //   console.log("실패");
+  // }));
+  const onClick = () => {
+
+    fetch("http://192.168.0.18:8000/dapi/predict/", {
       method: "POST",
       body: JSON.stringify({
         age: predictAgeState,
@@ -66,36 +98,35 @@ function Predict() {
         "Content-Type": "application/json",
         // Other possible headers
       },
-    });
+    })
+      .then(function (response) {
+    console.log("성공");
+    console.log(
+      fetch(
+      "http://192.168.0.18:8000/dapi/predict/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // Other possible headers
+        },
+      })
+      .then(res => res.json())
+      .then(data => {
+          setPosts(data)
+      })
 
-  function sendPredictData() {
-    // axios
-    //   .post(
-    //     "/dapi/predict",
-    //     {},
-    //     {
-    //       params: {
-    //         age: predictAgeState,
-    //         income: predictIncomeState,
-    //         annual: predictAnnualState,
-    //         job: predictJobState,
-    //         issue: predictIssueState,
-    //         family: predictFamilyState,
-    //       },
-    //     },
-    //     {
-    //       headers: {
-    //         "content-type": "application/json",
-    //       },
-    //     }
-    //   )
-    //   .then(function (response) {
-    //     console.log("성공");
-    //   })
-    //   .catch(function (error) {
-    //     console.log("실패");
-    //   });
+    .catch(function (error) {
+      console.log("실패");
+    })) 
+  })
+  .catch(function (error) {
+    console.log("실패");
+  });;
   }
+
+ 
+
+
 
   return (
     <div>

@@ -19,7 +19,6 @@ function Login() {
     axios
       .post(
         "/login",
-        {},
         {
           params: {
             accountNumber: accountNumberState,
