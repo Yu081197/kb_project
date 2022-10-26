@@ -14,7 +14,7 @@ function AccountCreateSelf() {
   const shootRef = useRef();
   const confirmRef = useRef();
   const [modalOpen, setModalOpen] = useState(false);
-  
+
   const nameState = window.localStorage.getItem("name");
   const registerNumberState = window.localStorage.getItem("registerNumber");
   const phoneNumberState = window.localStorage.getItem("phoneNumber");
@@ -80,6 +80,19 @@ function AccountCreateSelf() {
   };
 
   function handleClickNext(e) {
+    fetch("http://192.168.0.18:8000/dapi/certification/", {
+      method: "POST",
+      body: JSON.stringify({
+        img: imgSrc,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        // Other possible headers
+      },
+    }).then(function (response) {
+      console.log(response.data.account_number);
+      console.log("성공");
+    });
     // axios
     //   .post(
     //     "/dapi/certification",
@@ -97,43 +110,45 @@ function AccountCreateSelf() {
     //   )
     //   .then(function (response) {
     //     console.log(response.data.account_number);
-        // console.log("성공");
-        console.log("registerNumberState: " + registerNumberState);
-        axios
-          .post(
-            "/api/open_account",
-            {},
-            {
-              params: {
-                name: nameState,
-                registerNumber: registerNumberState,
-                phoneNumber: phoneNumberState,
-                email: emailState,
-                address: addressState,
-                job: jobState,
-                purpose: purposeState,
-                sof: sofState,
-                password: passwordState,
-              },
-            },
-            {
-              headers: {
-                "content-type": "application/json",
-              },
-            }
-          )
-          .then(function (response) {
-            console.log(response.data.account_number);
-            console.log("성공");
-            window.location.href = "/account_create_complete?account_number=" + response.data.account_number;
-          })
-          .catch(function (error) {
-            console.log("실패");
-          });
-      // })
-      // .catch(function (error) {
-      //   console.log("실패");
-      // });
+    // console.log("성공");
+    console.log("registerNumberState: " + registerNumberState);
+    axios
+      .post(
+        "/api/open_account",
+        {},
+        {
+          params: {
+            name: nameState,
+            registerNumber: registerNumberState,
+            phoneNumber: phoneNumberState,
+            email: emailState,
+            address: addressState,
+            job: jobState,
+            purpose: purposeState,
+            sof: sofState,
+            password: passwordState,
+          },
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response.data.account_number);
+        console.log("성공");
+        window.location.href =
+          "/account_create_complete?account_number=" +
+          response.data.account_number;
+      })
+      .catch(function (error) {
+        console.log("실패");
+      });
+    // })
+    // .catch(function (error) {
+    //   console.log("실패");
+    // });
   }
   function handleClickBack(e) {
     window.location.href = "/account_create_PW";
@@ -179,11 +194,7 @@ function AccountCreateSelf() {
           </div>
 
           <div className="buttonContainer">
-            <div
-              ref={confirmRef}
-              className="button"
-              onClick={handleClickNext}
-            >
+            <div ref={confirmRef} className="button" onClick={handleClickNext}>
               <button type="button">확인</button>
             </div>
           </div>
