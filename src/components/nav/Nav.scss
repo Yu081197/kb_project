@@ -72,6 +72,10 @@
     white-space: nowrap;
 }
 
+.nav :nth-child(5) {
+    width: 24%;
+}
+
 .loginTab {
     width: 10%;
     height: 70px;
@@ -162,5 +166,8 @@
     width: 200px;
     font-size: 20px;
     line-height: 100%;
+}
+.nav :nth-child(5) {
+    width: 200px;
 }
 }
