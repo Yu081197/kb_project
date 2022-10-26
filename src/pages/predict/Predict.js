@@ -101,23 +101,7 @@ function Predict() {
     })
       .then(function (response) {
     console.log("성공");
-    console.log(
-      fetch(
-      "http://192.168.0.18:8000/dapi/predict/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          // Other possible headers
-        },
-      })
-      .then(res => res.json())
-      .then(data => {
-          setPosts(data)
-      })
-
-    .catch(function (error) {
-      console.log("실패");
-    })) 
+    console.log(response.json(Promise));
   })
   .catch(function (error) {
     console.log("실패");
