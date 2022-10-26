@@ -35,18 +35,24 @@ function AccountLookup() {
     if (option == selected) {
       return (
         <option value={option} selected>
-          {option}{text}
+          {option}
+          {text}
         </option>
       );
     } else {
-      return <option value={option}>{option}{text}</option>;
+      return (
+        <option value={option}>
+          {option}
+          {text}
+        </option>
+      );
     }
   };
   const inOut = (c) => {
-    if (c == "i") {
-      return "입금";
+    if (c == "I") {
+      return <div style={{ color: "red" }}>입금</div>;
     } else {
-      return "출금";
+      return <div style={{ color: "blue" }}>출금</div>;
     }
   };
   // 계좌잔액 및 월별내역 초기화
@@ -78,11 +84,11 @@ function AccountLookup() {
     axios
       .get(
         "/api/history/all/" +
-        selectedAccount +
-        "/" +
-        selectedYear +
-        "/" +
-        selectedMonth
+          selectedAccount +
+          "/" +
+          selectedYear +
+          "/" +
+          selectedMonth
       )
       .then(function (response) {
         setHistorys(response.data);
