@@ -245,3 +245,9 @@
 .contentBox span {
     line-height: 35px;
 }
+
+@media screen and (max-width: 1080px) {
+    .transferBox {
+        flex-direction: column;
+    }
+}

@@ -174,3 +174,9 @@
 .display-flex {
     display: flex;
 }
+
+@media screen and (max-width: 1080px) {
+    .lookupBox {
+        flex-direction: column;
+    }
+}
