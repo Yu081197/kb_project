@@ -16,9 +16,11 @@ function Login() {
   };
 
   function validLogin() {
+    console.log(accountNumberState)
     axios
       .post(
         "/login",
+        {},
         {
           params: {
             accountNumber: accountNumberState,
