@@ -100,7 +100,20 @@ function Predict() {
       },
     })
       .then(response =>response.json())
-  .then(response=>{console.log(response)})
+  .then(response=>{
+
+    //console.log(response.slice(-2,-1))
+    if(response.slice(-2,-1) == "1"){
+      window.location.href = "/predict_result_bad";
+    }
+    else if(response.slice(-2,-1) == "2"){
+      window.location.href = "/predict_result_soso";
+    }
+    else{
+      window.location.href = "/predict_result_good";
+    }
+  
+  })
   .catch(function (error) {
     console.log("실패");
   });;
