@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { speak } from "../../components/chatbot/ReactChatBot";
-import AccountLookup from "../account_lookup/AccountLookup";
 
-function AccountCreatePurpose(accountNumber) {
+function AccountCreatePurpose() {
   const recogInputNext = 3; // ReactChatBot 다음페이지 이동 옵션
   const recogInput = 4; // ReactChatBot 데이터입력 옵션
 
@@ -124,13 +123,9 @@ function AccountCreatePurpose(accountNumber) {
     }
   };
 
-  useEffect(() => {
-    console.log("===============계좌번호==========", accountNumber);
-  }, []);
-
   function saveAccountData(e) {
-    localStorage.setItem("purpose", purposeState);
-    localStorage.setItem("sof", sofState);
+    window.localStorage.setItem("purpose", JSON.stringify(purposeState));
+    window.localStorage.setItem("sof", JSON.stringify(sofState));
   }
   function handleClickNext(e) {
     window.location.href = `/account_create_PW`;

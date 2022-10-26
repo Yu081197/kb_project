@@ -61,7 +61,7 @@ function Nav() {
       .then(function (response) {
         console.log("성공");
         window.location.reload();
-        window.location.href = "/main";
+        window.location.href = "/";
       })
       .catch(function (error) {
         console.log("실패");
