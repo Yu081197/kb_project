@@ -52,6 +52,7 @@ class Main extends React.Component {
               style={{
                 display: "flex",
                 flexDirection: "column",
+                bottom: "30px",
               }}
             >
               <div id="side_slogan">
