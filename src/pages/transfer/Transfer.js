@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Transfer.scss";
 import WarningModal from "../../components/Modal/WarningModal";
-import AccountLookup from "../account_lookup/AccountLookup";
 import AlertModal from "../../components/Modal/AlertModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -27,7 +26,7 @@ function Transfer({ value, accountNumber }) {
   const [opponentAccount, setOpponentAccount] = useState("");
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  // const loadAccountData =
+  
   /*돈추가*/
   const addMoney = async (e) => {
     if (e.target.value == "reset") {
@@ -38,6 +37,7 @@ function Transfer({ value, accountNumber }) {
     console.log("========================", num);
     setNum(num + parseInt(e.target.value));
   };
+  
   /* 입력값 체크 및 이체확인 모달 띄우기 */
   const showModal = () => {
     if (selectedAccount == "") {
@@ -163,7 +163,7 @@ function Transfer({ value, accountNumber }) {
     <div className="transferContainer">
       <div className="transferBox">
         <div className="transferInformBox">
-          <div className="transferInforHeadBox">
+          <div className="contentBox">
             <select onChange={handleAccountSelectChange}>
               <option value="">계좌선택</option>
               {accounts.map((account) => (
@@ -204,17 +204,19 @@ function Transfer({ value, accountNumber }) {
         </div>
 
         <div className="transfer">
-          <div className="transferInformMoneyBox">
-            <div>금액</div>
-            <div>{addCommas(selectedAccountBalance)}</div>
-            <div>원</div>
+          <div className="contentBox">
+            <div className="money">
+              <div className="moneyTitle">금액</div>
+              <div className="moneyContent">{addCommas(selectedAccountBalance)}원</div>
+            </div>
           </div>
-          <div className="transferInformPossibleBox">
-            <div>출금가능잔액</div>
-            <div>{addCommas(selectedAccountBalance)}</div>
-            <div>원</div>
+          <div className="contentBox">
+            <div className="money">
+              <div className="moneyTitle">출금가능잔액</div>
+              <div className="moneyContent">{addCommas(selectedAccountBalance)}원</div>
+            </div>
           </div>
-          <div className="opponentAcoount">
+          <div className="contentBox opponentAcoount">
             <select
               name="account_bank_id"
               value={opponentBankId}
@@ -257,7 +259,7 @@ function Transfer({ value, accountNumber }) {
             />
           </div>
 
-          <div className="transferAmountBox">
+          <div className="contentBox transferAmountBox">
             <div className="transferAmount">
               <input
                 type="text"
@@ -269,7 +271,7 @@ function Transfer({ value, accountNumber }) {
               <div>원</div>
             </div>
             <div>
-              <button onClick={showModal}>이체</button>
+              <button className="btnTransfer" onClick={showModal}>이체</button>
               {modalOpen && (
                 <WarningModal
                   setModalOpen={setModalOpen}
@@ -286,7 +288,7 @@ function Transfer({ value, accountNumber }) {
               )}
             </div>
           </div>
-          <div className="transferAmountBox transferAmountBtn">
+          <div className="contentBox transferAmountBox transferAmountBtn">
             <div
               className="transferAmountBtnContainer"
               style={{
