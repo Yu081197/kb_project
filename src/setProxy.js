@@ -12,7 +12,7 @@ module.exports = function (app) {
   app.use(
     "/dapi",
     createProxyMiddleware({
-      target: "http://localhost:8000",
+      target: "http://192.168.0.18:8000",
       changeOrigin: true,
     })
   );
