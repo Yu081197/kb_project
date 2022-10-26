@@ -62,35 +62,6 @@ function ReactChatBot() {
                 height: "180px",
               }}
             />
-            <div class="tip">
-              <textarea
-                name="output"
-                id="output"
-                cols="30"
-                style={{
-                  width: "200px",
-                  height: "300px",
-                  fontSize: "15px",
-                  backgroundColor: "#2b2b36",
-                  color: "white",
-                  padding: "20px",
-
-                }}
-              ></textarea>
-            </div>
-            <div class="icon">
-              <Image
-                className="mainLogo"
-                src="image/kkebi.png"
-                style={{
-                  position: "fixed",
-                  right: "3%",
-                  bottom: "2%",
-                  width: "150px",
-                  height: "180px",
-                }}
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -154,7 +125,7 @@ recognition.onend = function (event) {
   console.log("SpeechRecognition.onend");
 
   console.log("SpeechRecognition.onend => 음성인식 result :: " + result);
-  document.querySelector("#output").value = result;
+  // document.querySelector("#output").value = result;
 
   // 공백 제거 및 마지막 특수문자 제거
   let result_remove_blank = result.replaceAll(" ", "").replace(/[.?]$/g, '');
@@ -368,6 +339,7 @@ export function speak(
     }
   }
 
+  document.querySelector("#output").value = inputTxt;
   utterThis.pitch = pitch;
   utterThis.rate = rate;
   synth.speak(utterThis);

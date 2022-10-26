@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Nav from "./components/nav/Nav.js";
-import ChatBot from "./components/chatbot/ChatBot";
 import ReactChatBot from "./components/chatbot/ReactChatBot";
 import Footer from "./components/footer/Footer";
 
@@ -53,9 +52,7 @@ function Router() {
         <Route path="/predict_result_soso" element={<PredictResultSoso />} />
         <Route path="/predict_result_good" element={<PredictResultGood />} />
         <Route path="/warning_modal" element={<WarningModal />} />
-        {/* <Route path="/chatbot" element={<ChatBot />} /> */}
       </Routes>
-      {/* <ChatBot /> */}
       <ReactChatBot />
       <Footer />
     </BrowserRouter>
