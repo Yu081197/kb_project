@@ -118,7 +118,11 @@ function AccountLookup() {
     handleAccountSelectChange(e.target.value, year, month);
 
     //로컬스토리지에 계좌 선택 데이터 저장
-    window.localStorage.setItem("accountNumber", e.target.value);
+    const accountNumber = window.localStorage.setItem(
+      "accountNumber",
+      e.target.value
+    );
+    console.log(window.localStorage.getItem("accountNumber"));
   };
 
   const handleYearSelect = async (e) => {
@@ -152,6 +156,7 @@ function AccountLookup() {
                 <option
                   value={account.account_number}
                   data-balance={account.balance}
+                  accountNumber={true}
                 >
                   국민은행 : {account.account_number}
                 </option>

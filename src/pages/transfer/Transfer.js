@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Transfer.scss";
 import WarningModal from "../../components/Modal/WarningModal";
-
+import AccountLookup from "../account_lookup/AccountLookup";
 import AlertModal from "../../components/Modal/AlertModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function Transfer() {
+function Transfer({ value, accountNumber }) {
   const formatAccount = (input) =>
     input
       .toString()
@@ -27,7 +27,7 @@ function Transfer() {
   const [opponentAccount, setOpponentAccount] = useState("");
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const [loadAccountData, setLoadAccountData] = useState("");
+  // const loadAccountData =
   /*돈추가*/
   const addMoney = async (e) => {
     if (e.target.value == "reset") {
@@ -137,8 +137,13 @@ function Transfer() {
       });
   };
 
+  function getAccountNumber() {
+    if (window.localStorage.getItem("accountNumber") > 0) {
+    }
+  }
+
   useEffect(() => {
-    console.log("==========페이지 열렸을 때=========");
+    console.log("===============계좌번호==========", accountNumber);
   }, []);
 
   function setOpponentAccountInfo(bankId, opponentAccount) {

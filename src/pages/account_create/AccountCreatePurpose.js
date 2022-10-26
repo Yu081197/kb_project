@@ -1,14 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { speak } from "../../components/chatbot/ReactChatBot";
+import AccountLookup from "../account_lookup/AccountLookup";
 
-function AccountCreatePurpose() {
+function AccountCreatePurpose(accountNumber) {
   const recogInputNext = 3; // ReactChatBot 다음페이지 이동 옵션
   const recogInput = 4; // ReactChatBot 데이터입력 옵션
 
   const [purposeState, setPurposeState] = useState("");
   const [sofState, setSofState] = useState("");
-  
+
   const purposeRef = useRef("");
   const sofRef = useRef("");
 
@@ -16,7 +17,12 @@ function AccountCreatePurpose() {
     let useVoiceService = localStorage.getItem("useVoiceService");
     if (useVoiceService == "true") {
       setTimeout(function () {
-        speak("안전한 금융거래를 위해 거래목적을 말씀해주세요.", true, recogInput, purposeRef);
+        speak(
+          "안전한 금융거래를 위해 거래목적을 말씀해주세요.",
+          true,
+          recogInput,
+          purposeRef
+        );
       }, 1000);
     }
   }, []);
@@ -108,10 +114,19 @@ function AccountCreatePurpose() {
     let useVoiceService = localStorage.getItem("useVoiceService");
     if (useVoiceService == "true") {
       setTimeout(function () {
-        speak("다음 절차로 이동하시겠습니까?", true, recogInputNext, saveAndNext);
+        speak(
+          "다음 절차로 이동하시겠습니까?",
+          true,
+          recogInputNext,
+          saveAndNext
+        );
       }, 1000);
     }
   };
+
+  useEffect(() => {
+    console.log("===============계좌번호==========", accountNumber);
+  }, []);
 
   function saveAccountData(e) {
     localStorage.setItem("purpose", purposeState);

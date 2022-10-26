@@ -31,7 +31,12 @@ function AccountCreateSelf() {
     let useVoiceService = localStorage.getItem("useVoiceService");
     if (useVoiceService == "true") {
       setTimeout(function () {
-        speak("본인인증을 위해 촬영이 진행됩니다. 가만히 있어주세요.", true, anywayOnClickTrigger, shootRef);
+        speak(
+          "본인인증을 위해 촬영이 진행됩니다. 가만히 있어주세요.",
+          true,
+          anywayOnClickTrigger,
+          shootRef
+        );
       }, 1000);
     }
   }, []);
@@ -49,8 +54,8 @@ function AccountCreateSelf() {
   });
 
   const [btnDisabled, setBtnDisabled] = useState(false);
-  const showAndCapture = () => {
-    console.log(imgSrc);
+  const showAndCapture = (e) => {
+    console.log(window.localStorage.getItem("imgSrc"));
     showModal();
     saveAccountData();
     capture();
@@ -71,7 +76,7 @@ function AccountCreateSelf() {
   };
 
   const saveAccountData = () => {
-    window.localStorage.setItem("imgSrc", JSON.stringify(imgSrc));
+    window.localStorage.setItem("imgSrc", imgSrc);
   };
 
   function handleClickNext(e) {
@@ -156,10 +161,7 @@ function AccountCreateSelf() {
         <div className="btn">
           <div className="buttonContainer">
             <div className="button">
-              <button 
-                ref={shootRef}
-                type="button" 
-                onClick={showAndCapture}>
+              <button ref={shootRef} type="button" onClick={showAndCapture}>
                 촬영
               </button>
               {modalOpen && (

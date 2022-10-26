@@ -91,7 +91,7 @@ function Nav() {
   var login_text = login_data[1];
 
   return (
-    <div style={{ width: "100vw " }}>
+    <div>
       <div className="header">
         <div className="navLoginContainer">
           <div style={{ display: "flex", alignItems: "center" }}>
