@@ -114,8 +114,8 @@ function AccountCreatePurpose() {
   };
 
   function saveAccountData(e) {
-    window.localStorage.setItem("purpose", JSON.stringify(purposeState));
-    window.localStorage.setItem("sof", JSON.stringify(sofState));
+    localStorage.setItem("purpose", purposeState);
+    localStorage.setItem("sof", sofState);
   }
   function handleClickNext(e) {
     window.location.href = `/account_create_PW`;

@@ -1,42 +1,23 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { speak } from "../../components/chatbot/ReactChatBot";
 
 function AccountCreateComplete() {
-  const [accountNumber, setAccountNumber] = useState();
+  const params = new URLSearchParams(window.location.search);
+  const [accountNumber, setAccountNumber] = useState(params.get("account_number"));
 
-  const [allCheck, setAllCheck] = useState(false);
+  useEffect(() => {
+    let useVoiceService = localStorage.getItem("useVoiceService");
+    if (useVoiceService == "true") {
+      setTimeout(function () {
+        speak("계좌개설이 완료되었습니다.");
+      }, 1000);
+    }
+  }, []);
 
   function handleClick(e) {
     window.location.href = "/account_lookup";
   }
-  useEffect(() => {
-    axios
-      .post(
-        "/api/account",
-        {},
-        {
-          params: {
-            password: "REACTTEST",
-            purpose: "REACTTEST",
-            sof: "REACTTEST",
-            userRegisterNumber: "string",
-          },
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then(function (response) {
-        setAccountNumber(response.data.account_number);
-        console.log(response.data.account_number);
-        console.log("성공");
-      })
-      .catch(function (error) {
-        console.log("실패");
-      });
-  }, []);
+
   return (
     <div className="createContainer">
       <div className="circleContainer">

@@ -84,7 +84,7 @@ function AccountCreatePW() {
   };
 
   const saveAccountData = () => {
-    window.localStorage.setItem("password", JSON.stringify(passwordState));
+    localStorage.setItem("password", passwordState);
   };
 
   function handleClickNext(e) {

@@ -14,18 +14,16 @@ function AccountCreateSelf() {
   const shootRef = useRef();
   const confirmRef = useRef();
   const [modalOpen, setModalOpen] = useState(false);
-
-  const userRegisterNumberState =
-    window.localStorage.getItem("userRegisterNumber");
+  
   const nameState = window.localStorage.getItem("name");
-  const emailState = window.localStorage.getItem("email");
   const registerNumberState = window.localStorage.getItem("registerNumber");
   const phoneNumberState = window.localStorage.getItem("phoneNumber");
-  const passwordState = window.localStorage.getItem("password");
+  const emailState = window.localStorage.getItem("email");
   const addressState = window.localStorage.getItem("address");
   const jobState = window.localStorage.getItem("job");
   const purposeState = window.localStorage.getItem("purpose");
   const sofState = window.localStorage.getItem("sof");
+  const passwordState = window.localStorage.getItem("password");
 
   const imgState = window.localStorage.getItem("imgSrc");
 
@@ -76,68 +74,61 @@ function AccountCreateSelf() {
     window.localStorage.setItem("imgSrc", JSON.stringify(imgSrc));
   };
 
-  const sendAccountData = useEffect(() => {
-    axios
-      .post(
-        "api/openaccount",
-        {},
-        {
-          params: {
-            userRegisterNumber: userRegisterNumberState,
-            name: nameState,
-            registerNumber: registerNumberState,
-            phoneNumber: phoneNumberState,
-            email: emailState,
-            password: passwordState,
-            address: addressState,
-            job: jobState,
-            purpose: purposeState,
-            sof: sofState,
-          },
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then(function (response) {
-        console.log(response.data.account_number);
-        console.log("성공");
-      })
-      .catch(function (error) {
-        console.log("실패");
-      });
-  }, []);
-
-  const sendImgData = useEffect(() => {
-    axios
-      .post(
-        "dapi/certification",
-
-        {},
-        {
-          params: {
-            img: imgState,
-          },
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then(function (response) {
-        console.log(response.data.account_number);
-        console.log("성공");
-      })
-      .catch(function (error) {
-        console.log("실패");
-      });
-  }, []);
-
   function handleClickNext(e) {
-    window.location.href = "/account_create_complete";
+    // axios
+    //   .post(
+    //     "/dapi/certification",
+    //     {},
+    //     {
+    //       params: {
+    //         img: imgState,
+    //       },
+    //     },
+    //     {
+    //       headers: {
+    //         "content-type": "application/json",
+    //       },
+    //     }
+    //   )
+    //   .then(function (response) {
+    //     console.log(response.data.account_number);
+        // console.log("성공");
+        console.log("registerNumberState: " + registerNumberState);
+        axios
+          .post(
+            "/api/open_account",
+            {},
+            {
+              params: {
+                name: nameState,
+                registerNumber: registerNumberState,
+                phoneNumber: phoneNumberState,
+                email: emailState,
+                address: addressState,
+                job: jobState,
+                purpose: purposeState,
+                sof: sofState,
+                password: passwordState,
+              },
+            },
+            {
+              headers: {
+                "content-type": "application/json",
+              },
+            }
+          )
+          .then(function (response) {
+            console.log(response.data.account_number);
+            console.log("성공");
+            window.location.href = "/account_create_complete?account_number=" + response.data.account_number;
+          })
+          .catch(function (error) {
+            console.log("실패");
+          });
+      // })
+      // .catch(function (error) {
+      //   console.log("실패");
+      // });
   }
   function handleClickBack(e) {
     window.location.href = "/account_create_PW";
@@ -189,7 +180,7 @@ function AccountCreateSelf() {
             <div
               ref={confirmRef}
               className="button"
-              onClick={(sendAccountData, sendImgData, handleClickNext)}
+              onClick={handleClickNext}
             >
               <button type="button">확인</button>
             </div>

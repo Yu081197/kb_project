@@ -68,18 +68,12 @@ function AccountCreateInform() {
 
   const saveAccountData = () => {
     console.log("local에 저장 성공!");
-    window.localStorage.setItem("name", JSON.stringify(nameState));
-    window.localStorage.setItem(
-      "registerNumber",
-      JSON.stringify(registerNumberState)
-    );
-    window.localStorage.setItem("email", JSON.stringify(emailState));
-    window.localStorage.setItem(
-      "phoneNumber",
-      JSON.stringify(phoneNumberState)
-    );
-    window.localStorage.setItem("address", JSON.stringify(addressState));
-    window.localStorage.setItem("job", JSON.stringify(jobState));
+    localStorage.setItem("name", nameState);
+    localStorage.setItem("registerNumber", registerNumberState);
+    localStorage.setItem("email", emailState);
+    localStorage.setItem("phoneNumber", phoneNumberState);
+    localStorage.setItem("address", addressState);
+    localStorage.setItem("job", jobState);
   };
 
   const onChangeEmail = (e) => {
