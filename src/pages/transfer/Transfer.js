@@ -206,14 +206,22 @@ function Transfer({ value, accountNumber }) {
         <div className="transfer">
           <div className="contentBox">
             <div className="money">
-              <div className="moneyTitle">금액</div>
-              <div className="moneyContent">{addCommas(selectedAccountBalance)}원</div>
+              <div className="moneyTitle">
+                <span className="contentBoxSpan">금액</span>
+              </div>
+              <div className="moneyContent">
+                <span className="contentBoxSpan">{addCommas(selectedAccountBalance)}원</span>
+              </div>
             </div>
           </div>
           <div className="contentBox">
             <div className="money">
-              <div className="moneyTitle">출금가능잔액</div>
-              <div className="moneyContent">{addCommas(selectedAccountBalance)}원</div>
+              <div className="moneyTitle">
+                <span className="contentBoxSpan">출금가능잔액</span>
+              </div>
+              <div className="moneyContent">
+                <span className="contentBoxSpan">{addCommas(selectedAccountBalance)}원</span>
+              </div>
             </div>
           </div>
           <div className="contentBox opponentAcoount">

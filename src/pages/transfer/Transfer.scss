@@ -88,7 +88,7 @@
 }
 
 .transferRecentContainer {
-    height: 300px;
+    height: 320px;
     overflow-y: scroll;
 }
 
@@ -217,6 +217,7 @@
 
 
 .contentBox {
+    height: 85px;
     padding: 25px 30px;
     font-size: 25px;
     border-radius: 20px;
@@ -239,4 +240,8 @@
 
 .btnTransfer {
     margin-left: 10px;
+}
+
+.contentBox span {
+    line-height: 35px;
 }

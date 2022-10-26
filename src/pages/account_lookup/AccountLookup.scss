@@ -13,44 +13,44 @@
     gap: 50px;
 }
 
-.informBox {
+.contentCard {
     display: flex;
     flex-direction: column;
     width: 500px;
     height: 500px;
     background-color: #F5F5F5;
     border-radius: 20px;
-    // justify-content: space-between;
 }
 
-.listBox {
-    width: 500px;
-    height: 500px;
-    background-color: #F5F5F5;
-    border-radius: 20px;
-}
-
-.informHeadBox {
+.contentCardHead {
+    display: flex;
     padding: 30px;
     font-size: 32px;
     border-bottom: 3px solid white;
+    justify-content: space-between;
 }
 
-.informSelectBox {
-    margin-top: 30px;
-}
-
-.informSelectBox select {
+.contentCardBody {
     padding: 30px;
+}
+
+.contentCardBody select {
     background-color: #F5F5F5;
     text-align: center;
-    font-size: 25px;
-    margin: 10px 0;
     width: 100%;
     font-size: 27px;
     border: none;
     font-family: "KB_medium_font";
-    padding: 5px;
+}
+
+.cardBodyContent {
+    height: 60px;
+    display: flex;
+    // padding: 30px;
+    // text-align: end;
+    font-size: 32px;
+    // justify-content: flex-end;
+    // gap: 20px;
 }
 
 .informMoneyBox {
@@ -117,9 +117,9 @@
     font-size: 25px;
 }
 
-.listBox::-webkit-scrollbar-track {
-    background-color: #F5F5F5;
-}
+// .listBox::-webkit-scrollbar-track {
+//     background-color: #F5F5F5;
+// }
 
 .listDetailBox::-webkit-scrollbar-track {
     background-color: #F5F5F5;
@@ -133,10 +133,6 @@
     padding: 40px 10px 0px 10px;
     font-size: 22px;
 }
-
-// .listDetailClock {
-//     font-size: 22px;
-// }
 
 .listDetailSummury {
     display: flex;
@@ -164,5 +160,17 @@
 }
 
 .selectDate {
-    font-size: 50%;
+    font-size: 60%;
+    width: 100px;
+    background-color: #F5F5F5;
+    border: none;
+    text-align: center;
+}
+
+.contentCard .contentCardHead .calendar {
+    display: flex;
+}
+
+.display-flex {
+    display: flex;
 }

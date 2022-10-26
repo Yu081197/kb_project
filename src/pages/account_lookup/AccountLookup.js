@@ -8,39 +8,38 @@ const _ = require("lodash");
 function AccountLookup() {
   const years = _.range(1990, getYear(new Date()) + 1, 1); // 수정
   const months = [
-    "1월",
-    "2월",
-    "3월",
-    "4월",
-    "5월",
-    "6월",
-    "7월",
-    "8월",
-    "9월",
-    "10월",
-    "11월",
-    "12월",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
   ];
   const addCommas = (num) =>
     num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   const [account, setAccount] = useState("");
   const [accountsList, setAccountsList] = useState([]);
-  // const [selectedAccount, setSelectedAccount] = useState([]);
   const [selectedAccountBalance, setSelectedAccountBalance] = useState([]);
   const [historys, setHistorys] = useState([]);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
 
-  const onSelected = (option, type) => {
-    if (option == type) {
+  const onSelected = (option, selected, text) => {
+    if (option == selected) {
       return (
         <option value={option} selected>
-          {option}
+          {option}{text}
         </option>
       );
     } else {
-      return <option value={option}>{option}</option>;
+      return <option value={option}>{option}{text}</option>;
     }
   };
   const inOut = (c) => {
@@ -79,11 +78,11 @@ function AccountLookup() {
     axios
       .get(
         "/api/history/all/" +
-          selectedAccount +
-          "/" +
-          selectedYear +
-          "/" +
-          selectedMonth
+        selectedAccount +
+        "/" +
+        selectedYear +
+        "/" +
+        selectedMonth
       )
       .then(function (response) {
         setHistorys(response.data);
@@ -104,6 +103,7 @@ function AccountLookup() {
   const handleAccountSelect = async (e) => {
     if (e.target.value == "") {
       initData();
+      setAccount(e.target.value);
       console.log(e.target.value);
       return;
     }
@@ -140,28 +140,30 @@ function AccountLookup() {
       return;
     }
 
-    setMonth(e.target.value.slice(0, -1));
-    handleAccountSelectChange(account, year, e.target.value.slice(0, -1));
+    setMonth(e.target.value);
+    handleAccountSelectChange(account, year, e.target.value);
   };
 
   return (
     <div className="lookupContainer">
       <div className="lookupBox">
-        <div className="informBox">
-          <div className="informHeadBox">저축예금</div>
-          <div className="informSelectBox">
-            <select onChange={handleAccountSelect} value={account}>
-              <option value="">계좌선택</option>
-              {accountsList.map((account) => (
-                <option
-                  value={account.account_number}
-                  data-balance={account.balance}
-                  accountNumber={true}
-                >
-                  국민은행 : {account.account_number}
-                </option>
-              ))}
-            </select>
+        <div className="contentCard">
+          <div className="contentCardHead">저축예금</div>
+          <div className="contentCardBody">
+            <div className="cardBodyContent">
+              <select onChange={handleAccountSelect} value={account}>
+                <option value="">계좌선택</option>
+                {accountsList.map((account) => (
+                  <option
+                    value={account.account_number}
+                    data-balance={account.balance}
+                    accountNumber={true}
+                  >
+                    국민은행 : {account.account_number}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
           <div className="informMoneyBox">
             <div></div>
@@ -179,27 +181,16 @@ function AccountLookup() {
           </div>
         </div>
 
-        <div className="listBox">
-          <div className="listHeadBox">
-            <div className="listHead">월별내역</div>
-            <div className="listHeadCalender">
-              <div className="monthPickerContainer">
-                <div
-                  style={{
-                    margin: 10,
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <select onChange={handleYearSelect} className="selectDate">
-                    {years.map((option) => onSelected(option, year))}
-                  </select>
-
-                  <select onChange={handleMonthSelect} className="selectDate">
-                    {months.map((option) => onSelected(option, month + "월"))}
-                  </select>
-                </div>
-              </div>
+        <div className="contentCard">
+          <div className="contentCardHead">
+            <div className="display-flex">월별내역</div>
+            <div className="display-flex calendar">
+              <select onChange={handleYearSelect} className="selectDate">
+                {years.map((option) => onSelected(option, year, "년"))}
+              </select>
+              <select onChange={handleMonthSelect} className="selectDate">
+                {months.map((option) => onSelected(option, month, "월"))}
+              </select>
             </div>
           </div>
           <div className="listDetailBox">
