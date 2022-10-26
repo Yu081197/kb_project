@@ -1,11 +1,9 @@
 .mainContainer {
-    width: 100%;
+    width: 70%;
     height: auto;
     background: url(web_main_img/background2.png) no-repeat center;
     background-size:cover;
-
 }
-
 
 section {
     display: flex;
@@ -14,6 +12,7 @@ section {
 
 #exp_ment {
     height: 50px;
+
 }
 
 #canvas_section{
@@ -37,6 +36,9 @@ section {
 }
 
 #side_slogan{
+    height: 100px;
+    top: 100px;
+    line-height: 100px;
     display: inline-block;
     font-size: 30px;
     transform: translateY(31%);
@@ -55,6 +57,8 @@ section {
 #main_back{
     transform: translateY(30%);
     width: 100%;
+    height: 100%;
+    bottom: 20px;
 } 
 
 #exp_ment{
@@ -62,17 +66,18 @@ section {
     font-weight: bold;
     background-color: rgb(255, 204, 0);
     border-radius: 10px;
-    margin-left: 70px;
-    font-size: 20px;
+    margin-left: 85px;
+    font-size: 30px;
     text-align: center;
     width: 200px;
-    height: 100px;
+    height: 70px;
     padding: 10px;
-    line-height: 90px;
+    line-height: 60px;
 }
 
 
 .tripple{
+    gap: 20px;
     display: flex;
     justify-content:start;
     height: 200px;
@@ -92,6 +97,7 @@ section {
     border-radius: 10px;
     font-weight: bold;
     font-size: 20px;
+    line-height: 30px;
 }
 
 #stt_img, #gaze_img, #cred_img{
