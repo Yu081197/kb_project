@@ -110,7 +110,7 @@ function Predict() {
       window.location.href = "/predict_result_soso";
     }
     else{
-      window.location.href = "/predict_result_good";
+      window.location.href = "/predict_result_soso";
     }
   
   })

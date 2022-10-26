@@ -55,7 +55,7 @@ function AccountCreateSelf() {
 
   const [btnDisabled, setBtnDisabled] = useState(false);
   const showAndCapture = (e) => {
-    console.log(window.localStorage.getItem("imgSrc"));
+    //console.log(window.localStorage.getItem("imgSrc"));
     showModal();
     saveAccountData();
     capture();
@@ -89,10 +89,14 @@ function AccountCreateSelf() {
         "Content-Type": "application/json",
         // Other possible headers
       },
-    }).then(function (response) {
-      console.log(response.data.account_number);
-      console.log("성공");
-    });
+    })
+    .then(response =>response.json())
+    .then(response => console.log(response))
+    
+    // .then(function (response) {
+    //   console.log(response.data.account_number);
+    //   console.log("성공");
+    // });
     // axios
     //   .post(
     //     "/dapi/certification",
