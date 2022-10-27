@@ -14,8 +14,8 @@ function AccountCreate() {
       speak("약관동의 화면입니다.");
 
       setTimeout(function () {
-        speak("케이비 국민은행 계좌개설 약관 동의하시겠습니까?", true, recogInputAgree, allBtnEvent);
-      }, 3000);
+        speak("케이비 국민은행 계좌개설 약관에 동의하시겠습니까?", true, recogInputAgree, allBtnEvent);
+      }, 4000);
     }
   }, []);
 

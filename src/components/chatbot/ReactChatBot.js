@@ -180,7 +180,7 @@ recognition.onend = function (event) {
         recognition.stop();
         return;
       } else {
-        speak("이해하지 못했습니다.");
+        // speak("이해하지 못했습니다.");
         // recognition.start();
       }
     }

@@ -21,7 +21,7 @@ function AccountCreateInform() {
 
       setTimeout(function () {
         speak("이름을 말씀해주세요.", true, recogInput, nameRef);
-      }, 3000);
+      }, 4000);
     }
   }, []);
 
