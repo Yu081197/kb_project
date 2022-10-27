@@ -90,31 +90,8 @@ function AccountCreateSelf() {
         // Other possible headers
       },
     })
-    .then(response =>response.json())
-    .then(response => console.log(response))
-    
-    // .then(function (response) {
-    //   console.log(response.data.account_number);
-    //   console.log("성공");
-    // });
-    // axios
-    //   .post(
-    //     "/dapi/certification",
-    //     {},
-    //     {
-    //       params: {
-    //         img: imgState,
-    //       },
-    //     },
-    //     {
-    //       headers: {
-    //         "content-type": "application/json",
-    //       },
-    //     }
-    //   )
-    //   .then(function (response) {
-    //     console.log(response.data.account_number);
-    // console.log("성공");
+      .then((response) => response.json())
+      .then((response) => console.log(response));
     console.log("registerNumberState: " + registerNumberState);
     axios
       .post(
@@ -149,10 +126,6 @@ function AccountCreateSelf() {
       .catch(function (error) {
         console.log("실패");
       });
-    // })
-    // .catch(function (error) {
-    //   console.log("실패");
-    // });
   }
   function handleClickBack(e) {
     window.location.href = "/account_create_PW";
