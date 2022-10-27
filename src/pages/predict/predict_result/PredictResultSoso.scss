@@ -68,21 +68,23 @@
 
 .exp {
     position:relative; 
-    line-height: 100%;
+    line-height: 30px;
     margin: 20px; 
-    padding: 20px 10px 0px 20px; 
+    padding: 20px 10px 10px 20px; 
     text-align: center;
     width:200px; 
-    height:120px; 
+    height:180px; 
     color: #FFF; 
     border-radius: 10px; 
-    background-color: rgb(96, 88, 76);}
-  .exp:after {content:""; 
+    background-color: rgb(96, 88, 76);
+
+}
+  .exp:after {
+    content:""; 
     position: absolute; 
     top: 21px; 
     left: -30px; 
-    border-right: 30px 
-    solid #000; 
+    border-right: 30px solid rgb(96, 88, 76);
     border-top: 10px 
     solid transparent; 
     border-bottom: 10px solid transparent;
