@@ -42,6 +42,7 @@ function ReactChatBot() {
               id="output"
               cols="30"
               style={{
+                padding: "10px",
                 width: "200px",
                 height: "300px",
                 fontSize: "15px",
