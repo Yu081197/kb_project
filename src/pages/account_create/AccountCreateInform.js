@@ -105,7 +105,7 @@ function AccountCreateInform() {
     let useVoiceService = localStorage.getItem("useVoiceService");
     if (useVoiceService == "true") {
       setTimeout(function () {
-        speak("주민번호를 말씀해주세요.", true, recogInput, registerNumberRef);
+        speak("주민등록번호를 말씀해주세요.", true, recogInput, registerNumberRef);
       }, 1000);
     }
   };

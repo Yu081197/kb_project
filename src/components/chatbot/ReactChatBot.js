@@ -166,6 +166,7 @@ recognition.onend = function (event) {
       if (result_remove_blank.includes("음성")) { // 음성서비스 사용설정
         localStorage.setItem("useVoiceService", true);
         inputOption = null;
+        speak("음성서비스를 시작합니다. 무엇을 도와드릴까요?");
       } else if (result_remove_blank.includes("헤드트래킹") || result_remove_blank.includes("헤드트레킹")) {  // 음성서비스 미사용설정 및 헤드트레킹 다운로드
         localStorage.setItem("useVoiceService", false);
         inputOption = null;
