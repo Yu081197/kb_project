@@ -66,7 +66,7 @@ function AccountCreateSelf() {
       setModalOpen(false);
       setTimeout(function () {
         speak(
-          "촬영이 완료되었습니다. 계좌개설을 완료하시겠습니까?",
+          "인증이 완료되었습니다. 계좌개설을 완료하시겠습니까?",
           true,
           recogInputOnClickTrigger,
           confirmRef
