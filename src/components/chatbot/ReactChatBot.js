@@ -6,6 +6,14 @@ function ReactChatBot() {
   useEffect(() => {
     console.log("useEffect :: ReactChatBot");
 
+    if (agent.indexOf("edg/") > -1) {
+      voiceNameKO = "Microsoft SunHi Online (Natural) - Korean (Korea)";
+    } else if (agent.indexOf("chrome") > -1) {
+      voiceNameKO = "Google 한국의";
+    } else {
+      voiceNameKO = "";
+    }
+
     let useVoiceService = localStorage.getItem("useVoiceService");
     // console.log("useVoiceService: " + useVoiceService);
     // console.log("useVoiceService type :: " + typeof(useVoiceService));
@@ -256,7 +264,19 @@ recognition.onnomatch = function (event) {
 // ================== TTS settings ==================
 let pitch = 1; // 음높이
 let rate = 1; // 재생속도
-let voiceNameKO = "Google 한국의"; // 한국어 음성설정
+const agent = window.navigator.userAgent.toLocaleLowerCase();
+let voiceNameKO;  // 한국어 음성설정
+// console.log(agent);
+// if (agent.indexOf("edge") > -1) {
+//   console.log("isEdge");
+//   voiceNameKO = "Microsoft SunHi Online (Natural) - Korean (Korea)";
+// } else if (agent.indexOf("chrome") > -1) {
+//   console.log("isChrome");
+//   voiceNameKO = "Google 한국의";
+// } else {
+//   voiceNameKO = "";
+// }
+
 const synth = window.speechSynthesis;
 
 /* synth voice 목록 가져오기 */
