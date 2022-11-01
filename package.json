@@ -27,6 +27,7 @@
     "react-simple-image-slider": "^2.4.1",
     "react-slideshow-image": "^4.0.5",
     "react-webcam": "^7.0.1",
+    "serve": "^14.0.1",
     "url-search-params-polyfill": "^8.1.1",
     "web-vitals": "^2.1.4"
   },
